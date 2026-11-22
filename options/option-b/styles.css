@@ -156,7 +156,7 @@ p + p { margin-top: 1.1rem; }
 .pd-count { font-family: var(--head); font-size: .8rem; letter-spacing: .14em; color: var(--ink); min-width: 5em; text-align: center; }
 .pd-strip { position: relative; display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain; scrollbar-width: thin; padding-bottom: 10px; outline: none; }
 .pd-strip:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
-.pd-strip img { flex: none; height: clamp(300px, 66vh, 720px); width: auto; max-width: none; scroll-snap-align: start; cursor: zoom-in; background: var(--tint); }
+.pd-strip img { flex: none; height: clamp(300px, 62vh, 600px); width: auto; max-width: none; scroll-snap-align: start; cursor: zoom-in; background: var(--tint); }
 @media (max-width: 760px) {
   .page-head.plain { padding-top: 40px; }
   .pd { grid-template-columns: minmax(0, 1fr); gap: 24px; padding: 24px 0 32px; }
