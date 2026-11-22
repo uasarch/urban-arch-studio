@@ -25,3 +25,9 @@ git commit -m "Update site"
 git push
 ```
 GitHub Pages redeploys automatically within a minute or two.
+
+## Comparing options
+- `options/index.html` — side-by-side comparison of the current site and draft options.
+- `options/option-a/` — a full draft copy of the site for trying changes. It shares the images in `assets/` (paths start `../../assets/`), is hidden from search engines (`noindex`), and shows an "Option A · draft" badge.
+- The root site stays untouched until an option is chosen. To finalise, copy the chosen option's files back to the root (change `../../assets/` back to `assets/` and remove the badge and `noindex`).
+- For another option, copy `options/option-a/` to `options/option-b/` and add a card for it in `options/index.html`.

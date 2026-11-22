@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="robots" content="noindex">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Compare Website Options</title>
+  <style>
+    :root{--bg:#f6f5f2;--fg:#1a1a1a;--muted:#666;--card:#fff;--line:#e2dfd8}
+    @media (prefers-color-scheme:dark){:root{--bg:#141414;--fg:#eee;--muted:#999;--card:#1e1e1e;--line:#333}}
+    body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 system-ui,sans-serif}
+    main{max-width:1100px;margin:0 auto;padding:32px 16px}
+    h1{margin:0 0 4px;font-size:26px} p{color:var(--muted);margin:0 0 24px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+    .card iframe{width:200%;height:1100px;border:0;transform:scale(.5);transform-origin:0 0;margin-bottom:-550px;pointer-events:none;display:block}
+    .meta{padding:14px 16px;border-top:1px solid var(--line)}
+    .meta h2{margin:0;font-size:17px} .meta span{color:var(--muted);font-size:14px}
+    .meta nav{margin-top:8px;display:flex;gap:14px;flex-wrap:wrap} .meta a{color:inherit;font-weight:600}
+  </style>
+</head>
+<body>
+<main>
+  <h1>Website options</h1>
+  <p>The current site and the draft options next to each other. Open one to look through all its pages.</p>
+  <div class="grid">
+    <div class="card">
+      <iframe src="../index.html" title="Current site preview" loading="lazy"></iframe>
+      <div class="meta"><h2>Current site</h2><span>The live GitHub version, unchanged</span>
+        <nav><a href="../index.html">Home</a><a href="../projects.html">Projects</a><a href="../contact.html">Contact</a></nav></div>
+    </div>
+    <div class="card">
+      <iframe src="option-a/index.html" title="Option A preview" loading="lazy"></iframe>
+      <div class="meta"><h2>Option A</h2><span>Draft copy for trying changes</span>
+        <nav><a href="option-a/index.html">Home</a><a href="option-a/projects.html">Projects</a><a href="option-a/contact.html">Contact</a></nav></div>
+    </div>
+  </div>
+</main>
+</body>
+</html>
