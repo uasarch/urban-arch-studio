@@ -65,139 +65,169 @@ if (hero) {
   restart();
 }
 
-/* ---------- Projects page ---------- */
-const grid = document.getElementById('projectGrid');
-if (grid && window.PROJECTS) {
+/* ---------- Projects: index (projects.html) and single project (project.html?p=...) ---------- */
+if (window.PROJECTS) {
   const LABELS = { architecture: 'Architecture', interior: 'Interior Design', landscape: 'Landscape' };
   const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-  const FIELDS = [['Client', 'client'], ['Type', 'type'], ['Year', 'year'], ['Area', 'area'], ['Location', 'location'], ['Status', 'status'], ['Scope', 'scope']];
-
-  grid.innerHTML = PROJECTS.map((p, i) => `
-    <article class="project-card reveal" data-cat="${p.category}" data-index="${i}">
-      <div class="pc-media">
-        <img src="${esc(p.images[0])}" alt="${esc(p.title)}" loading="lazy">
-        ${p.images.length > 1 ? `
-          <button class="pc-btn prev" aria-label="Previous image"><i class="fa-solid fa-chevron-left"></i></button>
-          <button class="pc-btn next" aria-label="Next image"><i class="fa-solid fa-chevron-right"></i></button>
-          <span class="pc-count">1 / ${p.images.length}</span>` : ''}
-      </div>
-      <div class="pc-body">
-        <h3>${esc(p.title)}</h3>
-        <span class="pc-tag">${LABELS[p.category] || ''}</span>
-        <dl class="pc-meta">
-          ${FIELDS.filter(([, k]) => p[k]).map(([l, k]) => `<dt>${l}</dt><dd>${esc(p[k])}</dd>`).join('')}
-        </dl>
-      </div>
-    </article>`).join('');
-  observeReveals(grid);
-
-  // Per-card slider
-  const pos = new Map();
-  const show = (card, step) => {
-    const p = PROJECTS[card.dataset.index];
-    const n = p.images.length;
-    const i = ((pos.get(card) || 0) + step + n) % n;
-    pos.set(card, i);
-    card.querySelector('.pc-media img').src = p.images[i];
-    const c = card.querySelector('.pc-count');
-    if (c) c.textContent = `${i + 1} / ${n}`;
-  };
-
-  // Lightbox
-  const lb = document.getElementById('lightbox');
-  const lbImg = lb.querySelector('img');
-  const lbCap = lb.querySelector('figcaption');
-  let lbProject = null, lbIndex = 0;
-  const lbRender = () => {
-    const p = PROJECTS[lbProject];
-    lbImg.src = p.images[lbIndex];
-    lbImg.alt = p.title;
-    lbCap.textContent = `${p.title} — ${lbIndex + 1} / ${p.images.length}`;
-  };
-  const lbOpen = (pi, ii) => { lbProject = pi; lbIndex = ii; lbRender(); lb.classList.add('open'); lb.setAttribute('aria-hidden', 'false'); document.body.style.overflow = 'hidden'; };
-  const lbClose = () => { lb.classList.remove('open'); lb.setAttribute('aria-hidden', 'true'); document.body.style.overflow = ''; };
-  const lbStep = s => { const n = PROJECTS[lbProject].images.length; lbIndex = (lbIndex + s + n) % n; lbRender(); };
-  lb.querySelector('.prev').addEventListener('click', () => lbStep(-1));
-  lb.querySelector('.next').addEventListener('click', () => lbStep(1));
-  lb.querySelector('.lb-close').addEventListener('click', lbClose);
-  lb.addEventListener('click', e => { if (e.target === lb) lbClose(); });
-  document.addEventListener('keydown', e => {
-    if (!lb.classList.contains('open')) return;
-    if (e.key === 'Escape') lbClose();
-    if (e.key === 'ArrowLeft') lbStep(-1);
-    if (e.key === 'ArrowRight') lbStep(1);
-  });
-
-  grid.addEventListener('click', e => {
-    const card = e.target.closest('.project-card');
-    if (!card) return;
-    if (e.target.closest('.pc-btn')) { show(card, e.target.closest('.prev') ? -1 : 1); return; }
-    if (e.target.closest('.pc-media')) lbOpen(+card.dataset.index, pos.get(card) || 0);
-  });
-
-  // Browse by: switch between groupings, then pick one option in that grouping.
-  // Supports links like projects.html#architecture (from the home page) and #status=completed.
   const slug = s => String(s).toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
   const startYear = p => (String(p.year).match(/\d{4}/) || [''])[0];
-  const DIMS = [
-    { key: 'type', label: 'Type', get: p => LABELS[p.category], order: Object.values(LABELS) },
-    { key: 'sector', label: 'Residential / Commercial', get: p => p.sector, order: ['Residential', 'Commercial', 'Public & Institutional'] },
-    { key: 'status', label: 'Status', get: p => p.status, order: ['Completed', 'Ongoing', 'Proposed', 'Architecture Competition'] },
-    { key: 'location', label: 'Location', get: p => p.region, order: ['Ranchi', 'Mumbai', 'Rest of Jharkhand', 'Rest of India', 'International'] },
-    { key: 'year', label: 'Year', get: startYear, sort: (a, b) => b.localeCompare(a) }
-  ];
-  DIMS.forEach(d => {
-    const vals = [...new Set(PROJECTS.map(d.get).filter(Boolean))];
-    d.values = d.sort ? vals.sort(d.sort)
-      : [...d.order.filter(v => vals.includes(v)), ...vals.filter(v => !d.order.includes(v))];
-  });
+  const pad = n => String(n).padStart(2, '0');
 
-  const dimsEl = document.getElementById('dims');
-  const filtersEl = document.getElementById('filters');
-  const noResults = document.getElementById('noResults');
-  const cards = [...grid.querySelectorAll('.project-card')];
-  let dim = DIMS[0], value = 'all';
+  // Each project gets a stable web address from its title
+  const seen = {};
+  PROJECTS.forEach(p => { let id = slug(p.title); if (seen[id]) id += '-' + p.category; seen[id] = 1; p.id = id; });
+  const href = p => `project.html?p=${p.id}`;
+  const card = p => `
+    <a class="pj reveal" href="${href(p)}">
+      <div class="pj-media"><img src="${esc(p.images[0])}" alt="${esc(p.title)}" loading="lazy"></div>
+      <h3>${esc(p.title)}</h3>
+      <p>${esc(p.location)}</p>
+    </a>`;
 
-  dimsEl.innerHTML = DIMS.map(d => `<button class="dim" role="tab" data-dim="${d.key}">${esc(d.label)}</button>`).join('');
-
-  const render = () => {
-    dimsEl.querySelectorAll('.dim').forEach(b => {
-      const on = b.dataset.dim === dim.key;
-      b.classList.toggle('active', on);
-      b.setAttribute('aria-selected', on);
+  // Lightbox (project page)
+  const lb = document.getElementById('lightbox');
+  let lbOpen = () => {};
+  if (lb) {
+    const lbImg = lb.querySelector('img'), lbCap = lb.querySelector('figcaption');
+    let list = [], title = '', at = 0;
+    const draw = () => { lbImg.src = list[at]; lbImg.alt = title; lbCap.textContent = `${title} — ${pad(at + 1)} / ${pad(list.length)}`; };
+    const step = s => { at = (at + s + list.length) % list.length; draw(); };
+    const close = () => { lb.classList.remove('open'); lb.setAttribute('aria-hidden', 'true'); document.body.style.overflow = ''; };
+    lbOpen = (images, t, i) => { list = images; title = t; at = i; draw(); lb.classList.add('open'); lb.setAttribute('aria-hidden', 'false'); document.body.style.overflow = 'hidden'; };
+    lb.querySelector('.prev').addEventListener('click', () => step(-1));
+    lb.querySelector('.next').addEventListener('click', () => step(1));
+    lb.querySelector('.lb-close').addEventListener('click', close);
+    lb.addEventListener('click', e => { if (e.target === lb) close(); });
+    document.addEventListener('keydown', e => {
+      if (!lb.classList.contains('open')) return;
+      if (e.key === 'Escape') close();
+      if (e.key === 'ArrowLeft') step(-1);
+      if (e.key === 'ArrowRight') step(1);
     });
-    filtersEl.innerHTML = [['all', 'All'], ...dim.values.map(v => [slug(v), v])]
-      .map(([v, l]) => `<button class="filter${v === value ? ' active' : ''}" data-filter="${v}">${esc(l)}</button>`).join('');
-    let shown = 0;
-    cards.forEach(c => {
-      const hide = value !== 'all' && slug(dim.get(PROJECTS[c.dataset.index]) || '') !== value;
-      c.classList.toggle('hidden', hide);
-      if (!hide) { c.classList.add('visible'); shown++; }
-    });
-    noResults.hidden = shown > 0;
-  };
-  const setHash = () => history.replaceState(null, '', value === 'all' ? location.pathname + (dim === DIMS[0] ? '' : `#${dim.key}`) : `#${dim.key}=${value}`);
+  }
 
-  dimsEl.addEventListener('click', e => {
-    const b = e.target.closest('.dim');
-    if (!b) return;
-    dim = DIMS.find(d => d.key === b.dataset.dim); value = 'all';
-    render(); setHash();
-  });
-  filtersEl.addEventListener('click', e => {
-    const b = e.target.closest('.filter');
-    if (!b) return;
-    value = b.dataset.filter;
-    render(); setHash();
-  });
-  const fromHash = () => {
-    const [k, v] = decodeURIComponent(location.hash.slice(1)).toLowerCase().split('=');
-    if (LABELS[k]) { dim = DIMS[0]; value = slug(LABELS[k]); }
-    else if (DIMS.some(d => d.key === k)) { dim = DIMS.find(d => d.key === k); value = v || 'all'; }
-    render();
-  };
-  window.addEventListener('hashchange', fromHash);
-  fromHash();
+  /* Index: grid + "Browse by" switch.
+     Links: projects.html#architecture (home page tiles), #status=completed, #location=mumbai, #year=2023 ... */
+  const grid = document.getElementById('projectGrid');
+  if (grid) {
+    const DIMS = [
+      { key: 'type', label: 'Type', get: p => LABELS[p.category], order: Object.values(LABELS) },
+      { key: 'sector', label: 'Residential / Commercial', get: p => p.sector, order: ['Residential', 'Commercial', 'Public & Institutional'] },
+      { key: 'status', label: 'Status', get: p => p.status, order: ['Completed', 'Ongoing', 'Proposed', 'Architecture Competition'] },
+      { key: 'location', label: 'Location', get: p => p.region, order: ['Ranchi', 'Mumbai', 'Rest of Jharkhand', 'Rest of India', 'International'] },
+      { key: 'year', label: 'Year', get: startYear, sort: (a, b) => b.localeCompare(a) }
+    ];
+    DIMS.forEach(d => {
+      const vals = [...new Set(PROJECTS.map(d.get).filter(Boolean))];
+      d.values = d.sort ? vals.sort(d.sort)
+        : [...d.order.filter(v => vals.includes(v)), ...vals.filter(v => !d.order.includes(v))];
+    });
+
+    grid.innerHTML = PROJECTS.map(card).join('');
+    observeReveals(grid);
+    const cards = [...grid.querySelectorAll('.pj')];
+    const dimsEl = document.getElementById('dims');
+    const filtersEl = document.getElementById('filters');
+    const noResults = document.getElementById('noResults');
+    let dim = DIMS[0], value = 'all';
+
+    dimsEl.innerHTML = DIMS.map(d => `<button class="dim" role="tab" data-dim="${d.key}">${esc(d.label)}</button>`).join('');
+
+    const render = () => {
+      dimsEl.querySelectorAll('.dim').forEach(b => {
+        const on = b.dataset.dim === dim.key;
+        b.classList.toggle('active', on);
+        b.setAttribute('aria-selected', on);
+      });
+      filtersEl.innerHTML = [['all', 'All'], ...dim.values.map(v => [slug(v), v])]
+        .map(([v, l]) => `<button class="filter${v === value ? ' active' : ''}" data-filter="${v}">${esc(l)}</button>`).join('');
+      let shown = 0;
+      cards.forEach((c, i) => {
+        const hide = value !== 'all' && slug(dim.get(PROJECTS[i]) || '') !== value;
+        c.classList.toggle('hidden', hide);
+        if (!hide) { c.classList.add('visible'); shown++; }
+      });
+      noResults.hidden = shown > 0;
+    };
+    const setHash = () => history.replaceState(null, '', value === 'all'
+      ? location.pathname + (dim === DIMS[0] ? '' : `#${dim.key}`)
+      : `#${dim.key}=${value}`);
+
+    dimsEl.addEventListener('click', e => {
+      const b = e.target.closest('.dim');
+      if (!b) return;
+      dim = DIMS.find(d => d.key === b.dataset.dim); value = 'all';
+      render(); setHash();
+    });
+    filtersEl.addEventListener('click', e => {
+      const b = e.target.closest('.filter');
+      if (!b) return;
+      value = b.dataset.filter;
+      render(); setHash();
+    });
+    const fromHash = () => {
+      const [k, v] = decodeURIComponent(location.hash.slice(1)).toLowerCase().split('=');
+      if (LABELS[k]) { dim = DIMS[0]; value = slug(LABELS[k]); }
+      else if (DIMS.some(d => d.key === k)) { dim = DIMS.find(d => d.key === k); value = v || 'all'; }
+      render();
+    };
+    window.addEventListener('hashchange', fromHash);
+    fromHash();
+  }
+
+  /* Single project page */
+  const view = document.getElementById('projectView');
+  if (view) {
+    const i = PROJECTS.findIndex(p => p.id === new URLSearchParams(location.search).get('p'));
+    if (i < 0) {
+      view.innerHTML = `<section class="container pv-missing"><h1>Project not found</h1><a class="btn" href="projects.html">See all projects</a></section>`;
+    } else {
+      const p = PROJECTS[i], N = PROJECTS.length, n = p.images.length;
+      const prev = PROJECTS[(i - 1 + N) % N], next = PROJECTS[(i + 1) % N];
+      const typeLink = `projects.html#type=${slug(LABELS[p.category])}`;
+      const related = [];
+      for (let k = 1; k < N && related.length < 3; k++) {
+        const q = PROJECTS[(i + k) % N];
+        if (q.category === p.category) related.push(q);
+      }
+      const FACTS = [['Client', 'client'], ['Typology', 'type'], ['Sector', 'sector'], ['Size', 'area'], ['Location', 'location'], ['Year', 'year'], ['Status', 'status'], ['Scope', 'scope']];
+      document.title = `${p.title} — Urban Arch Studio`;
+
+      view.innerHTML = `
+        <p class="container crumbs pv-crumbs"><a href="projects.html">Projects</a> / <a href="${typeLink}">${LABELS[p.category]}</a></p>
+        <figure class="pv-hero"><img src="${esc(p.images[0])}" alt="${esc(p.title)}" data-i="0"></figure>
+        <section class="container pv-intro">
+          <div class="pv-title">
+            <p class="eyebrow">${LABELS[p.category]}</p>
+            <h1>${esc(p.title)}</h1>
+            <p class="pv-sub">${esc(p.location)}<br>${esc(p.year)}</p>
+          </div>
+          <dl class="pv-facts">
+            ${FACTS.filter(([, k]) => p[k]).map(([l, k]) => `<div><dt>${l}</dt><dd>${esc(p[k])}</dd></div>`).join('')}
+          </dl>
+        </section>
+        ${n > 1 ? `<section class="container pv-gallery">
+          ${p.images.slice(1).map((src, k) => `
+            <figure class="reveal"><img src="${esc(src)}" alt="${esc(p.title)} — image ${k + 2}" loading="lazy" data-i="${k + 1}">
+              <figcaption>${pad(k + 2)} / ${pad(n)}</figcaption></figure>`).join('')}
+        </section>` : ''}
+        <nav class="container pv-pager" aria-label="More projects">
+          <a class="prev" href="${href(prev)}"><span>Previous project</span><strong>${esc(prev.title)}</strong></a>
+          <a class="all" href="projects.html">All projects</a>
+          <a class="next" href="${href(next)}"><span>Next project</span><strong>${esc(next.title)}</strong></a>
+        </nav>
+        ${related.length ? `<section class="container pv-related">
+          <h2>More ${LABELS[p.category]}</h2>
+          <div class="project-grid">${related.map(card).join('')}</div>
+        </section>` : ''}`;
+
+      observeReveals(view);
+      view.addEventListener('click', e => {
+        const img = e.target.closest('img[data-i]');
+        if (img) lbOpen(p.images, p.title, +img.dataset.i);
+      });
+    }
+  }
 }
 
 /* ---------- Contact forms (open email app with the message filled in) ---------- */
