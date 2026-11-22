@@ -74,6 +74,7 @@ if (grid && window.PROJECTS) {
   const startYear = p => (String(p.year).match(/\d{4}/) || [''])[0];
   const endYear = p => /ongoing/i.test(p.year) ? 9999 : +(String(p.year).match(/\d{4}/g) || ['0']).pop();
   const pad = n => String(n).padStart(2, '0');
+  const setURL = u => { try { history.replaceState(null, '', u); } catch (e) { /* ignore */ } };
 
   // Each project gets a link of its own: projects.html#p=<project-name>
   const seen = {};
@@ -167,7 +168,7 @@ if (grid && window.PROJECTS) {
       </div>`;
     place();
     if (p.images.length > 1) strip().addEventListener('scroll', updateCount, { passive: true });
-    history.replaceState(null, '', `#p=${p.id}`);
+    setURL(`${location.pathname}#p=${p.id}`);
     if (scroll) requestAnimationFrame(() => panel.scrollIntoView({ behavior: 'smooth', block: 'start' }));
   };
   const close = (keepHash = false) => {
@@ -249,9 +250,9 @@ if (grid && window.PROJECTS) {
     noResults.hidden = shown > 0;
   };
   function setHash() {
-    history.replaceState(null, '', value === 'all'
+    setURL(value === 'all'
       ? location.pathname + (dim === DIMS[0] ? '' : `#${dim.key}`)
-      : `#${dim.key}=${value}`);
+      : `${location.pathname}#${dim.key}=${value}`);
   }
 
   dimsEl.addEventListener('click', e => {
