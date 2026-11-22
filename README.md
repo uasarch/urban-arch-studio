@@ -1,22 +1,22 @@
 # Urban Arch Studio — Website
 
-A fast, dependency-free one-page studio website (HTML + CSS + JS), hosted on GitHub Pages.
+Static rebuild of urbanarchstudio.co.in (HTML + CSS + JS, no WordPress), hosted on GitHub Pages.
 
-## Files
-- `index.html` — all page content (edit text, contact details, project names here)
-- `styles.css` — colours, fonts, layout (colours are at the top under `:root`)
-- `script.js` — menu, scroll animations, project filters
-- `images/` — put your project photos here
+## Pages
+- `index.html` — Home: hero slider, About Us, services, About the Firm, Founders
+- `projects.html` — all projects with filters (Architecture / Interior Design / Landscape), per-project image sliders and a full-screen lightbox
+- `contact.html` — contact details & form, office addresses, careers
 
-## Adding real project photos
-1. Copy a photo into `images/`, e.g. `images/courtyard-house.jpg`.
-2. In `index.html`, find the project and change
-   `<div class="project-media p1"></div>` to
-   `<div class="project-media p1" style="--img:url('images/courtyard-house.jpg')"></div>`
+## Editing
+- **Projects**: edit `data/projects.js`. Each entry has `title`, `category` (`architecture` | `interior` | `landscape`), `client`, `type`, `year`, `area`, `location`, `status`, `scope` and a list of `images`. Add photos under `assets/` and list their paths.
+- **Home hero slider**: the `<img>` lists in `index.html` (one set for desktop, one for mobile).
+- **Colours & fonts**: top of `styles.css` (`:root`).
+- **Images**: all original site images are in `assets/uploads/` (same folder structure as WordPress).
 
 ## Contact form
-The form currently opens the visitor's email app. To receive submissions directly, create a free form at
-https://formspree.io and replace the form's `action` with your Formspree URL (and remove `enctype="text/plain"`).
+By default the forms open the visitor's email app addressed to utkarsh@urbanarchstudio.co.in.
+To receive submissions directly, create a free form at https://formspree.io and put its URL in
+`data-endpoint=""` on the `<form id="contactForm">` in `contact.html`.
 
 ## Publishing changes
 ```

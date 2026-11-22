@@ -1,9 +1,11 @@
-// Footer year
-document.getElementById('year').textContent = new Date().getFullYear();
+const STUDIO_EMAIL = 'utkarsh@urbanarchstudio.co.in';
 
-// Sticky nav style on scroll
+// Footer year
+document.querySelectorAll('.year').forEach(el => (el.textContent = new Date().getFullYear()));
+
+// Nav shadow on scroll
 const nav = document.querySelector('.nav');
-const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 20);
+const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 10);
 window.addEventListener('scroll', onScroll, { passive: true });
 onScroll();
 
@@ -14,39 +16,196 @@ toggle.addEventListener('click', () => {
   const open = links.classList.toggle('open');
   toggle.setAttribute('aria-expanded', open);
 });
-links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-  links.classList.remove('open');
-  toggle.setAttribute('aria-expanded', 'false');
-}));
 
-// Reveal on scroll + counters
-const countUp = el => {
-  const target = +el.dataset.count;
-  const start = performance.now();
-  const step = now => {
-    const p = Math.min((now - start) / 1400, 1);
-    el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3)));
-    if (p < 1) requestAnimationFrame(step);
-  };
-  requestAnimationFrame(step);
-};
-
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (!entry.isIntersecting) return;
-    entry.target.classList.add('visible');
-    entry.target.querySelectorAll('[data-count]').forEach(countUp);
-    observer.unobserve(entry.target);
+// Reveal on scroll
+const revealObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); revealObserver.unobserve(e.target); }
   });
-}, { threshold: 0.15 });
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+}, { threshold: 0.12 });
+const observeReveals = root => root.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+observeReveals(document);
 
-// Project filters
-const filters = document.querySelectorAll('.filter');
-const projects = document.querySelectorAll('.project');
-filters.forEach(btn => btn.addEventListener('click', () => {
-  filters.forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  const f = btn.dataset.filter;
-  projects.forEach(p => p.classList.toggle('hidden', f !== 'all' && p.dataset.cat !== f));
-}));
+const loadImg = img => { if (img && img.dataset.src) { img.src = img.dataset.src; img.removeAttribute('data-src'); } };
+
+/* ---------- Home hero slider ---------- */
+const hero = document.querySelector('.hero');
+if (hero) {
+  const mq = window.matchMedia('(max-width: 760px)');
+  const dots = hero.querySelector('.hero-dots');
+  let timer, index = 0;
+  const slider = () => hero.querySelector(`.hero-slider[data-set="${mq.matches ? 'mobile' : 'desktop'}"]`);
+  const slides = () => [...slider().querySelectorAll('img')];
+
+  const render = () => {
+    const s = slides();
+    s.forEach((img, i) => img.classList.toggle('active', i === index));
+    loadImg(s[index]);
+    loadImg(s[(index + 1) % s.length]); // preload next
+    dots.innerHTML = s.map((_, i) => `<span class="${i === index ? 'active' : ''}"></span>`).join('');
+  };
+  const go = step => { const n = slides().length; index = (index + step + n) % n; render(); restart(); };
+  const restart = () => { clearInterval(timer); timer = setInterval(() => go(1), 5000); };
+
+  hero.querySelector('.prev').addEventListener('click', () => go(-1));
+  hero.querySelector('.next').addEventListener('click', () => go(1));
+  mq.addEventListener('change', () => { index = 0; render(); });
+
+  // swipe
+  let x0 = null;
+  hero.addEventListener('touchstart', e => (x0 = e.touches[0].clientX), { passive: true });
+  hero.addEventListener('touchend', e => {
+    if (x0 === null) return;
+    const dx = e.changedTouches[0].clientX - x0;
+    if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1);
+    x0 = null;
+  });
+
+  render();
+  restart();
+}
+
+/* ---------- Projects page ---------- */
+const grid = document.getElementById('projectGrid');
+if (grid && window.PROJECTS) {
+  const LABELS = { architecture: 'Architecture', interior: 'Interior Design', landscape: 'Landscape' };
+  const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const FIELDS = [['Client', 'client'], ['Type', 'type'], ['Year', 'year'], ['Area', 'area'], ['Location', 'location'], ['Status', 'status'], ['Scope', 'scope']];
+
+  grid.innerHTML = PROJECTS.map((p, i) => `
+    <article class="project-card reveal" data-cat="${p.category}" data-index="${i}">
+      <div class="pc-media">
+        <img src="${esc(p.images[0])}" alt="${esc(p.title)}" loading="lazy">
+        ${p.images.length > 1 ? `
+          <button class="pc-btn prev" aria-label="Previous image"><i class="fa-solid fa-chevron-left"></i></button>
+          <button class="pc-btn next" aria-label="Next image"><i class="fa-solid fa-chevron-right"></i></button>
+          <span class="pc-count">1 / ${p.images.length}</span>` : ''}
+      </div>
+      <div class="pc-body">
+        <h3>${esc(p.title)}</h3>
+        <span class="pc-tag">${LABELS[p.category] || ''}</span>
+        <dl class="pc-meta">
+          ${FIELDS.filter(([, k]) => p[k]).map(([l, k]) => `<dt>${l}</dt><dd>${esc(p[k])}</dd>`).join('')}
+        </dl>
+      </div>
+    </article>`).join('');
+  observeReveals(grid);
+
+  // Per-card slider
+  const pos = new Map();
+  const show = (card, step) => {
+    const p = PROJECTS[card.dataset.index];
+    const n = p.images.length;
+    const i = ((pos.get(card) || 0) + step + n) % n;
+    pos.set(card, i);
+    card.querySelector('.pc-media img').src = p.images[i];
+    const c = card.querySelector('.pc-count');
+    if (c) c.textContent = `${i + 1} / ${n}`;
+  };
+
+  // Lightbox
+  const lb = document.getElementById('lightbox');
+  const lbImg = lb.querySelector('img');
+  const lbCap = lb.querySelector('figcaption');
+  let lbProject = null, lbIndex = 0;
+  const lbRender = () => {
+    const p = PROJECTS[lbProject];
+    lbImg.src = p.images[lbIndex];
+    lbImg.alt = p.title;
+    lbCap.textContent = `${p.title} — ${lbIndex + 1} / ${p.images.length}`;
+  };
+  const lbOpen = (pi, ii) => { lbProject = pi; lbIndex = ii; lbRender(); lb.classList.add('open'); lb.setAttribute('aria-hidden', 'false'); document.body.style.overflow = 'hidden'; };
+  const lbClose = () => { lb.classList.remove('open'); lb.setAttribute('aria-hidden', 'true'); document.body.style.overflow = ''; };
+  const lbStep = s => { const n = PROJECTS[lbProject].images.length; lbIndex = (lbIndex + s + n) % n; lbRender(); };
+  lb.querySelector('.prev').addEventListener('click', () => lbStep(-1));
+  lb.querySelector('.next').addEventListener('click', () => lbStep(1));
+  lb.querySelector('.lb-close').addEventListener('click', lbClose);
+  lb.addEventListener('click', e => { if (e.target === lb) lbClose(); });
+  document.addEventListener('keydown', e => {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape') lbClose();
+    if (e.key === 'ArrowLeft') lbStep(-1);
+    if (e.key === 'ArrowRight') lbStep(1);
+  });
+
+  grid.addEventListener('click', e => {
+    const card = e.target.closest('.project-card');
+    if (!card) return;
+    if (e.target.closest('.pc-btn')) { show(card, e.target.closest('.prev') ? -1 : 1); return; }
+    if (e.target.closest('.pc-media')) lbOpen(+card.dataset.index, pos.get(card) || 0);
+  });
+
+  // Filters (+ counts, + #architecture / #interior / #landscape links from the home page)
+  const filters = document.querySelectorAll('.filter');
+  const cards = grid.querySelectorAll('.project-card');
+  filters.forEach(btn => {
+    const f = btn.dataset.filter;
+    btn.querySelector('span').textContent = f === 'all' ? PROJECTS.length : PROJECTS.filter(p => p.category === f).length;
+  });
+  const applyFilter = f => {
+    filters.forEach(b => b.classList.toggle('active', b.dataset.filter === f));
+    cards.forEach(c => {
+      const hide = f !== 'all' && c.dataset.cat !== f;
+      c.classList.toggle('hidden', hide);
+      if (!hide) c.classList.add('visible');
+    });
+  };
+  filters.forEach(btn => btn.addEventListener('click', () => {
+    applyFilter(btn.dataset.filter);
+    history.replaceState(null, '', btn.dataset.filter === 'all' ? location.pathname : '#' + btn.dataset.filter);
+  }));
+  const fromHash = () => {
+    const h = location.hash.slice(1).toLowerCase();
+    if (LABELS[h]) applyFilter(h);
+  };
+  window.addEventListener('hashchange', fromHash);
+  fromHash();
+}
+
+/* ---------- Contact forms (open email app with the message filled in) ---------- */
+const mailto = (subject, lines) =>
+  `mailto:${STUDIO_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.filter(Boolean).join('\n'))}`;
+
+const contactForm = document.getElementById('contactForm');
+if (contactForm) {
+  contactForm.addEventListener('submit', async e => {
+    e.preventDefault();
+    const d = Object.fromEntries(new FormData(contactForm));
+    const note = contactForm.querySelector('.form-note');
+    const endpoint = contactForm.dataset.endpoint;
+    if (endpoint) {
+      try {
+        const r = await fetch(endpoint, { method: 'POST', body: new FormData(contactForm), headers: { Accept: 'application/json' } });
+        if (!r.ok) throw new Error();
+        contactForm.reset();
+        note.textContent = 'Thank you — your message has been sent.';
+      } catch { note.textContent = `Sorry, something went wrong. Please email us at ${STUDIO_EMAIL}.`; }
+      return;
+    }
+    location.href = mailto(`Website enquiry from ${d['first-name']} ${d['last-name']}`, [
+      `Name: ${d['first-name']} ${d['last-name']}`,
+      `Email: ${d.email}`,
+      d.phone && `Phone: ${d.phone}`,
+      '',
+      d.message
+    ]);
+    note.textContent = 'Your email app should open with your message ready to send.';
+  });
+}
+
+const careerForm = document.getElementById('careerForm');
+if (careerForm) {
+  careerForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const d = Object.fromEntries(new FormData(careerForm));
+    location.href = mailto(`Job application: ${d.subject || d['job-type']} — ${d.name}`, [
+      `Name: ${d.name}`,
+      `Email: ${d.email}`,
+      d.phone && `Phone: ${d.phone}`,
+      d.experience && `Experience: ${d.experience}`,
+      `Job type: ${d['job-type']}`,
+      '',
+      '(Please attach your CV and portfolio.)'
+    ]);
+  });
+}

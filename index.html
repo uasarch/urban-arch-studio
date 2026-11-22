@@ -3,215 +3,176 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Urban Arch Studio — Architecture & Interiors</title>
-  <meta name="description" content="Urban Arch Studio is an architecture and interior design practice creating considered, contextual spaces.">
+  <title>Urban Arch Studio — Architecture, Interiors &amp; Landscape | Mumbai &amp; Ranchi</title>
+  <meta name="description" content="Urban Arch Studio (UAS) is a multidisciplinary design practice in Mumbai and Ranchi specializing in Architecture, Interiors, Landscape, Urban Design and Master Planning.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@300;400;500;600&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <link rel="stylesheet" href="styles.css">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%231c1b19'/><path d='M7 25V13l9-6 9 6v12' fill='none' stroke='%23c8a46b' stroke-width='2.5'/></svg>">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 </head>
 <body>
 
-  <header class="nav" id="top">
-    <a href="#top" class="logo" aria-label="Urban Arch Studio home">
-      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 27V12l11-7 11 7v15" /><path d="M12 27v-8h8v8" /></svg>
-      <span>Urban Arch <em>Studio</em></span>
+  <header class="nav">
+    <a href="index.html" class="logo" aria-label="Urban Arch Studio home">
+      <img src="assets/uploads/2023/05/Untitled-design-2026-03-09T163347.533.png" alt="Urban Arch Studio">
     </a>
     <button class="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
     <nav class="nav-links">
-      <a href="#about">Studio</a>
-      <a href="#services">Services</a>
-      <a href="#projects">Projects</a>
-      <a href="#process">Process</a>
-      <a href="#contact" class="btn btn-small">Get in touch</a>
+      <a href="index.html" class="active">Home</a>
+      <a href="projects.html">Projects</a>
+      <a href="contact.html">Contact Us</a>
     </nav>
   </header>
 
   <main>
-    <!-- HERO -->
-    <section class="hero">
-      <div class="hero-grid" aria-hidden="true"></div>
-      <div class="container hero-inner">
-        <p class="eyebrow reveal">Architecture · Interiors · Urban Design</p>
-        <h1 class="reveal">Spaces shaped by <span class="accent">context</span>,<br>built for the people who use them.</h1>
-        <p class="lead reveal">We are an architecture and interior design studio crafting homes, workplaces and public spaces that are honest in material, generous in light and rooted in place.</p>
-        <div class="hero-cta reveal">
-          <a href="#projects" class="btn">View our work</a>
-          <a href="#contact" class="btn btn-ghost">Start a project</a>
-        </div>
+    <!-- HERO SLIDER: desktop and mobile image sets, as on the original site -->
+    <section class="hero" aria-label="Featured projects">
+      <div class="hero-slider" data-set="desktop">
+        <img src="assets/uploads/2025/12/1-1.jpg" alt="Urban Arch Studio project" class="active">
+        <img data-src="assets/uploads/2025/12/2-1.jpg" alt="Urban Arch Studio project">
+        <img data-src="assets/uploads/2025/12/3-1.jpg" alt="Urban Arch Studio project">
+        <img data-src="assets/uploads/2025/12/4-1.jpg" alt="Urban Arch Studio project">
+        <img data-src="assets/uploads/2025/12/5.jpg" alt="Urban Arch Studio project">
+        <img data-src="assets/uploads/2025/12/6.jpg" alt="Urban Arch Studio project">
+        <img data-src="assets/uploads/2025/12/8.jpg" alt="Urban Arch Studio project">
+        <img data-src="assets/uploads/2025/12/7.jpg" alt="Urban Arch Studio project">
+        <img data-src="assets/uploads/2025/12/10.jpg" alt="Urban Arch Studio project">
+        <img data-src="assets/uploads/2025/12/9.jpg" alt="Urban Arch Studio project">
       </div>
-      <div class="container stats reveal">
-        <div><strong data-count="120">0</strong><span>Projects delivered</span></div>
-        <div><strong data-count="15">0</strong><span>Years of practice</span></div>
-        <div><strong data-count="18">0</strong><span>Design awards</span></div>
-        <div><strong data-count="40">0</strong><span>Cities worked in</span></div>
+      <div class="hero-slider" data-set="mobile">
+        <img data-src="assets/uploads/2026/03/1.jpg" alt="Urban Arch Studio project" class="active">
+        <img data-src="assets/uploads/2026/03/2.jpg" alt="Urban Arch Studio project">
+        <img data-src="assets/uploads/2026/03/3.jpg" alt="Urban Arch Studio project">
+        <img data-src="assets/uploads/2026/03/4.jpg" alt="Urban Arch Studio project">
+        <img data-src="assets/uploads/2026/03/5.jpg" alt="Urban Arch Studio project">
+        <img data-src="assets/uploads/2026/03/6.jpg" alt="Urban Arch Studio project">
+        <img data-src="assets/uploads/2026/03/7.jpg" alt="Urban Arch Studio project">
+        <img data-src="assets/uploads/2026/03/8.jpg" alt="Urban Arch Studio project">
+        <img data-src="assets/uploads/2026/03/9.jpg" alt="Urban Arch Studio project">
+        <img data-src="assets/uploads/2026/03/10.jpg" alt="Urban Arch Studio project">
+        <img data-src="assets/uploads/2026/03/11.jpg" alt="Urban Arch Studio project">
       </div>
+      <button class="hero-btn prev" aria-label="Previous slide"><i class="fa-solid fa-chevron-left"></i></button>
+      <button class="hero-btn next" aria-label="Next slide"><i class="fa-solid fa-chevron-right"></i></button>
+      <div class="hero-dots" aria-hidden="true"></div>
     </section>
 
-    <!-- ABOUT -->
+    <!-- ABOUT US -->
     <section class="section" id="about">
-      <div class="container split">
-        <div class="reveal">
-          <p class="eyebrow">The Studio</p>
-          <h2>Design that listens before it speaks.</h2>
-        </div>
-        <div class="reveal">
-          <p>Urban Arch Studio was founded on a simple belief: good buildings begin with careful observation — of the site, the climate, the street and the everyday rhythms of the people who will live and work inside them.</p>
-          <p>Our multidisciplinary team brings architecture, interiors and landscape together under one roof, so every project is resolved as a whole — from the first sketch to the last door handle.</p>
-          <ul class="values">
-            <li><span>01</span>Contextual — every design responds to its place.</li>
-            <li><span>02</span>Sustainable — passive strategies first, technology second.</li>
-            <li><span>03</span>Crafted — detail is where architecture is felt.</li>
-          </ul>
-        </div>
+      <div class="container narrow center">
+        <p class="eyebrow reveal">Urban Arch Studio</p>
+        <h2 class="reveal">About Us</h2>
+        <div class="divider reveal"></div>
+        <p class="reveal">At <strong>Urban Arch Studio (UAS)</strong>, we believe every space has a story — and we design yours with creativity, clarity, and care. Based in <strong>Mumbai and Ranchi</strong>, we are a multidisciplinary design practice specializing in <strong>Architecture, Interiors, Landscape, Urban Design, and Master Planning</strong>.</p>
+        <p class="reveal">Our approach is simple yet impactful: we put people first. Every project begins with understanding the client’s aspirations and context, then shaping solutions that are functional, timeless, and creative. Whether it’s a luxury home, a modern workplace, or a community-driven development, our designs combine <strong>aesthetic elegance, practical functionality, and sustainable innovation</strong>.</p>
+        <p class="reveal">At UAS, we don’t just create buildings — we craft environments where life unfolds, experiences deepen, and memories are made.</p>
       </div>
     </section>
 
     <!-- SERVICES -->
-    <section class="section section-alt" id="services">
+    <section class="section section-tint" id="services">
       <div class="container">
-        <div class="section-head reveal">
-          <p class="eyebrow">Services</p>
-          <h2>What we do</h2>
-        </div>
-        <div class="cards">
-          <article class="card reveal">
-            <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M6 42V20L24 8l18 12v22M18 42V28h12v14"/></svg>
-            <h3>Architecture</h3>
-            <p>Residential, commercial and institutional buildings — from feasibility and concept through to construction drawings and site supervision.</p>
-          </article>
-          <article class="card reveal">
-            <svg viewBox="0 0 48 48" aria-hidden="true"><rect x="6" y="10" width="36" height="28"/><path d="M6 30h36M16 30v8M32 30v8M14 18h8v6h-8z"/></svg>
-            <h3>Interior Design</h3>
-            <p>Interiors that feel inevitable: space planning, joinery, lighting, materials and furniture curated to the way you live and work.</p>
-          </article>
-          <article class="card reveal">
-            <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M4 42h40M8 42V22h8v20M20 42V12h8v30M32 42V26h8v16"/></svg>
-            <h3>Urban Design</h3>
-            <p>Masterplans, streetscapes and public realm projects that make neighbourhoods more walkable, greener and more alive.</p>
-          </article>
-          <article class="card reveal">
-            <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="16"/><path d="M24 8c-6 6-6 26 0 32M24 8c6 6 6 26 0 32M8 24h32"/></svg>
-            <h3>Consultancy</h3>
-            <p>Site analysis, sustainability reviews, approvals and 3D visualisation to help you make confident decisions early.</p>
-          </article>
+        <div class="tiles">
+          <a class="tile reveal" href="projects.html#architecture">
+            <img src="assets/uploads/2025/08/4-1024x683.jpg" alt="Architecture" loading="lazy">
+            <h3>Architecture <i class="fa-solid fa-arrow-right"></i></h3>
+          </a>
+          <a class="tile reveal" href="projects.html#interior">
+            <img src="assets/uploads/2025/08/2-1024x683.jpg" alt="Interior Design" loading="lazy">
+            <h3>Interior Design <i class="fa-solid fa-arrow-right"></i></h3>
+          </a>
+          <a class="tile reveal" href="projects.html#landscape">
+            <img src="assets/uploads/2025/08/1-1024x683.jpg" alt="Landscape Design" loading="lazy">
+            <h3>Landscape Design <i class="fa-solid fa-arrow-right"></i></h3>
+          </a>
         </div>
       </div>
     </section>
 
-    <!-- PROJECTS -->
-    <section class="section" id="projects">
-      <div class="container">
-        <div class="section-head reveal">
-          <p class="eyebrow">Selected Work</p>
-          <h2>Projects</h2>
-          <div class="filters" role="tablist" aria-label="Filter projects">
-            <button class="filter active" data-filter="all">All</button>
-            <button class="filter" data-filter="residential">Residential</button>
-            <button class="filter" data-filter="commercial">Commercial</button>
-            <button class="filter" data-filter="interiors">Interiors</button>
-          </div>
-        </div>
-
-        <!-- To use real photos: put images in /images and set style="--img:url('images/your-photo.jpg')" on .project-media -->
-        <div class="projects">
-          <article class="project reveal" data-cat="residential">
-            <div class="project-media p1"></div>
-            <div class="project-info"><h3>Courtyard House</h3><p>Residential · 2025</p></div>
-          </article>
-          <article class="project reveal" data-cat="commercial">
-            <div class="project-media p2"></div>
-            <div class="project-info"><h3>Linear Office Block</h3><p>Commercial · 2024</p></div>
-          </article>
-          <article class="project reveal" data-cat="interiors">
-            <div class="project-media p3"></div>
-            <div class="project-info"><h3>Brick Loft Interior</h3><p>Interiors · 2024</p></div>
-          </article>
-          <article class="project reveal" data-cat="residential">
-            <div class="project-media p4"></div>
-            <div class="project-info"><h3>Terrace Villas</h3><p>Residential · 2023</p></div>
-          </article>
-          <article class="project reveal" data-cat="commercial">
-            <div class="project-media p5"></div>
-            <div class="project-info"><h3>Market Pavilion</h3><p>Commercial · 2023</p></div>
-          </article>
-          <article class="project reveal" data-cat="interiors">
-            <div class="project-media p6"></div>
-            <div class="project-info"><h3>Studio Café</h3><p>Interiors · 2022</p></div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- PROCESS -->
-    <section class="section section-dark" id="process">
-      <div class="container">
-        <div class="section-head reveal">
-          <p class="eyebrow">How we work</p>
-          <h2>Our process</h2>
-        </div>
-        <ol class="steps">
-          <li class="reveal"><span>01</span><h3>Listen</h3><p>We start with your brief, budget and ambitions, and study the site in depth.</p></li>
-          <li class="reveal"><span>02</span><h3>Concept</h3><p>Sketches, models and options that explore what the project could become.</p></li>
-          <li class="reveal"><span>03</span><h3>Develop</h3><p>Detailed design, approvals, material selection and coordinated drawings.</p></li>
-          <li class="reveal"><span>04</span><h3>Build</h3><p>Tendering and site supervision to make sure the design is built as intended.</p></li>
-        </ol>
-      </div>
-    </section>
-
-    <!-- TESTIMONIAL -->
-    <section class="section quote-section">
-      <div class="container">
-        <blockquote class="reveal">
-          <p>“They understood our family and our site better than we did. The house feels like it has always been there.”</p>
-          <cite>— Private client, Courtyard House</cite>
-        </blockquote>
-      </div>
-    </section>
-
-    <!-- CONTACT -->
-    <section class="section section-alt" id="contact">
+    <!-- ABOUT THE FIRM -->
+    <section class="section" id="firm">
       <div class="container split">
-        <div class="reveal">
-          <p class="eyebrow">Contact</p>
-          <h2>Let’s build something considered.</h2>
-          <p>Tell us a little about your project and we’ll get back to you within two working days.</p>
-          <dl class="contact-list">
-            <dt>Email</dt><dd><a href="mailto:hello@urbanarchstudio.com">hello@urbanarchstudio.com</a></dd>
-            <dt>Phone</dt><dd><a href="tel:+910000000000">+91 00000 00000</a></dd>
-            <dt>Studio</dt><dd>Your studio address, City</dd>
-          </dl>
+        <div class="split-media reveal">
+          <img src="assets/uploads/2025/10/WhatsApp-Image-2025-09-25-at-15.36.33_a21bc156.jpg" alt="The Urban Arch Studio team" loading="lazy">
         </div>
-        <!-- Replace the action URL with your own form endpoint (e.g. Formspree) to receive submissions -->
-        <form class="contact-form reveal" action="mailto:hello@urbanarchstudio.com" method="post" enctype="text/plain">
-          <label>Name<input type="text" name="name" required></label>
-          <label>Email<input type="email" name="email" required></label>
-          <label>Project type
-            <select name="type">
-              <option>Residential</option>
-              <option>Commercial</option>
-              <option>Interiors</option>
-              <option>Urban / Masterplan</option>
-              <option>Other</option>
-            </select>
-          </label>
-          <label>Message<textarea name="message" rows="5" required></textarea></label>
-          <button type="submit" class="btn">Send enquiry</button>
-        </form>
+        <div class="reveal">
+          <p class="eyebrow">Our Approach</p>
+          <h2>About the Firm</h2>
+          <div class="divider"></div>
+          <p>At UAS, we treat every project as a dialogue—between context and creativity, client and designer, tradition and innovation. Our work is driven by a deep respect for scale, proportion, material, and light, and our process ensures every space we design reflects the aspirations and lifestyle of its users.</p>
+          <p>Whether it’s a modern apartment in Mumbai or a contextual home in Ranchi, our team brings a consistent focus on <strong>clarity, craftsmanship, and client collaboration</strong>.</p>
+          <a href="projects.html" class="btn">View our projects</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOUNDERS -->
+    <section class="section section-tint" id="founders">
+      <div class="container">
+        <div class="center">
+          <p class="eyebrow reveal">The People</p>
+          <h2 class="reveal">About The Founders</h2>
+          <div class="divider reveal"></div>
+        </div>
+        <div class="founders">
+          <article class="founder reveal">
+            <img src="assets/uploads/2025/10/Utkarsh.png" alt="Utkarsh, co-founder" loading="lazy">
+            <div>
+              <h3>Utkarsh</h3>
+              <p class="role">Architect &amp; Co-founder</p>
+              <p><strong>Utkarsh</strong> is an architect and co-founder at Urban Arch Studio. A graduate of L.S. Raheja School of Architecture, he has worked with leading firms in Mumbai, gaining experience across architecture, interiors, and urban design. Passionate about sustainability, he strives to create eco-friendly solutions that reflect both client aspirations and environmental responsibility. His interests extend to photography, travel, and gardening, which inspire his creative approach to design.</p>
+            </div>
+          </article>
+          <article class="founder reveal">
+            <img src="assets/uploads/2025/10/Sonali.png" alt="Sonali, co-founder" loading="lazy">
+            <div>
+              <h3>Sonali</h3>
+              <p class="role">Architect, Urban Researcher &amp; Co-founder</p>
+              <p><strong>Sonali</strong> is an architect, urban researcher, and co-founder at Urban Arch Studio. With a Master’s in Urban Design from Oxford Brookes University, UK, and a degree in Architecture from L.S. Raheja School of Architecture, she brings expertise in sustainable design, master planning, high-rise residential projects, and interiors. Passionate about cities, communities, and the environment, she blends research with practice to create responsive and meaningful spaces.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="container center">
+        <h2 class="reveal">Have a project in mind?</h2>
+        <a href="contact.html" class="btn btn-light reveal">Contact Us</a>
       </div>
     </section>
   </main>
 
   <footer class="footer">
-    <div class="container footer-inner">
-      <span>© <span id="year"></span> Urban Arch Studio. All rights reserved.</span>
-      <nav>
-        <a href="#" aria-label="Instagram">Instagram</a>
-        <a href="#" aria-label="LinkedIn">LinkedIn</a>
-        <a href="#" aria-label="Behance">Behance</a>
-      </nav>
+    <div class="container footer-grid">
+      <div>
+        <img src="assets/uploads/2023/06/UAS_Logo-Text-Photoroom.png" alt="Urban Arch Studio" class="footer-logo">
+        <p class="footer-tag">Architecture · Interiors · Landscape · Urban Design · Master Planning</p>
+      </div>
+      <div>
+        <h3>Contact us</h3>
+        <ul class="footer-list">
+          <li><a href="tel:+919869825589"><i class="fa-solid fa-phone"></i> +91 9869825589</a></li>
+          <li><a href="tel:+918879262505"><i class="fa-solid fa-phone"></i> +91 8879262505</a></li>
+          <li><a href="mailto:utkarsh@urbanarchstudio.co.in"><i class="fa-solid fa-envelope"></i> utkarsh@urbanarchstudio.co.in</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Follow us</h3>
+        <div class="socials">
+          <a href="https://www.youtube.com/@UrbanArchStudio" target="_blank" rel="noopener" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+          <a href="https://t.me/urbanarchstudio" target="_blank" rel="noopener" aria-label="Telegram"><i class="fa-brands fa-telegram"></i></a>
+          <a href="https://www.linkedin.com/company/urban-arch-studio" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="https://x.com/UrbanArchStudio" target="_blank" rel="noopener" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="https://www.instagram.com/urban_arch_studio" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://in.pinterest.com/utkarshraipat" target="_blank" rel="noopener" aria-label="Pinterest"><i class="fa-brands fa-pinterest-p"></i></a>
+          <a href="https://www.facebook.com/urbanarchstudio" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        </div>
+      </div>
     </div>
+    <div class="container footer-bottom">Copyright © <span class="year"></span> URBAN ARCH STUDIO</div>
   </footer>
 
   <script src="script.js"></script>
