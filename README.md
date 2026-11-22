@@ -30,4 +30,5 @@ GitHub Pages redeploys automatically within a minute or two.
 - `options/index.html` — side-by-side comparison of the current site and draft options.
 - `options/option-a/` — a full draft copy of the site for trying changes. It shares the images in `assets/` (paths start `../../assets/`), is hidden from search engines (`noindex`), and shows an "Option A · draft" badge.
 - The root site stays untouched until an option is chosen. To finalise, copy the chosen option's files back to the root (change `../../assets/` back to `assets/` and remove the badge and `noindex`).
+- `options/option-b/` — Projects page with a "Browse by" switch: Type, Residential / Commercial, Status, Location, Year (no counts). Each project in `options/option-b/data/projects.js` has two extra fields: `sector` (Residential | Commercial | Public & Institutional) and `region` (Ranchi | Mumbai | Rest of Jharkhand | Rest of India | International). Year uses the first year in `year`.
 - For another option, copy `options/option-a/` to `options/option-b/` and add a card for it in `options/index.html`.
