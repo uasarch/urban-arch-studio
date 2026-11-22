@@ -3,6 +3,28 @@ const STUDIO_EMAIL = 'utkarsh@urbanarchstudio.co.in';
 // Footer year
 document.querySelectorAll('.year').forEach(el => (el.textContent = new Date().getFullYear()));
 
+// Light / dark switch (remembers the choice; otherwise follows the device setting)
+const themeBtn = document.querySelector('.theme-toggle');
+if (themeBtn) {
+  const root = document.documentElement;
+  const mqDark = window.matchMedia('(prefers-color-scheme: dark)');
+  const isDark = () => (root.getAttribute('data-theme') || (mqDark.matches ? 'dark' : 'light')) === 'dark';
+  const sync = () => {
+    const d = isDark();
+    themeBtn.setAttribute('aria-pressed', d);
+    themeBtn.setAttribute('aria-label', d ? 'Switch to light mode' : 'Switch to dark mode');
+    themeBtn.innerHTML = `<i class="fa-solid fa-${d ? 'sun' : 'moon'}"></i>`;
+  };
+  themeBtn.addEventListener('click', () => {
+    const t = isDark() ? 'light' : 'dark';
+    root.setAttribute('data-theme', t);
+    try { localStorage.setItem('uas-theme', t); } catch (e) { /* private mode */ }
+    sync();
+  });
+  mqDark.addEventListener('change', sync);
+  sync();
+}
+
 // Nav shadow on scroll
 const nav = document.querySelector('.nav');
 const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 10);
