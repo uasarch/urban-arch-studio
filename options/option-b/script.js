@@ -119,45 +119,6 @@ if (grid && window.PROJECTS) {
   const cards = [...grid.querySelectorAll('.pj')];
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-  /* Hover: a "View" circle follows the mouse over thumbnails */
-  let cursorLabel = () => {};
-  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches && !reduceMotion.matches) {
-    document.documentElement.classList.add('has-pj-cursor');
-    const cur = document.createElement('div');
-    cur.className = 'pj-cursor';
-    cur.setAttribute('aria-hidden', 'true');
-    cur.innerHTML = '<span>View</span>';
-    document.body.appendChild(cur);
-    const label = cur.firstChild;
-    let tx = 0, ty = 0, x = 0, y = 0, raf = null, media = null;
-    const loop = () => {
-      x += (tx - x) * 0.22; y += (ty - y) * 0.22;
-      cur.style.transform = `translate3d(${x}px, ${y}px, 0)`;
-      raf = Math.abs(tx - x) + Math.abs(ty - y) > 0.2 ? requestAnimationFrame(loop) : null;
-    };
-    const leave = () => {
-      media = null;
-      cur.classList.remove('on', 'down');
-    };
-    cursorLabel = () => { if (media) label.textContent = media.closest('.pj').classList.contains('active') ? 'Close' : 'View'; };
-    grid.addEventListener('pointermove', e => {
-      if (e.pointerType !== 'mouse') return;
-      const m = e.target.closest('.pj-media');
-      if (m !== media) {
-        if (!media) { x = e.clientX; y = e.clientY; } // appear under the pointer, not fly in from afar
-        leave();
-        media = m;
-        if (m) { cur.classList.add('on'); cursorLabel(); }
-      }
-      tx = e.clientX; ty = e.clientY;
-      if (!raf) raf = requestAnimationFrame(loop);
-    });
-    grid.addEventListener('pointerleave', leave);
-    grid.addEventListener('pointerdown', () => media && cur.classList.add('down'));
-    window.addEventListener('pointerup', () => cur.classList.remove('down'));
-    window.addEventListener('scroll', leave, { passive: true });
-  }
-
   /* Click: the thumbnail flies into place as the first big photo of the opened project */
   let flight = null;
   const endFlight = () => {
@@ -187,7 +148,7 @@ if (grid && window.PROJECTS) {
     const step = now => {
       const t = Math.min(1, (now - t0) / dur), e = ease(t);
       const r = target.getBoundingClientRect(); // follows the page while it scrolls to the panel
-      const h = r.height, w = target.naturalWidth ? r.width : h * ratio;
+      const w = r.width || from.width, h = r.height || from.width / ratio;
       ghost.style.left = `${lerp(from.left, r.left, e)}px`;
       ghost.style.top = `${lerp(from.top, r.top, e)}px`;
       ghost.style.width = `${lerp(from.width, w, e)}px`;
@@ -239,8 +200,13 @@ if (grid && window.PROJECTS) {
     imgs.forEach((img, k) => { if (Math.abs(img.offsetLeft - s.scrollLeft) < Math.abs(imgs[best].offsetLeft - s.scrollLeft)) best = k; });
     return best;
   };
+  const syncHeight = () => {
+    const img = photos()[current()];
+    if (img && img.offsetHeight) panel.style.setProperty('--ph', `${img.offsetHeight}px`);
+  };
   const updateCount = () => { panel.querySelector('.pd-count').textContent = `${pad(current() + 1)} / ${pad(photos().length)}`; };
   const goPhoto = step => {
+    strip().classList.remove('settling');
     const imgs = photos(), j = Math.max(0, Math.min(imgs.length - 1, current() + step));
     strip().scrollTo({ left: imgs[j].offsetLeft, behavior: 'smooth' });
   };
@@ -251,6 +217,9 @@ if (grid && window.PROJECTS) {
     const p = PROJECTS[i];
     cards.forEach(c => c.classList.toggle('active', c === card));
     openIndex = i;
+    // size the first photo from the thumbnail straight away, so it lays out whole before it loads
+    const th = card.querySelector('.pj-media img');
+    const firstSize = th && th.naturalWidth ? ` width="${th.naturalWidth}" height="${th.naturalHeight}"` : '';
     panel.innerHTML = `
       <div class="pd-info">
         <button class="pd-close" aria-label="Close project" style="--d:4"><i class="fa-solid fa-xmark"></i></button>
@@ -268,16 +237,32 @@ if (grid && window.PROJECTS) {
         </div>` : ''}
       </div>
       <div class="pd-strip" tabindex="0" aria-label="Photos of ${esc(p.title)}">
-        ${p.images.map((src, k) => `<img src="${esc(src)}" alt="${esc(p.title)} — photo ${k + 1}" data-i="${k}" style="--d:${Math.min(k, 5)}">`).join('')}
+        ${p.images.map((src, k) => `<img src="${esc(src)}" alt="${esc(p.title)} — photo ${k + 1}" data-i="${k}"${k === 0 ? firstSize : ''} style="--d:${Math.min(k, 5)}">`).join('')}
       </div>`;
     place();
     if (p.images.length > 1) strip().addEventListener('scroll', updateCount, { passive: true });
+    // While photos are still loading (and have no width yet), hold the strip at the first photo,
+    // otherwise the browser can snap to the second photo and push the first one off to the side.
+    const s = strip(), imgs = photos();
+    s.classList.add('settling');
+    const unsettle = () => s.classList.remove('settling');
+    const settle = () => {
+      if (!s.classList.contains('settling')) return;
+      s.scrollLeft = 0;
+      if (imgs.every(img => img.complete)) unsettle();
+    };
+    imgs.forEach(img => { if (!img.complete) { img.addEventListener('load', settle); img.addEventListener('error', settle); } });
+    panel.style.removeProperty('--ph');
+    imgs.forEach(img => img.addEventListener('load', syncHeight));
+    s.addEventListener('scroll', syncHeight, { passive: true });
+    ['pointerdown', 'wheel', 'touchstart', 'keydown'].forEach(ev => s.addEventListener(ev, unsettle, { passive: true, once: true }));
+    settle();
+    syncHeight();
     setURL(`${location.pathname}#p=${p.id}`);
     if (scroll) {
       fly(card);
       requestAnimationFrame(() => panel.scrollIntoView({ behavior: reduceMotion.matches ? 'auto' : 'smooth', block: 'start' }));
     }
-    cursorLabel();
   };
   // Closing folds the panel shut (a copy collapses while the real one is removed straight away)
   const collapse = () => {
@@ -302,7 +287,6 @@ if (grid && window.PROJECTS) {
     cards.forEach(c => c.classList.remove('active'));
     openIndex = null;
     if (!keepHash) { setHash(); card.focus({ preventScroll: true }); }
-    cursorLabel();
   };
 
   grid.addEventListener('click', e => {
@@ -318,6 +302,22 @@ if (grid && window.PROJECTS) {
     const img = e.target.closest('.pd-strip img');
     if (img) lbOpen(PROJECTS[openIndex].images, PROJECTS[openIndex].title, +img.dataset.i);
   });
+  // Mouse wheel over the photos moves between photos (one per scroll); over the text it scrolls the page.
+  // At the first / last photo the wheel goes back to scrolling the page.
+  let wheelLock = 0;
+  panel.addEventListener('wheel', e => {
+    if (!e.target.closest('.pd-strip') || e.ctrlKey) return;
+    if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return; // sideways trackpad swipe: leave it to the browser
+    const dir = Math.sign(e.deltaY);
+    if (!dir) return;
+    const now = performance.now();
+    if (now < wheelLock) { e.preventDefault(); return; } // let the previous step finish
+    const i = current(), last = photos().length - 1;
+    if ((dir < 0 && i === 0) || (dir > 0 && i === last)) return;
+    e.preventDefault();
+    wheelLock = now + 550;
+    goPhoto(dir);
+  }, { passive: false });
   panel.addEventListener('keydown', e => {
     if (!e.target.closest('.pd-strip')) return;
     if (e.key === 'ArrowRight') { e.preventDefault(); goPhoto(1); }
@@ -333,7 +333,7 @@ if (grid && window.PROJECTS) {
   let resizeTimer;
   window.addEventListener('resize', () => {
     clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(() => { if (openIndex !== null) place(); }, 150);
+    resizeTimer = setTimeout(() => { if (openIndex !== null) { place(); syncHeight(); } }, 150);
   });
 
   /* "Browse by" switch.

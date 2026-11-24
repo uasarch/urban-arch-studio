@@ -181,16 +181,11 @@ p + p { margin-top: 1.1rem; }
   .pj:hover h3 span { background-size: 100% 1px; }
   .pj:hover p { color: var(--ink); transform: translateX(6px); }
   .project-grid:has(.pj-media:hover) .pj:not(:hover) .pj-media img { filter: grayscale(1); opacity: .55; }
-  .has-pj-cursor .pj-media { cursor: none; }
 }
-.pj-cursor { position: fixed; left: 0; top: 0; z-index: 60; pointer-events: none; will-change: transform; }
-.pj-cursor span { position: absolute; left: -46px; top: -46px; width: 92px; height: 92px; border-radius: 50%; display: grid; place-items: center; background: var(--ink); color: var(--on-ink); font: 500 .7rem/1 var(--head); letter-spacing: .16em; text-transform: uppercase; transform: scale(0); opacity: 0; transition: transform .5s var(--ease-out), opacity .3s ease; }
-.pj-cursor.on span { transform: scale(1); opacity: 1; }
-.pj-cursor.on.down span { transform: scale(.82); }
 .pj-fly { position: fixed; z-index: 55; object-fit: cover; pointer-events: none; will-change: transform, width, height; margin: 0; }
 
 /* Opened project: details on the left, large photos scrolling sideways on the right */
-.pd { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(240px, 320px) minmax(0, 1fr); gap: 40px; padding: 36px 0; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--line); scroll-margin-top: calc(var(--nav-h) + 16px); animation: pd-in .9s var(--ease-out); }
+.pd { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(240px, 320px) minmax(0, 1fr); align-items: start; gap: 40px; padding: 36px 0; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--line); scroll-margin-top: calc(var(--nav-h) + 16px); animation: pd-in .9s var(--ease-out); }
 @keyframes pd-in { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(0 0 0 0); } }
 .pd-info > *, .pd-facts > div { animation: pd-rise .8s var(--ease-out) both; animation-delay: calc(var(--d, 0) * 60ms + 180ms); }
 @keyframes pd-rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
@@ -200,7 +195,8 @@ p + p { margin-top: 1.1rem; }
 .pd-strip img.pd-landing { opacity: 0; }
 .pd-leaving { overflow: hidden; pointer-events: none; animation: none; }
 .pd-leaving * { animation: none !important; }
-.pd-info { position: relative; display: flex; flex-direction: column; min-width: 0; }
+/* the info column is as tall as the photo being viewed: top and bottom line up with it */
+.pd-info { position: relative; display: flex; flex-direction: column; min-width: 0; min-height: var(--ph, auto); transition: min-height .5s var(--ease-out); }
 .pd-info h2 { font-size: clamp(1.6rem, 2.6vw, 2.2rem); padding-right: 52px; }
 .pd-close { position: absolute; top: 0; right: 0; width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; font-size: 1rem; transition: border-color .2s; }
 .pd-close:hover { border-color: var(--ink); }
@@ -212,14 +208,17 @@ p + p { margin-top: 1.1rem; }
 .pd-arrow { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; transition: border-color .2s, background .2s, color .2s; }
 .pd-arrow:hover { background: var(--ink); color: var(--on-ink); border-color: var(--ink); }
 .pd-count { font-family: var(--head); font-size: .8rem; letter-spacing: .14em; color: var(--ink); min-width: 5em; text-align: center; }
-.pd-strip { position: relative; display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain; scrollbar-width: thin; padding-bottom: 10px; outline: none; }
+.pd-strip { position: relative; display: flex; align-items: flex-start; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain; scrollbar-width: thin; padding-bottom: 10px; outline: none; }
+.pd-strip.settling { scroll-snap-type: none; }
 .pd-strip:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
-.pd-strip img { flex: none; height: clamp(300px, 62vh, 600px); width: auto; max-width: none; scroll-snap-align: start; cursor: zoom-in; background: var(--tint); }
+/* each photo fits whole inside the strip (never wider than it), keeping its own proportions */
+.pd-strip img { flex: none; width: auto; height: auto; max-width: 100%; max-height: clamp(300px, 62vh, 600px); scroll-snap-align: start; cursor: zoom-in; background: var(--tint); }
 @media (max-width: 760px) {
   .page-head.plain { padding-top: 40px; }
   .pd { grid-template-columns: minmax(0, 1fr); gap: 24px; padding: 24px 0 32px; }
+  .pd-info { min-height: 0; }
   .pd-strip { order: -1; }
-  .pd-strip img { height: 62vw; max-height: 420px; }
+  .pd-strip img { max-height: min(62vw, 420px); }
   .pd-nav { margin-top: 0; }
 }
 
