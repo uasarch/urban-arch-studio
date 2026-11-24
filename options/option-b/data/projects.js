@@ -484,7 +484,7 @@ window.PROJECTS = [
     "status": "Completed",
     "scope": "Design Consultancy",
     "images": [
-      "../../assets/uploads/2025/09/23-A-01_Plot-at-Visakhapatnam.jpg"
+      "../../project-photos/vishakhapatnam-project/01.jpg"
     ],
     "folder": "vishakhapatnam-project"
   },
@@ -581,12 +581,12 @@ window.PROJECTS = [
     "status": "Completed",
     "scope": "Facade Design and Landscaping",
     "images": [
-      "../../assets/uploads/2025/09/oak1.jpg",
-      "../../assets/uploads/2025/09/oak2.jpg",
-      "../../assets/uploads/2025/09/oak4.jpg",
-      "../../assets/uploads/2025/09/oak3.jpg",
-      "../../assets/uploads/2025/09/oak5.jpg",
-      "../../assets/uploads/2025/09/oak6.jpg"
+      "../../project-photos/oak-serenity/01.jpg",
+      "../../project-photos/oak-serenity/02.jpg",
+      "../../project-photos/oak-serenity/03.jpg",
+      "../../project-photos/oak-serenity/04.jpg",
+      "../../project-photos/oak-serenity/05.jpg",
+      "../../project-photos/oak-serenity/06.jpg"
     ],
     "folder": "oak-serenity"
   },
