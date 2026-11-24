@@ -1,0 +1,21 @@
+# Project details for the Urban Arch Studio website.
+# Change the text after each colon, then upload. Lines starting with # are ignored.
+#   Category: Architecture | Interior Design | Landscape
+#   Sector:   Residential | Commercial | Public & Institutional
+#   Region:   Ranchi | Mumbai | Rest of Jharkhand | Rest of India | International
+#   Status:   Completed | Ongoing | Proposed | Architecture Competition
+#   Year:     e.g. 2021, 2018 - 2021, or 2024 - Ongoing
+#   Featured: yes = show it in "Selected work" on the home page
+
+Title: Statue of Oneness
+Category: Architecture
+Sector: Public & Institutional
+Client: Government of Madhya Pradesh
+Type: Cultural Centre
+Year: 2022
+Area: 1,60,000 Sq.Ft.
+Location: Omkareshwar, Madhya Pradesh
+Region: Rest of India
+Status: Architecture Competition
+Scope: Design Consultancy
+Featured: no

@@ -1,4 +1,5 @@
-// Project list for projects.html. Edit or add entries here.
+// Project list for the Option B pages. It is built from the folders in project-photos/
+// by tools/update_project_photos.py, so change project-photos/<project>/info.txt instead of this file.
 // category: architecture | interior | landscape
 // sector:   Residential | Commercial | Public & Institutional
 // region:   Ranchi | Mumbai | Rest of Jharkhand | Rest of India | International
@@ -14,9 +15,9 @@ window.PROJECTS = [
     "year": "2017",
     "area": "4,000 Sq.Ft.",
     "location": "Virar, Maharashtra",
+    "region": "Mumbai",
     "status": "Proposed",
     "scope": "Design Consultancy",
-    "region": "Mumbai",
     "images": [
       "../../assets/uploads/2025/09/1.jpg",
       "../../assets/uploads/2025/09/2.jpg",
@@ -24,7 +25,8 @@ window.PROJECTS = [
       "../../assets/uploads/2025/09/3.jpg",
       "../../assets/uploads/2025/09/6.jpg",
       "../../assets/uploads/2025/09/5.jpg"
-    ]
+    ],
+    "folder": "villa-rodrigues"
   },
   {
     "title": "Kalyani Enclave",
@@ -33,16 +35,17 @@ window.PROJECTS = [
     "client": "Adharshila Structures Pvt. Ltd.",
     "type": "Residential Apartment",
     "year": "2018 - 2021",
-    "area": "18,100 Sq. Ft.",
+    "area": "18,100 Sq.Ft.",
     "location": "Morabadi, Ranchi",
+    "region": "Ranchi",
     "status": "Completed",
     "scope": "Design Consultancy",
-    "region": "Ranchi",
     "images": [
-      "../../assets/uploads/2025/09/2-1.jpg",
-      "../../assets/uploads/2025/09/1-1.jpg",
-      "../../assets/uploads/2025/09/3-1.jpg"
-    ]
+      "../../project-photos/kalyani-enclave/01.jpg",
+      "../../project-photos/kalyani-enclave/02.jpg",
+      "../../project-photos/kalyani-enclave/03.jpg"
+    ],
+    "folder": "kalyani-enclave"
   },
   {
     "title": "Army Officer's Living",
@@ -53,15 +56,16 @@ window.PROJECTS = [
     "year": "2018",
     "area": "Undisclosed",
     "location": "West Bengal",
+    "region": "Rest of India",
     "status": "Completed",
     "scope": "Design Consultancy",
-    "region": "Rest of India",
     "images": [
-      "../../assets/uploads/2025/09/2-2.jpg",
-      "../../assets/uploads/2025/09/1-2.jpg",
-      "../../assets/uploads/2025/09/3-2.jpg",
-      "../../assets/uploads/2025/09/4-1.jpg"
-    ]
+      "../../project-photos/army-officer-s-living/01.jpg",
+      "../../project-photos/army-officer-s-living/02.jpg",
+      "../../project-photos/army-officer-s-living/03.jpg",
+      "../../project-photos/army-officer-s-living/04.jpg"
+    ],
+    "folder": "army-officer-s-living"
   },
   {
     "title": "Ekal Foundation – Skill Development Centre",
@@ -72,18 +76,21 @@ window.PROJECTS = [
     "year": "2018 - 2021",
     "area": "13,000 Sq.Ft.",
     "location": "Jarangloi, Odisha",
+    "region": "Rest of India",
     "status": "Completed",
     "scope": "Design Consultancy",
-    "region": "Rest of India",
     "images": [
-      "../../assets/uploads/2025/09/1-3.jpg",
-      "../../assets/uploads/2025/09/2-3.jpg",
-      "../../assets/uploads/2025/09/4-2.jpg",
-      "../../assets/uploads/2025/09/3-3.jpg"
-    ]
+      "../../project-photos/ekal-foundation-skill-development-centre/01.jpg",
+      "../../project-photos/ekal-foundation-skill-development-centre/02.jpg",
+      "../../project-photos/ekal-foundation-skill-development-centre/03.jpg",
+      "../../project-photos/ekal-foundation-skill-development-centre/04.jpg",
+      "../../project-photos/ekal-foundation-skill-development-centre/05.jpg",
+      "../../project-photos/ekal-foundation-skill-development-centre/06.jpg"
+    ],
+    "folder": "ekal-foundation-skill-development-centre"
   },
   {
-    "title": "Bachuda’s Bungalow Extension",
+    "title": "Bachuda’s Outhouse",
     "category": "architecture",
     "sector": "Residential",
     "client": "Mr. J. Choudhury",
@@ -91,32 +98,34 @@ window.PROJECTS = [
     "year": "2019",
     "area": "700 Sq.Ft.",
     "location": "Tharpakna, Ranchi",
+    "region": "Ranchi",
     "status": "Completed",
     "scope": "Design Consultancy",
-    "region": "Ranchi",
     "images": [
-      "../../assets/uploads/2025/09/1-4.jpg",
-      "../../assets/uploads/2025/09/2-4.jpg"
-    ]
+      "../../project-photos/bachuda-s-bungalow-extension/01.jpg",
+      "../../project-photos/bachuda-s-bungalow-extension/02.jpg"
+    ],
+    "folder": "bachuda-s-bungalow-extension"
   },
   {
     "title": "Aashirvad",
     "category": "architecture",
     "sector": "Residential",
-    "client": "Adharshila Structures Pvt. Ltd.s",
+    "client": "Adharshila Structures Pvt. Ltd.",
     "type": "Residential Apartment",
     "year": "2019 - 2021",
-    "area": "14,700 Sq. Ft.",
+    "area": "14,700 Sq.Ft.",
     "location": "Tupudana, Ranchi",
+    "region": "Ranchi",
     "status": "Completed",
     "scope": "Design Consultancy",
-    "region": "Ranchi",
     "images": [
-      "../../assets/uploads/2025/09/2-5.jpg",
-      "../../assets/uploads/2025/09/1-5.jpg",
-      "../../assets/uploads/2025/09/3-4.jpg",
-      "../../assets/uploads/2025/09/4-3.jpg"
-    ]
+      "../../project-photos/aashirvad/01.jpg",
+      "../../project-photos/aashirvad/02.jpg",
+      "../../project-photos/aashirvad/03.jpg",
+      "../../project-photos/aashirvad/04.jpg"
+    ],
+    "folder": "aashirvad"
   },
   {
     "title": "Chandrika Nivas",
@@ -127,12 +136,13 @@ window.PROJECTS = [
     "year": "2019",
     "area": "60,000 Sq.Ft.",
     "location": "Ghatkopar West, Mumbai",
+    "region": "Mumbai",
     "status": "Proposed",
     "scope": "Design Consultancy",
-    "region": "Mumbai",
     "images": [
       "../../assets/uploads/2025/09/19-A-05_Chandrika-Nivas.jpg"
-    ]
+    ],
+    "folder": "chandrika-nivas"
   },
   {
     "title": "Mridula Nivas",
@@ -141,16 +151,17 @@ window.PROJECTS = [
     "client": "Adharshila Structures Pvt. Ltd.",
     "type": "Residential Apartment",
     "year": "2019 - 2021",
-    "area": "12,500 Sq. Ft.",
+    "area": "12,500 Sq.Ft.",
     "location": "Kathal More, Ranchi",
+    "region": "Ranchi",
     "status": "Completed",
     "scope": "Design Consultancy",
-    "region": "Ranchi",
     "images": [
-      "../../assets/uploads/2025/09/1-6.jpg",
-      "../../assets/uploads/2025/09/2-6.jpg",
-      "../../assets/uploads/2025/09/3-5.jpg"
-    ]
+      "../../project-photos/mridula-nivas/01.jpg",
+      "../../project-photos/mridula-nivas/02.jpg",
+      "../../project-photos/mridula-nivas/03.jpg"
+    ],
+    "folder": "mridula-nivas"
   },
   {
     "title": "Bungalow Extension",
@@ -161,15 +172,16 @@ window.PROJECTS = [
     "year": "2020",
     "area": "4,150 Sq.Ft.",
     "location": "Birsa Nagar, Ranchi",
+    "region": "Ranchi",
     "status": "Completed",
     "scope": "Design Consultancy",
-    "region": "Ranchi",
     "images": [
       "../../assets/uploads/2025/09/1-7.jpg",
       "../../assets/uploads/2025/09/2-7.jpg",
       "../../assets/uploads/2025/09/3-6.jpg",
       "../../assets/uploads/2025/09/4-4.jpg"
-    ]
+    ],
+    "folder": "bungalow-extension"
   },
   {
     "title": "Casa Coimbatore",
@@ -180,12 +192,13 @@ window.PROJECTS = [
     "year": "2020",
     "area": "11,600 Sq.Ft.",
     "location": "Coimbatore, Tamil Nadu",
+    "region": "Rest of India",
     "status": "Proposed",
     "scope": "Design Consultancy",
-    "region": "Rest of India",
     "images": [
       "../../assets/uploads/2025/09/20-A-06_Mr.-Amir-Khuzema.jpg"
-    ]
+    ],
+    "folder": "casa-coimbatore"
   },
   {
     "title": "Basargarh Apartment",
@@ -194,15 +207,16 @@ window.PROJECTS = [
     "client": "Adharshila Structures Pvt. Ltd.",
     "type": "Residential Apartment",
     "year": "2021",
-    "area": "23,500 Sq. Ft.",
+    "area": "23,500 Sq.Ft.",
     "location": "Basargarh, Ranchi",
-    "status": "Ongoing",
-    "scope": "Design Consultancy",
     "region": "Ranchi",
+    "status": "Proposed",
+    "scope": "Design Consultancy",
     "images": [
       "../../assets/uploads/2025/09/2-8.jpg",
       "../../assets/uploads/2025/09/1-8.jpg"
-    ]
+    ],
+    "folder": "basargarh-apartment"
   },
   {
     "title": "Statue of Oneness",
@@ -213,9 +227,9 @@ window.PROJECTS = [
     "year": "2022",
     "area": "1,60,000 Sq.Ft.",
     "location": "Omkareshwar, Madhya Pradesh",
+    "region": "Rest of India",
     "status": "Architecture Competition",
     "scope": "Design Consultancy",
-    "region": "Rest of India",
     "images": [
       "../../assets/uploads/2025/09/2-9.jpg",
       "../../assets/uploads/2025/09/1-9.jpg",
@@ -233,7 +247,8 @@ window.PROJECTS = [
       "../../assets/uploads/2025/09/13.jpg",
       "../../assets/uploads/2025/09/15.jpg",
       "../../assets/uploads/2025/09/16.jpg"
-    ]
+    ],
+    "folder": "statue-of-oneness"
   },
   {
     "title": "Reve_Your Serene Abode",
@@ -244,9 +259,9 @@ window.PROJECTS = [
     "year": "2021 - 2025",
     "area": "12,500 Sq.Ft.",
     "location": "Jambrung, Karjat, Maharashtra",
+    "region": "Rest of India",
     "status": "Completed",
     "scope": "Design Consultancy",
-    "region": "Rest of India",
     "images": [
       "../../assets/uploads/2025/09/1-10.jpg",
       "../../assets/uploads/2025/09/2-10.jpg",
@@ -276,7 +291,8 @@ window.PROJECTS = [
       "../../assets/uploads/2025/09/25.jpg",
       "../../assets/uploads/2025/09/28.jpg",
       "../../assets/uploads/2025/09/27.jpg"
-    ]
+    ],
+    "folder": "reve-your-serene-abode"
   },
   {
     "title": "Amit Das's Farmhouse",
@@ -285,15 +301,16 @@ window.PROJECTS = [
     "client": "Mr. Amit Das",
     "type": "Farmhouse",
     "year": "2021",
-    "area": "1,950 Sq. Ft",
+    "area": "1,950 Sq.Ft.",
     "location": "Amliya Kalyanpur, Jharkhand",
+    "region": "Rest of India",
     "status": "Proposed",
     "scope": "Design Consultancy",
-    "region": "Rest of Jharkhand",
     "images": [
-      "../../assets/uploads/2025/09/1-11.jpg",
-      "../../assets/uploads/2025/09/2-11.jpg"
-    ]
+      "../../project-photos/amit-das-s-farmhouse/01.jpg",
+      "../../project-photos/amit-das-s-farmhouse/02.jpg"
+    ],
+    "folder": "amit-das-s-farmhouse"
   },
   {
     "title": "Bangalore IIM Plot",
@@ -304,32 +321,34 @@ window.PROJECTS = [
     "year": "2021",
     "area": "38,185.90 Sq.Ft.",
     "location": "Pandurang Nagar, Bangalore",
+    "region": "Rest of India",
     "status": "Proposed",
     "scope": "Design Consultancy",
-    "region": "Rest of India",
     "images": [
-      "../../assets/uploads/2025/09/21-A-14_Plot-at-Bangalore.jpg"
-    ]
+      "../../project-photos/bangalore-iim-plot/01.jpg"
+    ],
+    "folder": "bangalore-iim-plot"
   },
   {
     "title": "Rameshwaram Village",
     "category": "architecture",
-    "sector": "Public & Institutional",
+    "sector": "Residential",
     "client": "Rameshwaram Industries",
-    "type": "Community Center",
-    "year": "2023",
-    "area": "19,482.25 Sq.Ft.",
+    "type": "Plotted Development",
+    "year": "2021-2026",
+    "area": "97,260.63 Sq.Mt. (24.03 Acres)",
     "location": "Rameshwaram Village, Dumardaga, Khunti",
+    "region": "Rest of Jharkhand",
     "status": "Completed",
     "scope": "Design Consultancy",
-    "region": "Rest of Jharkhand",
     "images": [
-      "../../assets/uploads/2025/09/1-12.jpg",
-      "../../assets/uploads/2025/09/2-12.jpg",
-      "../../assets/uploads/2025/09/4-7.jpg",
-      "../../assets/uploads/2025/09/3-9.jpg",
-      "../../assets/uploads/2025/09/5-3.jpg"
-    ]
+      "../../project-photos/rameshwaram-village/01.jpg",
+      "../../project-photos/rameshwaram-village/02.jpg",
+      "../../project-photos/rameshwaram-village/03.jpg",
+      "../../project-photos/rameshwaram-village/04.jpg",
+      "../../project-photos/rameshwaram-village/05.jpg"
+    ],
+    "folder": "rameshwaram-village"
   },
   {
     "title": "RV - Community Center",
@@ -337,18 +356,19 @@ window.PROJECTS = [
     "sector": "Public & Institutional",
     "client": "Rameshwaram Industries",
     "type": "Community Center",
-    "year": "2023",
-    "area": "Sq.Ft.",
+    "year": "2023 - 2026",
+    "area": "19,482.25 Sq.Ft.",
     "location": "Rameshwaram Village, Dumardaga, Khunti",
+    "region": "Rest of Jharkhand",
     "status": "Completed",
     "scope": "Design Consultancy",
-    "region": "Rest of Jharkhand",
     "images": [
       "../../assets/uploads/2025/09/1-14.jpg",
       "../../assets/uploads/2025/09/2-13.jpg",
       "../../assets/uploads/2025/09/3-10.jpg",
       "../../assets/uploads/2025/09/4-8.jpg"
-    ]
+    ],
+    "folder": "rv-community-center"
   },
   {
     "title": "RV Temple",
@@ -359,15 +379,16 @@ window.PROJECTS = [
     "year": "2023",
     "area": "1640 Sq.Ft.",
     "location": "Rameshwaram Village, Dumardaga, Khunti",
+    "region": "Rest of Jharkhand",
     "status": "Completed",
     "scope": "Design Consultancy",
-    "region": "Rest of Jharkhand",
     "images": [
-      "../../assets/uploads/2025/09/2-14.jpg",
-      "../../assets/uploads/2025/09/1-15.jpg",
-      "../../assets/uploads/2025/09/3-11.jpg",
-      "../../assets/uploads/2025/09/4-9.jpg"
-    ]
+      "../../project-photos/rv-temple/01.jpg",
+      "../../project-photos/rv-temple/02.jpg",
+      "../../project-photos/rv-temple/03.jpg",
+      "../../project-photos/rv-temple/04.jpg"
+    ],
+    "folder": "rv-temple"
   },
   {
     "title": "Hitesh",
@@ -378,13 +399,14 @@ window.PROJECTS = [
     "year": "2024 - Ongoing",
     "area": "10,000 Sq.Ft.",
     "location": "Awadesh Nagar, Ranchi",
+    "region": "Ranchi",
     "status": "Ongoing",
     "scope": "Design Consultancy",
-    "region": "Ranchi",
     "images": [
-      "../../assets/uploads/2025/09/1-16.jpg",
-      "../../assets/uploads/2025/09/2-15.jpg"
-    ]
+      "../../project-photos/hitesh/01.jpg",
+      "../../project-photos/hitesh/02.jpg"
+    ],
+    "folder": "hitesh"
   },
   {
     "title": "Sports Complex",
@@ -395,16 +417,17 @@ window.PROJECTS = [
     "year": "2022",
     "area": "46,643 Sq. Ft.",
     "location": "First Al Khail St - Jumeirah Heights, Dubai",
+    "region": "International",
     "status": "Completed",
     "scope": "Design Consultancy",
-    "region": "International",
     "images": [
       "../../assets/uploads/2025/09/1-17.jpg",
       "../../assets/uploads/2025/09/2-16.jpg",
       "../../assets/uploads/2025/09/3-12.jpg",
       "../../assets/uploads/2025/09/4-10.jpg",
       "../../assets/uploads/2025/09/5-4.jpg"
-    ]
+    ],
+    "folder": "sports-complex"
   },
   {
     "title": "Shree Radhe",
@@ -415,19 +438,20 @@ window.PROJECTS = [
     "year": "2024 - Ongoing",
     "area": "38,580 Sq.Ft.",
     "location": "Dungari, Tupudana, Ranchi",
+    "region": "Ranchi",
     "status": "Ongoing",
     "scope": "Design Consultancy",
-    "region": "Ranchi",
     "images": [
-      "../../assets/uploads/2025/09/2-17.jpg",
-      "../../assets/uploads/2025/09/1-18.jpg",
-      "../../assets/uploads/2025/09/3-13.jpg",
-      "../../assets/uploads/2025/09/4-11.jpg",
-      "../../assets/uploads/2025/09/5-5.jpg",
-      "../../assets/uploads/2025/09/6-3.jpg",
-      "../../assets/uploads/2025/09/7-2.jpg",
-      "../../assets/uploads/2025/09/8-2.jpg"
-    ]
+      "../../project-photos/shree-radhe/01.jpg",
+      "../../project-photos/shree-radhe/02.jpg",
+      "../../project-photos/shree-radhe/03.jpg",
+      "../../project-photos/shree-radhe/04.jpg",
+      "../../project-photos/shree-radhe/05.jpg",
+      "../../project-photos/shree-radhe/06.jpg",
+      "../../project-photos/shree-radhe/07.jpg",
+      "../../project-photos/shree-radhe/08.jpg"
+    ],
+    "folder": "shree-radhe"
   },
   {
     "title": "Narendra Enclave",
@@ -438,12 +462,13 @@ window.PROJECTS = [
     "year": "2024 - Ongoing",
     "area": "36,700 Sq.Ft.",
     "location": "Dungari, Tupudana, Ranchi",
+    "region": "Ranchi",
     "status": "Ongoing",
     "scope": "Design Consultancy",
-    "region": "Ranchi",
     "images": [
-      "../../assets/uploads/2025/09/22-A-10_Narendra-Enclave.jpg"
-    ]
+      "../../project-photos/narendra-enclave/03.jpg"
+    ],
+    "folder": "narendra-enclave"
   },
   {
     "title": "Vishakhapatnam Project",
@@ -454,12 +479,13 @@ window.PROJECTS = [
     "year": "2023",
     "area": "8306.60 Sq.Ft.",
     "location": "Allipuram, Vishakhapatnam",
+    "region": "Rest of India",
     "status": "Completed",
     "scope": "Design Consultancy",
-    "region": "Rest of India",
     "images": [
       "../../assets/uploads/2025/09/23-A-01_Plot-at-Visakhapatnam.jpg"
-    ]
+    ],
+    "folder": "vishakhapatnam-project"
   },
   {
     "title": "Rameshwaram Gardens",
@@ -470,14 +496,15 @@ window.PROJECTS = [
     "year": "2023 - Ongoing",
     "area": "10,615.28 Sq.Mt. (5.25 Acres)",
     "location": "Khunti",
+    "region": "Rest of Jharkhand",
     "status": "Ongoing",
     "scope": "Design Consultancy",
-    "region": "Rest of Jharkhand",
     "images": [
-      "../../assets/uploads/2025/09/2-18.jpg",
-      "../../assets/uploads/2025/09/1-19.jpg",
-      "../../assets/uploads/2025/09/3-14.jpg"
-    ]
+      "../../project-photos/rameshwaram-gardens/01.jpg",
+      "../../project-photos/rameshwaram-gardens/02.jpg",
+      "../../project-photos/rameshwaram-gardens/04.jpg"
+    ],
+    "folder": "rameshwaram-gardens"
   },
   {
     "title": "Srinivas",
@@ -488,12 +515,14 @@ window.PROJECTS = [
     "year": "2024 - Ongoing",
     "area": "25,607 Sq.Ft.",
     "location": "Tupudana, Ranchi",
+    "region": "Ranchi",
     "status": "Ongoing",
     "scope": "Design Consultancy",
-    "region": "Ranchi",
     "images": [
-      "../../assets/uploads/2025/09/23-A-06_Shree-Nivas-Apartment.jpg"
-    ]
+      "../../project-photos/srinivas/01.jpg",
+      "../../project-photos/srinivas/02.jpg"
+    ],
+    "folder": "srinivas"
   },
   {
     "title": "RG Bungalow",
@@ -504,20 +533,21 @@ window.PROJECTS = [
     "year": "2023 - Ongoing",
     "area": "10,615.28 Sq.Mt. (5.25 Acres)",
     "location": "Khunti",
+    "region": "Rest of Jharkhand",
     "status": "Ongoing",
     "scope": "Design Consultancy",
-    "region": "Rest of Jharkhand",
     "images": [
-      "../../assets/uploads/2025/09/2-19.jpg",
-      "../../assets/uploads/2025/09/1-20.jpg",
-      "../../assets/uploads/2025/09/3-15.jpg",
-      "../../assets/uploads/2025/09/4-12.jpg",
-      "../../assets/uploads/2025/09/5-6.jpg",
-      "../../assets/uploads/2025/09/6-4.jpg",
-      "../../assets/uploads/2025/09/8-3.jpg",
-      "../../assets/uploads/2025/09/7-3.jpg",
-      "../../assets/uploads/2025/09/9-2.jpg"
-    ]
+      "../../project-photos/rg-bungalow/01.jpg",
+      "../../project-photos/rg-bungalow/02.jpg",
+      "../../project-photos/rg-bungalow/03.jpg",
+      "../../project-photos/rg-bungalow/04.jpg",
+      "../../project-photos/rg-bungalow/05.jpg",
+      "../../project-photos/rg-bungalow/06.jpg",
+      "../../project-photos/rg-bungalow/07.jpg",
+      "../../project-photos/rg-bungalow/08.jpg",
+      "../../project-photos/rg-bungalow/09.jpg"
+    ],
+    "folder": "rg-bungalow"
   },
   {
     "title": "Keshav Kunj",
@@ -526,15 +556,16 @@ window.PROJECTS = [
     "client": "Rameshwaram Industries",
     "type": "Residential Apartment",
     "year": "2024 - Ongoing",
-    "area": "24,000Sq.Ft.",
+    "area": "24,000 Sq.Ft.",
     "location": "Vaisnavi Vihar, Ranchi",
+    "region": "Ranchi",
     "status": "Ongoing",
     "scope": "Design Consultancy",
-    "region": "Ranchi",
     "images": [
-      "../../assets/uploads/2025/09/2-21.jpg",
-      "../../assets/uploads/2025/09/1-22.jpg"
-    ]
+      "../../project-photos/keshav-kunj/01.jpg",
+      "../../project-photos/keshav-kunj/02.jpg"
+    ],
+    "folder": "keshav-kunj"
   },
   {
     "title": "Oak Serenity",
@@ -545,9 +576,9 @@ window.PROJECTS = [
     "year": "2024",
     "area": "49,345 Sq.Ft.",
     "location": "Chutia, Ranchi",
+    "region": "Ranchi",
     "status": "Completed",
     "scope": "Facade Design and Landscaping",
-    "region": "Ranchi",
     "images": [
       "../../assets/uploads/2025/09/oak1.jpg",
       "../../assets/uploads/2025/09/oak2.jpg",
@@ -555,7 +586,8 @@ window.PROJECTS = [
       "../../assets/uploads/2025/09/oak3.jpg",
       "../../assets/uploads/2025/09/oak5.jpg",
       "../../assets/uploads/2025/09/oak6.jpg"
-    ]
+    ],
+    "folder": "oak-serenity"
   },
   {
     "title": "Induneil",
@@ -566,14 +598,15 @@ window.PROJECTS = [
     "year": "2025 - Ongoing",
     "area": "17,000 Sq. Ft.",
     "location": "Kathal More, Ranchi",
+    "region": "Ranchi",
     "status": "Ongoing",
     "scope": "Design Consultancy",
-    "region": "Ranchi",
     "images": [
-      "../../assets/uploads/2025/09/indu1.jpg",
-      "../../assets/uploads/2025/09/indu2.jpg",
-      "../../assets/uploads/2025/09/indu3.jpg"
-    ]
+      "../../project-photos/induneil/01.jpg",
+      "../../project-photos/induneil/02.jpg",
+      "../../project-photos/induneil/03.jpg"
+    ],
+    "folder": "induneil"
   },
   {
     "title": "Sinheshwar Niwas",
@@ -584,12 +617,13 @@ window.PROJECTS = [
     "year": "2025 - Ongoing",
     "area": "19,300 Sq.Ft.",
     "location": "Hinoo, Ranchi",
+    "region": "Ranchi",
     "status": "Ongoing",
     "scope": "Design Consultancy",
-    "region": "Ranchi",
     "images": [
-      "../../assets/uploads/2025/09/24-A-01_Sinheshwar-Niwas.jpg"
-    ]
+      "../../project-photos/sinheshwar-niwas/01.jpg"
+    ],
+    "folder": "sinheshwar-niwas"
   },
   {
     "title": "Devkinandan",
@@ -600,29 +634,14 @@ window.PROJECTS = [
     "year": "2024 - Ongoing",
     "area": "26,400 Sq.Ft.",
     "location": "Morabadi, Ranchi",
+    "region": "Ranchi",
     "status": "Ongoing",
     "scope": "Design Consultancy",
-    "region": "Ranchi",
     "images": [
-      "../../assets/uploads/2025/09/dev2.jpg",
-      "../../assets/uploads/2025/09/dev1.jpg"
-    ]
-  },
-  {
-    "title": "Trivani Garden",
-    "category": "architecture",
-    "sector": "Residential",
-    "client": "Rameshwaram Industries",
-    "type": "Residential Apartment",
-    "year": "2025 - Ongoing",
-    "area": "76,147.40 Sq.Ft.",
-    "location": "Ranchi",
-    "status": "Ongoing",
-    "scope": "Design Consultancy",
-    "region": "Ranchi",
-    "images": [
-      "../../assets/uploads/2025/09/24-A-12_Triveni-Garden.jpg"
-    ]
+      "../../project-photos/devkinandan/01.jpg",
+      "../../project-photos/devkinandan/02.jpg"
+    ],
+    "folder": "devkinandan"
   },
   {
     "title": "Bhagat Bhavan",
@@ -633,12 +652,14 @@ window.PROJECTS = [
     "year": "2025 - Ongoing",
     "area": "10,830 Sq.Ft.",
     "location": "North Office Para, Ranchi",
+    "region": "Ranchi",
     "status": "Ongoing",
     "scope": "Design Consultancy",
-    "region": "Ranchi",
     "images": [
-      "../../assets/uploads/2025/09/25-A-03_Bhagat-Bhawan.jpg"
-    ]
+      "../../project-photos/bhagat-bhavan/01.jpg",
+      "../../project-photos/bhagat-bhavan/02.jpg"
+    ],
+    "folder": "bhagat-bhavan"
   },
   {
     "title": "SDM House",
@@ -649,14 +670,15 @@ window.PROJECTS = [
     "year": "2025",
     "area": "4,600 Sq.Ft.",
     "location": "Salvador Do Mundo, Goa",
+    "region": "Rest of India",
     "status": "Ongoing",
     "scope": "Design Consultancy",
-    "region": "Rest of India",
     "images": [
       "../../assets/uploads/2025/09/sdm2.jpg",
       "../../assets/uploads/2025/09/sdm1.jpg",
       "../../assets/uploads/2025/09/sdm3.jpg"
-    ]
+    ],
+    "folder": "sdm-house"
   },
   {
     "title": "Uma Enclave",
@@ -667,12 +689,13 @@ window.PROJECTS = [
     "year": "2025 - Ongoing",
     "area": "10,830 Sq.Ft.",
     "location": "North Office Para, Ranchi",
+    "region": "Ranchi",
     "status": "Ongoing",
     "scope": "Design Consultancy",
-    "region": "Ranchi",
     "images": [
-      "../../assets/uploads/2025/09/25-A-07_Uma-Enclave.jpg"
-    ]
+      "../../project-photos/uma-enclave/01.jpg"
+    ],
+    "folder": "uma-enclave"
   },
   {
     "title": "Pharmacy, Dashmesh",
@@ -683,14 +706,15 @@ window.PROJECTS = [
     "year": "2021",
     "area": "1200 Sq.Ft.",
     "location": "North Office Para, Ranchi",
+    "region": "Ranchi",
     "status": "Completed",
     "scope": "Design Consultancy",
-    "region": "Ranchi",
     "images": [
       "../../assets/uploads/2025/09/2-25.jpg",
       "../../assets/uploads/2025/09/1-28.jpg",
       "../../assets/uploads/2025/09/3-18.jpg"
-    ]
+    ],
+    "folder": "pharmacy-dashmesh"
   },
   {
     "title": "Mr. Achal Bangani",
@@ -701,9 +725,9 @@ window.PROJECTS = [
     "year": "2021",
     "area": "725 Sq.Ft.",
     "location": "Goregoan West, Mumbai",
+    "region": "Mumbai",
     "status": "Completed",
     "scope": "Design Consultancy",
-    "region": "Mumbai",
     "images": [
       "../../assets/uploads/2025/09/a1.jpg",
       "../../assets/uploads/2025/09/a2.jpg",
@@ -723,7 +747,8 @@ window.PROJECTS = [
       "../../assets/uploads/2025/09/a15.jpg",
       "../../assets/uploads/2025/09/a17.jpg",
       "../../assets/uploads/2025/09/a18.jpg"
-    ]
+    ],
+    "folder": "mr-achal-bangani"
   },
   {
     "title": "Mr. Kushal Shah",
@@ -734,9 +759,9 @@ window.PROJECTS = [
     "year": "2022",
     "area": "1,010 Sq.Ft.",
     "location": "Kemps Corner, Mumbai",
+    "region": "Mumbai",
     "status": "Completed",
     "scope": "Design and Build",
-    "region": "Mumbai",
     "images": [
       "../../assets/uploads/2025/09/2-26.jpg",
       "../../assets/uploads/2025/09/1-29.jpg",
@@ -745,7 +770,8 @@ window.PROJECTS = [
       "../../assets/uploads/2025/09/5-9.jpg",
       "../../assets/uploads/2025/09/6-7.jpg",
       "../../assets/uploads/2025/09/7-4.jpg"
-    ]
+    ],
+    "folder": "mr-kushal-shah"
   },
   {
     "title": "Dr. Yogesh Mehta",
@@ -756,15 +782,16 @@ window.PROJECTS = [
     "year": "2022",
     "area": "450 Sq.Ft.",
     "location": "Thane West, Mumbai",
+    "region": "Mumbai",
     "status": "Ongoing",
     "scope": "Design and Build",
-    "region": "Mumbai",
     "images": [
       "../../assets/uploads/2025/09/1-30.jpg",
       "../../assets/uploads/2025/09/2-27.jpg",
       "../../assets/uploads/2025/09/4-16.jpg",
       "../../assets/uploads/2025/09/3-20.jpg"
-    ]
+    ],
+    "folder": "dr-yogesh-mehta"
   },
   {
     "title": "GGFMC Physiotherapy Center",
@@ -775,9 +802,9 @@ window.PROJECTS = [
     "year": "2022",
     "area": "1350 Sq.Ft.",
     "location": "Andheri East, Mumbai",
+    "region": "Mumbai",
     "status": "Completed",
     "scope": "Design & Build",
-    "region": "Mumbai",
     "images": [
       "../../assets/uploads/2025/09/2-28.jpg",
       "../../assets/uploads/2025/09/1-31.jpg",
@@ -786,7 +813,8 @@ window.PROJECTS = [
       "../../assets/uploads/2025/09/5-10.jpg",
       "../../assets/uploads/2025/09/6-8.jpg",
       "../../assets/uploads/2025/09/7-5.jpg"
-    ]
+    ],
+    "folder": "ggfmc-physiotherapy-center"
   },
   {
     "title": "Amit, Goregoan West",
@@ -797,9 +825,9 @@ window.PROJECTS = [
     "year": "2022",
     "area": "1,725 Sq.Ft.",
     "location": "Goregaon West, Mumbai",
+    "region": "Mumbai",
     "status": "Completed",
     "scope": "Design Consultancy",
-    "region": "Mumbai",
     "images": [
       "../../assets/uploads/2025/09/2-29.jpg",
       "../../assets/uploads/2025/09/1-32.jpg",
@@ -812,7 +840,8 @@ window.PROJECTS = [
       "../../assets/uploads/2025/09/10-2.jpg",
       "../../assets/uploads/2025/09/9-3.jpg",
       "../../assets/uploads/2025/09/11-2.jpg"
-    ]
+    ],
+    "folder": "amit-goregoan-west"
   },
   {
     "title": "Darpan Parekh",
@@ -823,9 +852,9 @@ window.PROJECTS = [
     "year": "2024",
     "area": "1800 Sq.Ft.",
     "location": "Harrow, London",
+    "region": "International",
     "status": "Completed",
     "scope": "Design Consultancy",
-    "region": "International",
     "images": [
       "../../assets/uploads/2025/09/2-30.jpg",
       "../../assets/uploads/2025/09/1-33.jpg",
@@ -833,7 +862,8 @@ window.PROJECTS = [
       "../../assets/uploads/2025/09/4-19.jpg",
       "../../assets/uploads/2025/09/5-12.jpg",
       "../../assets/uploads/2025/09/6-10.jpg"
-    ]
+    ],
+    "folder": "darpan-parekh"
   },
   {
     "title": "Autee Residence",
@@ -844,9 +874,9 @@ window.PROJECTS = [
     "year": "2023",
     "area": "715 Sq.Ft.",
     "location": "Malad East, Mumbai",
+    "region": "Mumbai",
     "status": "Completed",
     "scope": "Design & Build",
-    "region": "Mumbai",
     "images": [
       "../../assets/uploads/2025/09/2-31.jpg",
       "../../assets/uploads/2025/09/1-34.jpg",
@@ -854,7 +884,8 @@ window.PROJECTS = [
       "../../assets/uploads/2025/09/4-20.jpg",
       "../../assets/uploads/2025/09/5-13.jpg",
       "../../assets/uploads/2025/09/6-11.jpg"
-    ]
+    ],
+    "folder": "autee-residence"
   },
   {
     "title": "Mr. Sanjay Agarwal",
@@ -865,9 +896,9 @@ window.PROJECTS = [
     "year": "2023",
     "area": "1425 Sq.Ft.",
     "location": "Mulund West, Mumbai",
+    "region": "Mumbai",
     "status": "Completed",
     "scope": "Design & Build",
-    "region": "Mumbai",
     "images": [
       "../../assets/uploads/2025/09/2-32.jpg",
       "../../assets/uploads/2025/09/1-35.jpg",
@@ -892,7 +923,8 @@ window.PROJECTS = [
       "../../assets/uploads/2025/09/20-1.jpg",
       "../../assets/uploads/2025/09/22-1.jpg",
       "../../assets/uploads/2025/09/23-1.jpg"
-    ]
+    ],
+    "folder": "mr-sanjay-agarwal"
   },
   {
     "title": "Kshitij Raj, Lalpur, Ranchi",
@@ -903,16 +935,17 @@ window.PROJECTS = [
     "year": "2024",
     "area": "700 Sq.Ft.",
     "location": "Lalpur, Ranchi",
+    "region": "Ranchi",
     "status": "Completed",
     "scope": "Design and Build",
-    "region": "Ranchi",
     "images": [
       "../../assets/uploads/2025/09/2-33.jpg",
       "../../assets/uploads/2025/09/1-36.jpg",
       "../../assets/uploads/2025/09/4-22.jpg",
       "../../assets/uploads/2025/09/3-26.jpg",
       "../../assets/uploads/2025/09/5-15.jpg"
-    ]
+    ],
+    "folder": "kshitij-raj-lalpur-ranchi"
   },
   {
     "title": "Homoeopathic Clinic",
@@ -923,15 +956,16 @@ window.PROJECTS = [
     "year": "2024",
     "area": "400 Sq.Ft.",
     "location": "Mulund West, Mumbai",
+    "region": "Mumbai",
     "status": "Completed",
     "scope": "Design & Build",
-    "region": "Mumbai",
     "images": [
       "../../assets/uploads/2025/09/1-37.jpg",
       "../../assets/uploads/2025/09/2-34.jpg",
       "../../assets/uploads/2025/09/4-23.jpg",
       "../../assets/uploads/2025/09/3-27.jpg"
-    ]
+    ],
+    "folder": "homoeopathic-clinic"
   },
   {
     "title": "Mr. Kiran Shah",
@@ -942,12 +976,13 @@ window.PROJECTS = [
     "year": "2024",
     "area": "650 Sq.Ft.",
     "location": "Borivali East, Mumbai",
+    "region": "Mumbai",
     "status": "Completed",
     "scope": "Design Consultancy",
-    "region": "Mumbai",
     "images": [
       "../../assets/uploads/2025/09/24-I-09_Mr.-Kiran-Shah.jpg"
-    ]
+    ],
+    "folder": "mr-kiran-shah"
   },
   {
     "title": "Shashank Kumar",
@@ -958,13 +993,14 @@ window.PROJECTS = [
     "year": "2024",
     "area": "1800 Sq.Ft.",
     "location": "Harmu, Ranchi",
+    "region": "Ranchi",
     "status": "Completed",
     "scope": "Design and Build",
-    "region": "Ranchi",
     "images": [
       "../../assets/uploads/2025/09/1-38.jpg",
       "../../assets/uploads/2025/09/2-35.jpg"
-    ]
+    ],
+    "folder": "shashank-kumar"
   },
   {
     "title": "Mahesh Shukla, Dahisar West",
@@ -975,14 +1011,15 @@ window.PROJECTS = [
     "year": "2025",
     "area": "715 Sq.Ft.",
     "location": "Dahisar West, Mumbai",
+    "region": "Mumbai",
     "status": "Completed",
     "scope": "Design & Build",
-    "region": "Mumbai",
     "images": [
       "../../assets/uploads/2025/09/2-36.jpg",
       "../../assets/uploads/2025/09/1-39.jpg",
       "../../assets/uploads/2025/09/3-28.jpg"
-    ]
+    ],
+    "folder": "mahesh-shukla-dahisar-west"
   },
   {
     "title": "MP's Office",
@@ -993,9 +1030,9 @@ window.PROJECTS = [
     "year": "2019",
     "area": "2,200 Sq.Ft.",
     "location": "Ashok Nagar, Ranchi",
+    "region": "Ranchi",
     "status": "Completed",
     "scope": "Design Consultancy",
-    "region": "Ranchi",
     "images": [
       "../../assets/uploads/2026/06/01.png",
       "../../assets/uploads/2026/06/02.png",
@@ -1004,7 +1041,8 @@ window.PROJECTS = [
       "../../assets/uploads/2026/06/05.png",
       "../../assets/uploads/2026/06/06.png",
       "../../assets/uploads/2026/06/07-scaled.jpg"
-    ]
+    ],
+    "folder": "mp-s-office"
   },
   {
     "title": "Mrs. Amrita Khakhar",
@@ -1015,12 +1053,13 @@ window.PROJECTS = [
     "year": "2019",
     "area": "230 Sq.Ft",
     "location": "Versova, Andheri, Mumbai",
+    "region": "Mumbai",
     "status": "Completed",
     "scope": "Design Consultancy",
-    "region": "Mumbai",
     "images": [
       "../../assets/uploads/2025/09/19-I-04_INT_Mrs.-Amita-Khakhar.jpg"
-    ]
+    ],
+    "folder": "mrs-amrita-khakhar"
   },
   {
     "title": "Mr. Neeraj Kumar",
@@ -1031,9 +1070,9 @@ window.PROJECTS = [
     "year": "2019",
     "area": "1,400 Sq.Ft.",
     "location": "Buti, Ranchi",
+    "region": "Ranchi",
     "status": "Completed",
     "scope": "Design Consultancy",
-    "region": "Ranchi",
     "images": [
       "../../assets/uploads/2025/09/1-40.jpg",
       "../../assets/uploads/2025/09/2-37.jpg",
@@ -1045,7 +1084,8 @@ window.PROJECTS = [
       "../../assets/uploads/2025/09/8-6.jpg",
       "../../assets/uploads/2025/09/10-4.jpg",
       "../../assets/uploads/2025/09/9-5.jpg"
-    ]
+    ],
+    "folder": "mr-neeraj-kumar"
   },
   {
     "title": "Mrs. Veena Varma",
@@ -1056,14 +1096,15 @@ window.PROJECTS = [
     "year": "2019",
     "area": "540 Sq.Ft.",
     "location": "Sea Woods, New Mumbai",
+    "region": "Mumbai",
     "status": "Completed",
     "scope": "Design Consultancy",
-    "region": "Mumbai",
     "images": [
       "../../assets/uploads/2025/09/1-41.jpg",
       "../../assets/uploads/2025/09/2-38.jpg",
       "../../assets/uploads/2025/09/3-30.jpg"
-    ]
+    ],
+    "folder": "mrs-veena-varma"
   },
   {
     "title": "Mr. Bharat",
@@ -1074,12 +1115,13 @@ window.PROJECTS = [
     "year": "2019",
     "area": "150 Sq.Ft.",
     "location": "Bandra West, Mumbai",
+    "region": "Mumbai",
     "status": "Proposed",
     "scope": "Design Consultancy",
-    "region": "Mumbai",
     "images": [
       "../../assets/uploads/2025/09/19-I-16_Mr.-Bharat.jpg"
-    ]
+    ],
+    "folder": "mr-bharat"
   },
   {
     "title": "Mr. Prabhakar Jaiswal",
@@ -1090,12 +1132,13 @@ window.PROJECTS = [
     "year": "2019",
     "area": "1,100 Sq.Ft.",
     "location": "Kathal More, Ranchi",
+    "region": "Ranchi",
     "status": "Completed",
     "scope": "Design & Build",
-    "region": "Ranchi",
     "images": [
       "../../assets/uploads/2025/09/19-I-25_Mr.-Prabhakar-Jaiswal.jpg"
-    ]
+    ],
+    "folder": "mr-prabhakar-jaiswal"
   },
   {
     "title": "Mr. Vishal Varsheney",
@@ -1106,13 +1149,14 @@ window.PROJECTS = [
     "year": "2019",
     "area": "1,650 Sq.Ft.",
     "location": "Kandra, Jamshedpur",
+    "region": "Rest of Jharkhand",
     "status": "Completed",
     "scope": "Design & Build",
-    "region": "Rest of Jharkhand",
     "images": [
       "../../assets/uploads/2025/09/1-42.jpg",
       "../../assets/uploads/2025/09/2-39.jpg"
-    ]
+    ],
+    "folder": "mr-vishal-varsheney"
   },
   {
     "title": "Ms. Priyadarshani Singh",
@@ -1123,15 +1167,16 @@ window.PROJECTS = [
     "year": "2019",
     "area": "1,200 Sq.Ft.",
     "location": "Bokaro, Jharkhand",
+    "region": "Rest of Jharkhand",
     "status": "Completed",
     "scope": "Design & Build",
-    "region": "Rest of Jharkhand",
     "images": [
       "../../assets/uploads/2025/09/1-43.jpg",
       "../../assets/uploads/2025/09/2-40.jpg",
       "../../assets/uploads/2025/09/3-31.jpg",
       "../../assets/uploads/2025/09/4-25.jpg"
-    ]
+    ],
+    "folder": "ms-priyadarshani-singh"
   },
   {
     "title": "Mr. Pawan Keshari",
@@ -1142,14 +1187,15 @@ window.PROJECTS = [
     "year": "2019",
     "area": "2,400 Sq.Ft.",
     "location": "Deogarh, Jharkhand",
+    "region": "Rest of Jharkhand",
     "status": "Completed",
     "scope": "Design Consultancy",
-    "region": "Rest of Jharkhand",
     "images": [
       "../../assets/uploads/2025/09/1-44.jpg",
       "../../assets/uploads/2025/09/2-41.jpg",
       "../../assets/uploads/2025/09/3-32.jpg"
-    ]
+    ],
+    "folder": "mr-pawan-keshari"
   },
   {
     "title": "Mr. Vivek Raipat",
@@ -1160,15 +1206,16 @@ window.PROJECTS = [
     "year": "2020",
     "area": "200 Sq.Ft.",
     "location": "Hinoo, Ranchi",
+    "region": "Ranchi",
     "status": "Completed",
     "scope": "Design & Build",
-    "region": "Ranchi",
     "images": [
       "../../assets/uploads/2025/09/2-42.jpg",
       "../../assets/uploads/2025/09/1-45.jpg",
       "../../assets/uploads/2025/09/3-33.jpg",
       "../../assets/uploads/2025/09/4-26.jpg"
-    ]
+    ],
+    "folder": "mr-vivek-raipat"
   },
   {
     "title": "Mr. Rishi Jagtiani",
@@ -1179,9 +1226,9 @@ window.PROJECTS = [
     "year": "2021",
     "area": "815 Sq.Ft.",
     "location": "Andheri West, Mumbai",
+    "region": "Mumbai",
     "status": "Completed",
     "scope": "Design Consultancy",
-    "region": "Mumbai",
     "images": [
       "../../assets/uploads/2025/09/2-43.jpg",
       "../../assets/uploads/2025/09/1-46.jpg",
@@ -1191,7 +1238,8 @@ window.PROJECTS = [
       "../../assets/uploads/2025/09/6-14.jpg",
       "../../assets/uploads/2025/09/7-9.jpg",
       "../../assets/uploads/2025/09/8-7.jpg"
-    ]
+    ],
+    "folder": "mr-rishi-jagtiani"
   },
   {
     "title": "Mr. Pragnesh Thakkar",
@@ -1202,14 +1250,15 @@ window.PROJECTS = [
     "year": "2021",
     "area": "900 Sq.Ft.",
     "location": "Mulund West, Mumbai",
+    "region": "Mumbai",
     "status": "Proposed",
     "scope": "Design Consultancy",
-    "region": "Mumbai",
     "images": [
       "../../assets/uploads/2025/09/1-47.jpg",
       "../../assets/uploads/2025/09/2-44.jpg",
       "../../assets/uploads/2025/09/3-35.jpg"
-    ]
+    ],
+    "folder": "mr-pragnesh-thakkar"
   },
   {
     "title": "The Curve Dental Solutions",
@@ -1220,9 +1269,9 @@ window.PROJECTS = [
     "year": "2021",
     "area": "600 Sq.Ft.",
     "location": "Andheri West, Mumbai",
+    "region": "Mumbai",
     "status": "Completed",
     "scope": "Design Consultancy",
-    "region": "Mumbai",
     "images": [
       "../../assets/uploads/2025/09/2-45.jpg",
       "../../assets/uploads/2025/09/1-48.jpg",
@@ -1233,7 +1282,8 @@ window.PROJECTS = [
       "../../assets/uploads/2025/09/8-8.jpg",
       "../../assets/uploads/2025/09/7-10.jpg",
       "../../assets/uploads/2025/09/9-6.jpg"
-    ]
+    ],
+    "folder": "the-curve-dental-solutions"
   },
   {
     "title": "Aranya Restaurant",
@@ -1244,12 +1294,13 @@ window.PROJECTS = [
     "year": "2023",
     "area": "1500 Sq.Ft.",
     "location": "Airport Road, Ranchi",
+    "region": "Ranchi",
     "status": "Completed",
     "scope": "Design Consultancy",
-    "region": "Ranchi",
     "images": [
       "../../assets/uploads/2025/09/21-I-30_Green-Acres-Restaurant-Ranchi.jpg"
-    ]
+    ],
+    "folder": "aranya-restaurant"
   },
   {
     "title": "Oak Elegance",
@@ -1260,16 +1311,17 @@ window.PROJECTS = [
     "year": "2024",
     "area": "",
     "location": "Kathal More, Ranchi",
+    "region": "Ranchi",
     "status": "Ongoing",
     "scope": "Design Consultancy",
-    "region": "Ranchi",
     "images": [
       "../../assets/uploads/2025/09/1-49.jpg",
       "../../assets/uploads/2025/09/2-46.jpg",
       "../../assets/uploads/2025/09/3-37.jpg",
       "../../assets/uploads/2025/09/4-29.jpg",
       "../../assets/uploads/2025/09/5-20.jpg"
-    ]
+    ],
+    "folder": "oak-elegance"
   },
   {
     "title": "CV Farmhouse",
@@ -1280,12 +1332,13 @@ window.PROJECTS = [
     "year": "2023",
     "area": "1,08,893 Sq.Ft.",
     "location": "Tirumalapur, Telangana",
+    "region": "Rest of India",
     "status": "Completed",
     "scope": "Design Consultancy",
-    "region": "Rest of India",
     "images": [
       "../../assets/uploads/2025/09/21-A-13_CV-Farmhouse.jpg"
-    ]
+    ],
+    "folder": "cv-farmhouse"
   },
   {
     "title": "Gossner College Gate",
@@ -1296,12 +1349,13 @@ window.PROJECTS = [
     "year": "2022",
     "area": "N.A.",
     "location": "Club Road, Ranchi",
+    "region": "Ranchi",
     "status": "Completed",
     "scope": "Design Consultancy",
-    "region": "Ranchi",
     "images": [
       "../../assets/uploads/2025/09/22-A-07_Gossner-College-Gate-Design.jpg"
-    ]
+    ],
+    "folder": "gossner-college-gate"
   },
   {
     "title": "Oak Elegance",
@@ -1312,9 +1366,9 @@ window.PROJECTS = [
     "year": "2022",
     "area": "99904.23 Sq.Ft.",
     "location": "Kathal More, Ranchi",
+    "region": "Ranchi",
     "status": "Ongoing",
     "scope": "Design Consultancy",
-    "region": "Ranchi",
     "images": [
       "../../assets/uploads/2025/09/1-50.jpg",
       "../../assets/uploads/2025/09/2-47.jpg",
@@ -1322,7 +1376,8 @@ window.PROJECTS = [
       "../../assets/uploads/2025/09/4-30.jpg",
       "../../assets/uploads/2025/09/6-16.jpg",
       "../../assets/uploads/2025/09/5-21.jpg"
-    ]
+    ],
+    "folder": "oak-elegance-landscape"
   },
   {
     "title": "St. Michael's School Gate",
@@ -1333,12 +1388,13 @@ window.PROJECTS = [
     "year": "2022",
     "area": "N.A.",
     "location": "Pahartoli, Ranchi",
+    "region": "Ranchi",
     "status": "Completed",
     "scope": "Design Consultancy",
-    "region": "Ranchi",
     "images": [
       "../../assets/uploads/2025/09/22-L-04_St.-Michael-School-Ranchi.jpg"
-    ]
+    ],
+    "folder": "st-michael-s-school-gate"
   },
   {
     "title": "Oak Forest",
@@ -1349,15 +1405,34 @@ window.PROJECTS = [
     "year": "2023",
     "area": "291855 Sq.Ft.",
     "location": "Kathal More, Ranchi",
+    "region": "Ranchi",
     "status": "Ongoing",
     "scope": "Design Consultancy",
-    "region": "Ranchi",
     "images": [
       "../../assets/uploads/2025/09/1-51.jpg",
       "../../assets/uploads/2025/09/2-48.jpg",
       "../../assets/uploads/2025/09/3-39.jpg",
       "../../assets/uploads/2025/09/4-31.jpg",
       "../../assets/uploads/2023/06/UAS_Logo-Text-Photoroom.png"
-    ]
+    ],
+    "folder": "oak-forest"
+  },
+  {
+    "title": "Triveni Garden",
+    "category": "architecture",
+    "sector": "Residential",
+    "client": "Rameshwaram Industries",
+    "type": "Residential Apartment",
+    "year": "2025 - Ongoing",
+    "area": "76,147.40 Sq.Ft.",
+    "location": "Ranchi",
+    "region": "Ranchi",
+    "status": "Ongoing",
+    "scope": "Design Consultancy",
+    "images": [
+      "../../project-photos/triveni-garden/01.jpg",
+      "../../project-photos/triveni-garden/02.jpg"
+    ],
+    "folder": "triveni-garden"
   }
 ];

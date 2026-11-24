@@ -1,0 +1,4 @@
+# videos are too big for GitHub
+project-photos/**/*.mp4
+project-photos/**/*.mov
+project-photos/**/*.m4v

@@ -1,24 +1,31 @@
-# Project photos
+# Projects (photos and text)
 
-Put the latest photos for each project in its folder here. The website shows them in place of the old ones.
+Every folder here is one project on the website. Each folder holds:
 
-## How to add photos
+- **`info.txt`** — the project's text: title, category, client, type, year, area, location, region, status, scope, and whether it is featured on the home page.
+- **Photos** — named in the order you want them shown: `01.jpg`, `02.jpg`, `03.jpg` … `01` is the **cover photo** (projects grid and home page). JPG, PNG or WebP; ideally under about 1 MB each (around 2000 px wide).
 
-1. Find the project's folder in the table below.
-2. Put the photos in it, named in the order you want them shown: `01.jpg`, `02.jpg`, `03.jpg` …
-   - `01` is the **cover photo** (used on the projects grid and the home page).
-   - JPG, PNG or WebP. Keep each photo under about 1 MB (around 2000 px wide) so pages load quickly.
-3. Upload to GitHub (drag the files into the folder on github.com, or push from your computer).
-   The website updates itself a minute or two later.
+## Change a project
 
-To run the update on your own computer instead: `python tools/update_project_photos.py`
+- **Text:** open its `info.txt`, change the words after the colons, save. Leave a value empty to hide that detail.
+- **Photos:** put the new photos in its folder. Once a folder has photos, they **replace all** of that project's old photos, so include every photo you want shown. A folder without photos keeps the old ones.
+- **Home page:** set `Featured: yes` on the projects you want in "Selected work". If none are featured, the newest projects are shown.
 
-Rules:
+## Add a new project
 
-- A project whose folder is empty keeps the photos it already has.
-- Putting photos in a folder **replaces** all of that project's old photos, so include every photo you want shown.
-- Deleting all the photos from a folder does not bring the old ones back; ask for that to be done by hand.
-- Don't rename the folders. A new project needs an entry in `options/option-b/data/projects.js` first; its folder is then created by `python tools/update_project_photos.py --init`.
+1. Make a new folder here, named in lower case with dashes, e.g. `sharma-residence`.
+2. Copy any project's `info.txt` into it and fill it in (Title and Category are required).
+3. Add its photos as `01.jpg`, `02.jpg` …
+
+## Remove a project
+
+Delete its folder.
+
+## Then publish
+
+Upload the changes to GitHub (on github.com, or push from your computer) and run the update — or simply ask Claude to "update the projects". To run it yourself: `python tools/update_project_photos.py`. It lists anything it couldn't understand, such as a misspelt Status.
+
+Don't rename a folder that has no photos of its own yet: the name links it to its old photos.
 
 ## Folders
 

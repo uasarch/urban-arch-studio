@@ -1,0 +1,21 @@
+# Project details for the Urban Arch Studio website.
+# Change the text after each colon, then upload. Lines starting with # are ignored.
+#   Category: Architecture | Interior Design | Landscape
+#   Sector:   Residential | Commercial | Public & Institutional
+#   Region:   Ranchi | Mumbai | Rest of Jharkhand | Rest of India | International
+#   Status:   Completed | Ongoing | Proposed | Architecture Competition
+#   Year:     e.g. 2021, 2018 - 2021, or 2024 - Ongoing
+#   Featured: yes = show it in "Selected work" on the home page
+
+Title: Shree Radhe
+Category: Architecture
+Sector: Residential
+Client: Rameshwaram Industries
+Type: Residential Apartment
+Year: 2024 - Ongoing
+Area: 38,580 Sq.Ft.
+Location: Dungari, Tupudana, Ranchi
+Region: Ranchi
+Status: Ongoing
+Scope: Design Consultancy
+Featured: no

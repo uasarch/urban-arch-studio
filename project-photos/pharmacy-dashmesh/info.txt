@@ -1,0 +1,21 @@
+# Project details for the Urban Arch Studio website.
+# Change the text after each colon, then upload. Lines starting with # are ignored.
+#   Category: Architecture | Interior Design | Landscape
+#   Sector:   Residential | Commercial | Public & Institutional
+#   Region:   Ranchi | Mumbai | Rest of Jharkhand | Rest of India | International
+#   Status:   Completed | Ongoing | Proposed | Architecture Competition
+#   Year:     e.g. 2021, 2018 - 2021, or 2024 - Ongoing
+#   Featured: yes = show it in "Selected work" on the home page
+
+Title: Pharmacy, Dashmesh
+Category: Interior Design
+Sector: Commercial
+Client: R. Group
+Type: Pharmacy
+Year: 2021
+Area: 1200 Sq.Ft.
+Location: North Office Para, Ranchi
+Region: Ranchi
+Status: Completed
+Scope: Design Consultancy
+Featured: no

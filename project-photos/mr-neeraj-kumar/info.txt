@@ -1,0 +1,21 @@
+# Project details for the Urban Arch Studio website.
+# Change the text after each colon, then upload. Lines starting with # are ignored.
+#   Category: Architecture | Interior Design | Landscape
+#   Sector:   Residential | Commercial | Public & Institutional
+#   Region:   Ranchi | Mumbai | Rest of Jharkhand | Rest of India | International
+#   Status:   Completed | Ongoing | Proposed | Architecture Competition
+#   Year:     e.g. 2021, 2018 - 2021, or 2024 - Ongoing
+#   Featured: yes = show it in "Selected work" on the home page
+
+Title: Mr. Neeraj Kumar
+Category: Interior Design
+Sector: Residential
+Client: Mr. Neeraj Kumar
+Type: 3BHK Residential
+Year: 2019
+Area: 1,400 Sq.Ft.
+Location: Buti, Ranchi
+Region: Ranchi
+Status: Completed
+Scope: Design Consultancy
+Featured: no

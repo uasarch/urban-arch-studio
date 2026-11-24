@@ -1,0 +1,21 @@
+# Project details for the Urban Arch Studio website.
+# Change the text after each colon, then upload. Lines starting with # are ignored.
+#   Category: Architecture | Interior Design | Landscape
+#   Sector:   Residential | Commercial | Public & Institutional
+#   Region:   Ranchi | Mumbai | Rest of Jharkhand | Rest of India | International
+#   Status:   Completed | Ongoing | Proposed | Architecture Competition
+#   Year:     e.g. 2021, 2018 - 2021, or 2024 - Ongoing
+#   Featured: yes = show it in "Selected work" on the home page
+
+Title: The Curve Dental Solutions
+Category: Interior Design
+Sector: Commercial
+Client: Dr. Vinit Pandhi and Dr. Priyanka Pandhi
+Type: Dental Clinic
+Year: 2021
+Area: 600 Sq.Ft.
+Location: Andheri West, Mumbai
+Region: Mumbai
+Status: Completed
+Scope: Design Consultancy
+Featured: no
