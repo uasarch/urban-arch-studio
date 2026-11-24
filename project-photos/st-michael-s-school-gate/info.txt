@@ -16,6 +16,6 @@ Year: 2022
 Area: N.A.
 Location: Pahartoli, Ranchi
 Region: Ranchi
-Status: Completed
+Status: Proposed
 Scope: Design Consultancy
 Featured: no

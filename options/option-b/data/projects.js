@@ -176,10 +176,11 @@ window.PROJECTS = [
     "status": "Completed",
     "scope": "Design Consultancy",
     "images": [
-      "../../assets/uploads/2025/09/1-7.jpg",
-      "../../assets/uploads/2025/09/2-7.jpg",
-      "../../assets/uploads/2025/09/3-6.jpg",
-      "../../assets/uploads/2025/09/4-4.jpg"
+      "../../project-photos/bungalow-extension/01.jpg",
+      "../../project-photos/bungalow-extension/03.jpg",
+      "../../project-photos/bungalow-extension/04.jpg",
+      "../../project-photos/bungalow-extension/05.jpg",
+      "../../project-photos/bungalow-extension/06.jpg"
     ],
     "folder": "bungalow-extension"
   },
@@ -231,22 +232,22 @@ window.PROJECTS = [
     "status": "Architecture Competition",
     "scope": "Design Consultancy",
     "images": [
-      "../../assets/uploads/2025/09/2-9.jpg",
-      "../../assets/uploads/2025/09/1-9.jpg",
-      "../../assets/uploads/2025/09/7.jpg",
-      "../../assets/uploads/2025/09/8.jpg",
-      "../../assets/uploads/2025/09/4-5.jpg",
-      "../../assets/uploads/2025/09/3-7.jpg",
-      "../../assets/uploads/2025/09/5-1.jpg",
-      "../../assets/uploads/2025/09/6-1.jpg",
-      "../../assets/uploads/2025/09/9.jpg",
-      "../../assets/uploads/2025/09/10.jpg",
-      "../../assets/uploads/2025/09/11.jpg",
-      "../../assets/uploads/2025/09/12.jpg",
-      "../../assets/uploads/2025/09/14.jpg",
-      "../../assets/uploads/2025/09/13.jpg",
-      "../../assets/uploads/2025/09/15.jpg",
-      "../../assets/uploads/2025/09/16.jpg"
+      "../../project-photos/statue-of-oneness/01.jpg",
+      "../../project-photos/statue-of-oneness/02.jpg",
+      "../../project-photos/statue-of-oneness/03.jpg",
+      "../../project-photos/statue-of-oneness/04.jpg",
+      "../../project-photos/statue-of-oneness/05.jpg",
+      "../../project-photos/statue-of-oneness/06.jpg",
+      "../../project-photos/statue-of-oneness/07.jpg",
+      "../../project-photos/statue-of-oneness/08.jpg",
+      "../../project-photos/statue-of-oneness/09.jpg",
+      "../../project-photos/statue-of-oneness/10.jpg",
+      "../../project-photos/statue-of-oneness/11.jpg",
+      "../../project-photos/statue-of-oneness/12.jpg",
+      "../../project-photos/statue-of-oneness/13.jpg",
+      "../../project-photos/statue-of-oneness/14.jpg",
+      "../../project-photos/statue-of-oneness/15.jpg",
+      "../../project-photos/statue-of-oneness/16.jpg"
     ],
     "folder": "statue-of-oneness"
   },
@@ -1350,10 +1351,10 @@ window.PROJECTS = [
     "area": "N.A.",
     "location": "Club Road, Ranchi",
     "region": "Ranchi",
-    "status": "Completed",
+    "status": "Proposed",
     "scope": "Design Consultancy",
     "images": [
-      "../../assets/uploads/2025/09/22-A-07_Gossner-College-Gate-Design.jpg"
+      "../../project-photos/gossner-college-gate/01.jpg"
     ],
     "folder": "gossner-college-gate"
   },
@@ -1389,10 +1390,10 @@ window.PROJECTS = [
     "area": "N.A.",
     "location": "Pahartoli, Ranchi",
     "region": "Ranchi",
-    "status": "Completed",
+    "status": "Proposed",
     "scope": "Design Consultancy",
     "images": [
-      "../../assets/uploads/2025/09/22-L-04_St.-Michael-School-Ranchi.jpg"
+      "../../project-photos/st-michael-s-school-gate/01.jpg"
     ],
     "folder": "st-michael-s-school-gate"
   },
