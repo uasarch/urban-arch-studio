@@ -111,12 +111,94 @@ if (grid && window.PROJECTS) {
     return `
     <a class="pj reveal" href="#p=${p.id}" data-index="${i}">
       <div class="pj-media"><img src="${esc(p.images[0])}" alt="${esc(p.title)}" loading="lazy"></div>
-      <h3>${esc(p.title)}</h3>
+      <h3><span>${esc(p.title)}</span></h3>
       <p>${esc(p.location)} · ${startYear(p)}</p>
     </a>`;
   }).join('');
   observeReveals(grid);
   const cards = [...grid.querySelectorAll('.pj')];
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  /* Hover: a "View" circle follows the mouse over thumbnails */
+  let cursorLabel = () => {};
+  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches && !reduceMotion.matches) {
+    document.documentElement.classList.add('has-pj-cursor');
+    const cur = document.createElement('div');
+    cur.className = 'pj-cursor';
+    cur.setAttribute('aria-hidden', 'true');
+    cur.innerHTML = '<span>View</span>';
+    document.body.appendChild(cur);
+    const label = cur.firstChild;
+    let tx = 0, ty = 0, x = 0, y = 0, raf = null, media = null;
+    const loop = () => {
+      x += (tx - x) * 0.22; y += (ty - y) * 0.22;
+      cur.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+      raf = Math.abs(tx - x) + Math.abs(ty - y) > 0.2 ? requestAnimationFrame(loop) : null;
+    };
+    const leave = () => {
+      media = null;
+      cur.classList.remove('on', 'down');
+    };
+    cursorLabel = () => { if (media) label.textContent = media.closest('.pj').classList.contains('active') ? 'Close' : 'View'; };
+    grid.addEventListener('pointermove', e => {
+      if (e.pointerType !== 'mouse') return;
+      const m = e.target.closest('.pj-media');
+      if (m !== media) {
+        if (!media) { x = e.clientX; y = e.clientY; } // appear under the pointer, not fly in from afar
+        leave();
+        media = m;
+        if (m) { cur.classList.add('on'); cursorLabel(); }
+      }
+      tx = e.clientX; ty = e.clientY;
+      if (!raf) raf = requestAnimationFrame(loop);
+    });
+    grid.addEventListener('pointerleave', leave);
+    grid.addEventListener('pointerdown', () => media && cur.classList.add('down'));
+    window.addEventListener('pointerup', () => cur.classList.remove('down'));
+    window.addEventListener('scroll', leave, { passive: true });
+  }
+
+  /* Click: the thumbnail flies into place as the first big photo of the opened project */
+  let flight = null;
+  const endFlight = () => {
+    if (!flight) return;
+    cancelAnimationFrame(flight.raf);
+    flight.ghost.remove();
+    flight.target.classList.remove('pd-landing');
+    flight = null;
+  };
+  const fly = card => {
+    endFlight();
+    const src = card.querySelector('.pj-media img');
+    const target = panel.querySelector('.pd-strip img');
+    if (reduceMotion.matches || !src || !target || !src.complete || !src.naturalWidth) return;
+    const from = src.closest('.pj-media').getBoundingClientRect();
+    const ratio = src.naturalWidth / src.naturalHeight;
+    const ghost = new Image();
+    ghost.src = src.currentSrc || src.src;
+    ghost.className = 'pj-fly';
+    ghost.alt = '';
+    document.body.appendChild(ghost);
+    target.classList.add('pd-flown', 'pd-landing');
+    const dur = 900, t0 = performance.now();
+    const ease = t => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+    const lerp = (a, b, e) => a + (b - a) * e;
+    flight = { ghost, target, raf: 0 };
+    const step = now => {
+      const t = Math.min(1, (now - t0) / dur), e = ease(t);
+      const r = target.getBoundingClientRect(); // follows the page while it scrolls to the panel
+      const h = r.height, w = target.naturalWidth ? r.width : h * ratio;
+      ghost.style.left = `${lerp(from.left, r.left, e)}px`;
+      ghost.style.top = `${lerp(from.top, r.top, e)}px`;
+      ghost.style.width = `${lerp(from.width, w, e)}px`;
+      ghost.style.height = `${lerp(from.height, h, e)}px`;
+      if (t < 1) { flight.raf = requestAnimationFrame(step); return; }
+      target.classList.remove('pd-landing');
+      flight = null;
+      ghost.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 220 }).onfinish = () => ghost.remove();
+    };
+    step(t0);
+  };
 
   /* Lightbox */
   const lb = document.getElementById('lightbox');
@@ -171,35 +253,56 @@ if (grid && window.PROJECTS) {
     openIndex = i;
     panel.innerHTML = `
       <div class="pd-info">
-        <button class="pd-close" aria-label="Close project"><i class="fa-solid fa-xmark"></i></button>
-        <p class="eyebrow">${LABELS[p.category]}</p>
-        <h2>${esc(p.title)}</h2>
-        <p class="pd-sub">${esc(p.location)}<br>${esc(p.year)}</p>
-        <dl class="pd-facts">
-          ${FACTS.filter(([, k]) => p[k]).map(([l, k]) => `<div><dt>${l}</dt><dd>${esc(p[k])}</dd></div>`).join('')}
+        <button class="pd-close" aria-label="Close project" style="--d:4"><i class="fa-solid fa-xmark"></i></button>
+        <p class="eyebrow" style="--d:0">${LABELS[p.category]}</p>
+        <h2 style="--d:1">${esc(p.title)}</h2>
+        <p class="pd-sub" style="--d:2">${esc(p.location)}<br>${esc(p.year)}</p>
+        <dl class="pd-facts" style="--d:3">
+          ${FACTS.filter(([, k]) => p[k]).map(([l, k], n) => `<div style="--d:${n + 3}"><dt>${l}</dt><dd>${esc(p[k])}</dd></div>`).join('')}
         </dl>
         ${p.images.length > 1 ? `
-        <div class="pd-nav">
+        <div class="pd-nav" style="--d:9">
           <button class="pd-arrow prev" aria-label="Previous photo"><i class="fa-solid fa-arrow-left"></i></button>
           <span class="pd-count">01 / ${pad(p.images.length)}</span>
           <button class="pd-arrow next" aria-label="Next photo"><i class="fa-solid fa-arrow-right"></i></button>
         </div>` : ''}
       </div>
       <div class="pd-strip" tabindex="0" aria-label="Photos of ${esc(p.title)}">
-        ${p.images.map((src, k) => `<img src="${esc(src)}" alt="${esc(p.title)} — photo ${k + 1}" data-i="${k}">`).join('')}
+        ${p.images.map((src, k) => `<img src="${esc(src)}" alt="${esc(p.title)} — photo ${k + 1}" data-i="${k}" style="--d:${Math.min(k, 5)}">`).join('')}
       </div>`;
     place();
     if (p.images.length > 1) strip().addEventListener('scroll', updateCount, { passive: true });
     setURL(`${location.pathname}#p=${p.id}`);
-    if (scroll) requestAnimationFrame(() => panel.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+    if (scroll) {
+      fly(card);
+      requestAnimationFrame(() => panel.scrollIntoView({ behavior: reduceMotion.matches ? 'auto' : 'smooth', block: 'start' }));
+    }
+    cursorLabel();
+  };
+  // Closing folds the panel shut (a copy collapses while the real one is removed straight away)
+  const collapse = () => {
+    if (reduceMotion.matches || !panel.isConnected) return panel.remove();
+    const h = panel.offsetHeight;
+    const gap = parseFloat(getComputedStyle(grid).rowGap) || 0;
+    const g = panel.cloneNode(true);
+    g.classList.add('pd-leaving');
+    g.setAttribute('aria-hidden', 'true');
+    g.inert = true;
+    panel.replaceWith(g);
+    g.animate(
+      [{ height: `${h}px`, opacity: 1 }, { height: '0px', opacity: 0, paddingTop: '0px', paddingBottom: '0px', borderTopWidth: '0px', borderBottomWidth: '0px', marginBottom: `${-gap}px` }],
+      { duration: 520, easing: 'cubic-bezier(.65, 0, .35, 1)' }
+    ).onfinish = () => g.remove();
   };
   const close = (keepHash = false) => {
     if (openIndex === null) return;
     const card = cards.find(c => +c.dataset.index === openIndex);
-    panel.remove();
+    endFlight();
+    if (keepHash) panel.remove(); else collapse();
     cards.forEach(c => c.classList.remove('active'));
     openIndex = null;
     if (!keepHash) { setHash(); card.focus({ preventScroll: true }); }
+    cursorLabel();
   };
 
   grid.addEventListener('click', e => {
