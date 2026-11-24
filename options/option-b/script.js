@@ -129,7 +129,7 @@ if (grid && window.PROJECTS) {
     const p = PROJECTS[i];
     return `
     <a class="pj reveal" href="#p=${p.id}" data-index="${i}">
-      <div class="pj-media"><img src="${esc(p.images[0])}" alt="${esc(p.title)}" loading="lazy"></div>
+      <div class="pj-media" style="--src:url('${esc(p.images[0])}')"><img src="${esc(p.images[0])}" alt="${esc(p.title)}" loading="lazy"></div>
       <h3><span>${esc(p.title)}</span></h3>
       <p>${esc(p.location)} · ${startYear(p)}</p>
     </a>`;
@@ -152,8 +152,11 @@ if (grid && window.PROJECTS) {
     const src = card.querySelector('.pj-media img');
     const target = panel.querySelector('.pd-strip img');
     if (reduceMotion.matches || !src || !target || !src.complete || !src.naturalWidth) return;
-    const from = src.closest('.pj-media').getBoundingClientRect();
+    // the photo sits whole inside the fixed frame, so start from the photo's own box
+    const box = src.getBoundingClientRect();
     const ratio = src.naturalWidth / src.naturalHeight;
+    const fw = Math.min(box.width, box.height * ratio), fh = fw / ratio;
+    const from = { left: box.left + (box.width - fw) / 2, top: box.top + (box.height - fh) / 2, width: fw, height: fh };
     const ghost = new Image();
     ghost.src = src.currentSrc || src.src;
     ghost.className = 'pj-fly';

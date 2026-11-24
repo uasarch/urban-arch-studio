@@ -156,8 +156,11 @@ p + p { margin-top: 1.1rem; }
 .pj { display: block; text-decoration: none; color: var(--ink); }
 .pj.hidden { display: none; }
 /* thumbnails keep each photo's own proportions, so the opened photo has the same shape */
-.pj-media { overflow: hidden; background: var(--tint); }
-.pj-media img { display: block; width: 100%; height: auto; transition: transform .7s ease, opacity .3s; }
+/* every thumbnail has the same frame so the grid stays even; the photo sits whole inside it
+   (never cropped) over a soft blurred copy of itself */
+.pj-media { overflow: hidden; background: var(--tint); aspect-ratio: 5 / 3; isolation: isolate; }
+.pj-media::before { content: ""; position: absolute; inset: -24px; z-index: -1; background: var(--src) center / cover no-repeat; filter: blur(22px) saturate(1.1); opacity: .55; }
+.pj-media img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: contain; transition: transform .7s ease, opacity .3s; }
 .pj h3 { font-size: 1.05rem; margin-top: .95rem; }
 .pj p { font-size: .88rem; line-height: 1.5; color: var(--muted); margin-top: .2rem; }
 .pj:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
