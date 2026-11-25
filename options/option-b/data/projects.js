@@ -140,7 +140,7 @@ window.PROJECTS = [
     "status": "Proposed",
     "scope": "Design Consultancy",
     "images": [
-      "../../assets/uploads/2025/09/19-A-05_Chandrika-Nivas.jpg"
+      "../../project-photos/chandrika-nivas/01.jpg"
     ],
     "folder": "chandrika-nivas"
   },
@@ -264,34 +264,34 @@ window.PROJECTS = [
     "status": "Completed",
     "scope": "Design Consultancy",
     "images": [
-      "../../assets/uploads/2025/09/1-10.jpg",
-      "../../assets/uploads/2025/09/2-10.jpg",
-      "../../assets/uploads/2025/09/3-8.jpg",
-      "../../assets/uploads/2025/09/4-6.jpg",
-      "../../assets/uploads/2025/09/5-2.jpg",
-      "../../assets/uploads/2025/09/6-2.jpg",
-      "../../assets/uploads/2025/09/7-1.jpg",
-      "../../assets/uploads/2025/09/8-1.jpg",
-      "../../assets/uploads/2025/09/9-1.jpg",
-      "../../assets/uploads/2025/09/10-1.jpg",
-      "../../assets/uploads/2025/09/11-1.jpg",
-      "../../assets/uploads/2025/09/12-1.jpg",
-      "../../assets/uploads/2025/09/13-1.jpg",
-      "../../assets/uploads/2025/09/14-1.jpg",
-      "../../assets/uploads/2025/09/15-1.jpg",
-      "../../assets/uploads/2025/09/16-1.jpg",
-      "../../assets/uploads/2025/09/17.jpg",
-      "../../assets/uploads/2025/09/18.jpg",
-      "../../assets/uploads/2025/09/19.jpg",
-      "../../assets/uploads/2025/09/20.jpg",
-      "../../assets/uploads/2025/09/21.jpg",
-      "../../assets/uploads/2025/09/22.jpg",
-      "../../assets/uploads/2025/09/24.jpg",
-      "../../assets/uploads/2025/09/23.jpg",
-      "../../assets/uploads/2025/09/26.jpg",
-      "../../assets/uploads/2025/09/25.jpg",
-      "../../assets/uploads/2025/09/28.jpg",
-      "../../assets/uploads/2025/09/27.jpg"
+      "../../project-photos/reve-your-serene-abode/01.jpg",
+      "../../project-photos/reve-your-serene-abode/02.jpg",
+      "../../project-photos/reve-your-serene-abode/03.JPG",
+      "../../project-photos/reve-your-serene-abode/04.JPG",
+      "../../project-photos/reve-your-serene-abode/05.JPG",
+      "../../project-photos/reve-your-serene-abode/06.jpg",
+      "../../project-photos/reve-your-serene-abode/07.jpg",
+      "../../project-photos/reve-your-serene-abode/08.jpg",
+      "../../project-photos/reve-your-serene-abode/09.JPG",
+      "../../project-photos/reve-your-serene-abode/10.jpg",
+      "../../project-photos/reve-your-serene-abode/11.JPG",
+      "../../project-photos/reve-your-serene-abode/12.JPG",
+      "../../project-photos/reve-your-serene-abode/13.jpg",
+      "../../project-photos/reve-your-serene-abode/14.JPG",
+      "../../project-photos/reve-your-serene-abode/15.JPG",
+      "../../project-photos/reve-your-serene-abode/16.JPG",
+      "../../project-photos/reve-your-serene-abode/17.JPG",
+      "../../project-photos/reve-your-serene-abode/18.JPG",
+      "../../project-photos/reve-your-serene-abode/19.JPG",
+      "../../project-photos/reve-your-serene-abode/20.JPG",
+      "../../project-photos/reve-your-serene-abode/21.jpg",
+      "../../project-photos/reve-your-serene-abode/22.JPG",
+      "../../project-photos/reve-your-serene-abode/23.JPG",
+      "../../project-photos/reve-your-serene-abode/24.jpg",
+      "../../project-photos/reve-your-serene-abode/25.jpg",
+      "../../project-photos/reve-your-serene-abode/26.jpg",
+      "../../project-photos/reve-your-serene-abode/27.jpg",
+      "../../project-photos/reve-your-serene-abode/28.jpg"
     ],
     "folder": "reve-your-serene-abode"
   },
@@ -352,7 +352,7 @@ window.PROJECTS = [
     "folder": "rameshwaram-village"
   },
   {
-    "title": "RV - Community Center",
+    "title": "RV Community Center",
     "category": "architecture",
     "sector": "Public & Institutional",
     "client": "Rameshwaram Industries",
@@ -364,10 +364,10 @@ window.PROJECTS = [
     "status": "Completed",
     "scope": "Design Consultancy",
     "images": [
-      "../../assets/uploads/2025/09/1-14.jpg",
-      "../../assets/uploads/2025/09/2-13.jpg",
-      "../../assets/uploads/2025/09/3-10.jpg",
-      "../../assets/uploads/2025/09/4-8.jpg"
+      "../../project-photos/rv-community-center/01.jpg",
+      "../../project-photos/rv-community-center/02.jpg",
+      "../../project-photos/rv-community-center/03.jpg",
+      "../../project-photos/rv-community-center/04.jpg"
     ],
     "folder": "rv-community-center"
   },
@@ -422,11 +422,11 @@ window.PROJECTS = [
     "status": "Completed",
     "scope": "Design Consultancy",
     "images": [
-      "../../assets/uploads/2025/09/1-17.jpg",
-      "../../assets/uploads/2025/09/2-16.jpg",
-      "../../assets/uploads/2025/09/3-12.jpg",
-      "../../assets/uploads/2025/09/4-10.jpg",
-      "../../assets/uploads/2025/09/5-4.jpg"
+      "../../project-photos/sports-complex/01.jpg",
+      "../../project-photos/sports-complex/02.jpg",
+      "../../project-photos/sports-complex/03.jpg",
+      "../../project-photos/sports-complex/04.jpg",
+      "../../project-photos/sports-complex/05.jpg"
     ],
     "folder": "sports-complex"
   },
@@ -675,9 +675,10 @@ window.PROJECTS = [
     "status": "Ongoing",
     "scope": "Design Consultancy",
     "images": [
-      "../../assets/uploads/2025/09/sdm2.jpg",
-      "../../assets/uploads/2025/09/sdm1.jpg",
-      "../../assets/uploads/2025/09/sdm3.jpg"
+      "../../project-photos/sdm-house/01.jpg",
+      "../../project-photos/sdm-house/02.jpg",
+      "../../project-photos/sdm-house/03.jpg",
+      "../../project-photos/sdm-house/04.jpg"
     ],
     "folder": "sdm-house"
   },
@@ -1368,15 +1369,15 @@ window.PROJECTS = [
     "area": "99904.23 Sq.Ft.",
     "location": "Kathal More, Ranchi",
     "region": "Ranchi",
-    "status": "Ongoing",
+    "status": "Completed",
     "scope": "Design Consultancy",
     "images": [
-      "../../assets/uploads/2025/09/1-50.jpg",
-      "../../assets/uploads/2025/09/2-47.jpg",
-      "../../assets/uploads/2025/09/3-38.jpg",
-      "../../assets/uploads/2025/09/4-30.jpg",
-      "../../assets/uploads/2025/09/6-16.jpg",
-      "../../assets/uploads/2025/09/5-21.jpg"
+      "../../project-photos/oak-elegance-landscape/01.jpg",
+      "../../project-photos/oak-elegance-landscape/02.jpg",
+      "../../project-photos/oak-elegance-landscape/03.jpg",
+      "../../project-photos/oak-elegance-landscape/04.jpg",
+      "../../project-photos/oak-elegance-landscape/05.jpg",
+      "../../project-photos/oak-elegance-landscape/06.JPG"
     ],
     "folder": "oak-elegance-landscape"
   },
@@ -1410,11 +1411,10 @@ window.PROJECTS = [
     "status": "Ongoing",
     "scope": "Design Consultancy",
     "images": [
-      "../../assets/uploads/2025/09/1-51.jpg",
-      "../../assets/uploads/2025/09/2-48.jpg",
-      "../../assets/uploads/2025/09/3-39.jpg",
-      "../../assets/uploads/2025/09/4-31.jpg",
-      "../../assets/uploads/2023/06/UAS_Logo-Text-Photoroom.png"
+      "../../project-photos/oak-forest/01.jpg",
+      "../../project-photos/oak-forest/02.jpg",
+      "../../project-photos/oak-forest/03.jpg",
+      "../../project-photos/oak-forest/04.jpg"
     ],
     "folder": "oak-forest"
   },

@@ -16,6 +16,6 @@ Year: 2022
 Area: 99904.23 Sq.Ft.
 Location: Kathal More, Ranchi
 Region: Ranchi
-Status: Ongoing
+Status: Completed
 Scope: Design Consultancy
 Featured: no

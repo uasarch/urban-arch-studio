@@ -7,7 +7,7 @@
 #   Year:     e.g. 2021, 2018 - 2021, or 2024 - Ongoing
 #   Featured: yes = show it in "Selected work" on the home page
 
-Title: RV - Community Center
+Title: RV Community Center
 Category: Architecture
 Sector: Public & Institutional
 Client: Rameshwaram Industries
