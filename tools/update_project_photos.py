@@ -196,8 +196,11 @@ def shrink_photos():
 
 
 def photos_in(folder):
-    files = [f.name for f in folder.iterdir() if f.is_file() and f.suffix.lower() in IMAGE_TYPES]
-    return [f"{PREFIX}/{quote(folder.name)}/{quote(f)}" for f in sorted(files, key=natural_key)]
+    files = [f for f in folder.iterdir() if f.is_file() and f.suffix.lower() in IMAGE_TYPES]
+    # ?v= is a fingerprint of the photo, so a photo replaced under the same name gets a new
+    # link and browsers fetch it instead of showing the copy they saved earlier
+    return [f"{PREFIX}/{quote(folder.name)}/{quote(f.name)}?v={hashlib.sha1(f.read_bytes()).hexdigest()[:8]}"
+            for f in sorted(files, key=lambda f: natural_key(f.name))]
 
 
 def export():

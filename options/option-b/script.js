@@ -161,6 +161,10 @@ if (grid && window.PROJECTS) {
     ghost.src = src.currentSrc || src.src;
     ghost.className = 'pj-fly';
     ghost.alt = '';
+    // the ghost keeps the thumbnail's size and only moves / scales (smooth on phones)
+    ghost.style.width = `${from.width}px`;
+    ghost.style.height = `${from.height}px`;
+    ghost.style.transform = `translate3d(${from.left}px, ${from.top}px, 0)`;
     document.body.appendChild(ghost);
     target.classList.add('pd-flown', 'pd-landing');
     const dur = 900, t0 = performance.now();
@@ -171,10 +175,8 @@ if (grid && window.PROJECTS) {
       const t = Math.min(1, (now - t0) / dur), e = ease(t);
       const r = target.getBoundingClientRect(); // follows the page while it scrolls to the panel
       const w = r.width || from.width, h = r.height || from.width / ratio;
-      ghost.style.left = `${lerp(from.left, r.left, e)}px`;
-      ghost.style.top = `${lerp(from.top, r.top, e)}px`;
-      ghost.style.width = `${lerp(from.width, w, e)}px`;
-      ghost.style.height = `${lerp(from.height, h, e)}px`;
+      const sx = lerp(1, w / from.width, e), sy = lerp(1, h / from.height, e);
+      ghost.style.transform = `translate3d(${lerp(from.left, r.left, e)}px, ${lerp(from.top, r.top, e)}px, 0) scale(${sx}, ${sy})`;
       if (t < 1) { flight.raf = requestAnimationFrame(step); return; }
       target.classList.remove('pd-landing');
       flight = null;
@@ -208,10 +210,13 @@ if (grid && window.PROJECTS) {
     cards.forEach(c => { if (!c.classList.contains('hidden') && c.offsetTop === card.offsetTop) last = c; });
     return last;
   };
+  // Put the panel after the last card of the open project's row. It is only moved when its spot
+  // really changes: moving it restarts its opening animation and resets the photo strip.
   const place = () => {
     const card = cards.find(c => +c.dataset.index === openIndex);
-    panel.remove();
-    rowEnd(card).after(panel);
+    const end = rowEnd(card);
+    if (panel.isConnected && panel.previousElementSibling === end) return;
+    end.after(panel);
   };
   const strip = () => panel.querySelector('.pd-strip');
   const photos = () => [...panel.querySelectorAll('.pd-strip img')];
@@ -242,6 +247,10 @@ if (grid && window.PROJECTS) {
     // size the first photo from the thumbnail straight away, so it lays out whole before it loads
     const th = card.querySelector('.pj-media img');
     const firstSize = th && th.naturalWidth ? ` width="${th.naturalWidth}" height="${th.naturalHeight}"` : '';
+    // Switching projects can take the panel out from above the tapped card; keep that card
+    // where it is on screen instead of letting the page jump up under the finger.
+    const cardTop = card.getBoundingClientRect().top;
+    panel.remove(); // re-inserted below, which replays the opening animation for the new project
     panel.innerHTML = `
       <div class="pd-info">
         <button class="pd-close" aria-label="Close project" style="--d:4"><i class="fa-solid fa-xmark"></i></button>
@@ -262,6 +271,8 @@ if (grid && window.PROJECTS) {
         ${p.images.map((src, k) => `<img src="${esc(src)}" alt="${esc(p.title)} — photo ${k + 1}" data-i="${k}"${k === 0 ? firstSize : ''} style="--d:${Math.min(k, 5)}">`).join('')}
       </div>`;
     place();
+    const shift = card.getBoundingClientRect().top - cardTop;
+    if (Math.abs(shift) > 1) window.scrollBy({ top: shift, behavior: 'instant' });
     if (p.images.length > 1) strip().addEventListener('scroll', updateCount, { passive: true });
     // While photos are still loading (and have no width yet), hold the strip at the first photo,
     // otherwise the browser can snap to the second photo and push the first one off to the side.
@@ -352,8 +363,12 @@ if (grid && window.PROJECTS) {
       if (e.key === 'ArrowRight') lbStep(1);
     } else if (e.key === 'Escape') close();
   });
-  let resizeTimer;
+  // On phones the address bar showing / hiding while scrolling fires "resize" with only the
+  // height changed; the rows don't change then, so leave the open panel alone.
+  let resizeTimer, lastWidth = window.innerWidth;
   window.addEventListener('resize', () => {
+    if (window.innerWidth === lastWidth) return;
+    lastWidth = window.innerWidth;
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(() => { if (openIndex !== null) { place(); syncHeight(); } }, 150);
   });

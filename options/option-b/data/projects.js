@@ -41,9 +41,9 @@ window.PROJECTS = [
     "status": "Completed",
     "scope": "Design Consultancy",
     "images": [
-      "../../project-photos/kalyani-enclave/01.jpg",
-      "../../project-photos/kalyani-enclave/02.jpg",
-      "../../project-photos/kalyani-enclave/03.jpg"
+      "../../project-photos/kalyani-enclave/01.jpg?v=0e0a40e7",
+      "../../project-photos/kalyani-enclave/02.jpg?v=6503c9ca",
+      "../../project-photos/kalyani-enclave/03.jpg?v=ed1fa899"
     ],
     "folder": "kalyani-enclave"
   },
@@ -60,10 +60,10 @@ window.PROJECTS = [
     "status": "Completed",
     "scope": "Design Consultancy",
     "images": [
-      "../../project-photos/army-officer-s-living/01.jpg",
-      "../../project-photos/army-officer-s-living/02.jpg",
-      "../../project-photos/army-officer-s-living/03.jpg",
-      "../../project-photos/army-officer-s-living/04.jpg"
+      "../../project-photos/army-officer-s-living/01.jpg?v=385949ff",
+      "../../project-photos/army-officer-s-living/02.jpg?v=b188631e",
+      "../../project-photos/army-officer-s-living/03.jpg?v=d911f1bc",
+      "../../project-photos/army-officer-s-living/04.jpg?v=29d5a5bc"
     ],
     "folder": "army-officer-s-living"
   },
@@ -80,12 +80,12 @@ window.PROJECTS = [
     "status": "Completed",
     "scope": "Design Consultancy",
     "images": [
-      "../../project-photos/ekal-foundation-skill-development-centre/01.jpg",
-      "../../project-photos/ekal-foundation-skill-development-centre/02.jpg",
-      "../../project-photos/ekal-foundation-skill-development-centre/03.jpg",
-      "../../project-photos/ekal-foundation-skill-development-centre/04.jpg",
-      "../../project-photos/ekal-foundation-skill-development-centre/05.jpg",
-      "../../project-photos/ekal-foundation-skill-development-centre/06.jpg"
+      "../../project-photos/ekal-foundation-skill-development-centre/01.jpg?v=54762baf",
+      "../../project-photos/ekal-foundation-skill-development-centre/02.jpg?v=ef6dffad",
+      "../../project-photos/ekal-foundation-skill-development-centre/03.jpg?v=f03b722a",
+      "../../project-photos/ekal-foundation-skill-development-centre/04.jpg?v=febc24c3",
+      "../../project-photos/ekal-foundation-skill-development-centre/05.jpg?v=3299cc10",
+      "../../project-photos/ekal-foundation-skill-development-centre/06.jpg?v=020a5e78"
     ],
     "folder": "ekal-foundation-skill-development-centre"
   },
@@ -102,8 +102,8 @@ window.PROJECTS = [
     "status": "Completed",
     "scope": "Design Consultancy",
     "images": [
-      "../../project-photos/bachuda-s-bungalow-extension/01.jpg",
-      "../../project-photos/bachuda-s-bungalow-extension/02.jpg"
+      "../../project-photos/bachuda-s-bungalow-extension/01.jpg?v=1c454be5",
+      "../../project-photos/bachuda-s-bungalow-extension/02.jpg?v=468aa436"
     ],
     "folder": "bachuda-s-bungalow-extension"
   },
@@ -120,10 +120,10 @@ window.PROJECTS = [
     "status": "Completed",
     "scope": "Design Consultancy",
     "images": [
-      "../../project-photos/aashirvad/01.jpg",
-      "../../project-photos/aashirvad/02.jpg",
-      "../../project-photos/aashirvad/03.jpg",
-      "../../project-photos/aashirvad/04.jpg"
+      "../../project-photos/aashirvad/01.jpg?v=5fba750a",
+      "../../project-photos/aashirvad/02.jpg?v=84322763",
+      "../../project-photos/aashirvad/03.jpg?v=47572c31",
+      "../../project-photos/aashirvad/04.jpg?v=eee0a552"
     ],
     "folder": "aashirvad"
   },
@@ -140,7 +140,7 @@ window.PROJECTS = [
     "status": "Proposed",
     "scope": "Design Consultancy",
     "images": [
-      "../../project-photos/chandrika-nivas/01.jpg"
+      "../../project-photos/chandrika-nivas/01.jpg?v=0db6b971"
     ],
     "folder": "chandrika-nivas"
   },
@@ -157,9 +157,9 @@ window.PROJECTS = [
     "status": "Completed",
     "scope": "Design Consultancy",
     "images": [
-      "../../project-photos/mridula-nivas/01.jpg",
-      "../../project-photos/mridula-nivas/02.jpg",
-      "../../project-photos/mridula-nivas/03.jpg"
+      "../../project-photos/mridula-nivas/01.jpg?v=0a042ca7",
+      "../../project-photos/mridula-nivas/02.jpg?v=6c24d8bd",
+      "../../project-photos/mridula-nivas/03.jpg?v=4a6bb47d"
     ],
     "folder": "mridula-nivas"
   },
@@ -176,11 +176,11 @@ window.PROJECTS = [
     "status": "Completed",
     "scope": "Design Consultancy",
     "images": [
-      "../../project-photos/bungalow-extension/01.jpg",
-      "../../project-photos/bungalow-extension/03.jpg",
-      "../../project-photos/bungalow-extension/04.jpg",
-      "../../project-photos/bungalow-extension/05.jpg",
-      "../../project-photos/bungalow-extension/06.jpg"
+      "../../project-photos/bungalow-extension/01.jpg?v=6a9ee2c0",
+      "../../project-photos/bungalow-extension/03.jpg?v=30456a78",
+      "../../project-photos/bungalow-extension/04.jpg?v=37c66c7f",
+      "../../project-photos/bungalow-extension/05.jpg?v=4447479b",
+      "../../project-photos/bungalow-extension/06.jpg?v=9fd8777e"
     ],
     "folder": "bungalow-extension"
   },
@@ -232,22 +232,22 @@ window.PROJECTS = [
     "status": "Architecture Competition",
     "scope": "Design Consultancy",
     "images": [
-      "../../project-photos/statue-of-oneness/01.jpg",
-      "../../project-photos/statue-of-oneness/02.jpg",
-      "../../project-photos/statue-of-oneness/03.jpg",
-      "../../project-photos/statue-of-oneness/04.jpg",
-      "../../project-photos/statue-of-oneness/05.jpg",
-      "../../project-photos/statue-of-oneness/06.jpg",
-      "../../project-photos/statue-of-oneness/07.jpg",
-      "../../project-photos/statue-of-oneness/08.jpg",
-      "../../project-photos/statue-of-oneness/09.jpg",
-      "../../project-photos/statue-of-oneness/10.jpg",
-      "../../project-photos/statue-of-oneness/11.jpg",
-      "../../project-photos/statue-of-oneness/12.jpg",
-      "../../project-photos/statue-of-oneness/13.jpg",
-      "../../project-photos/statue-of-oneness/14.jpg",
-      "../../project-photos/statue-of-oneness/15.jpg",
-      "../../project-photos/statue-of-oneness/16.jpg"
+      "../../project-photos/statue-of-oneness/01.jpg?v=7be60479",
+      "../../project-photos/statue-of-oneness/02.jpg?v=5ede9d48",
+      "../../project-photos/statue-of-oneness/03.jpg?v=e3ed2db8",
+      "../../project-photos/statue-of-oneness/04.jpg?v=a66121fd",
+      "../../project-photos/statue-of-oneness/05.jpg?v=843adfc6",
+      "../../project-photos/statue-of-oneness/06.jpg?v=d4e0b17a",
+      "../../project-photos/statue-of-oneness/07.jpg?v=5d728c3e",
+      "../../project-photos/statue-of-oneness/08.jpg?v=d4d545df",
+      "../../project-photos/statue-of-oneness/09.jpg?v=43ca537c",
+      "../../project-photos/statue-of-oneness/10.jpg?v=93182f11",
+      "../../project-photos/statue-of-oneness/11.jpg?v=de567b06",
+      "../../project-photos/statue-of-oneness/12.jpg?v=7c76af50",
+      "../../project-photos/statue-of-oneness/13.jpg?v=4f4d96c6",
+      "../../project-photos/statue-of-oneness/14.jpg?v=f63ed910",
+      "../../project-photos/statue-of-oneness/15.jpg?v=98387d32",
+      "../../project-photos/statue-of-oneness/16.jpg?v=da7d207e"
     ],
     "folder": "statue-of-oneness"
   },
@@ -264,34 +264,34 @@ window.PROJECTS = [
     "status": "Completed",
     "scope": "Design Consultancy",
     "images": [
-      "../../project-photos/reve-your-serene-abode/01.jpg",
-      "../../project-photos/reve-your-serene-abode/02.jpg",
-      "../../project-photos/reve-your-serene-abode/03.JPG",
-      "../../project-photos/reve-your-serene-abode/04.JPG",
-      "../../project-photos/reve-your-serene-abode/05.JPG",
-      "../../project-photos/reve-your-serene-abode/06.jpg",
-      "../../project-photos/reve-your-serene-abode/07.jpg",
-      "../../project-photos/reve-your-serene-abode/08.jpg",
-      "../../project-photos/reve-your-serene-abode/09.JPG",
-      "../../project-photos/reve-your-serene-abode/10.jpg",
-      "../../project-photos/reve-your-serene-abode/11.JPG",
-      "../../project-photos/reve-your-serene-abode/12.JPG",
-      "../../project-photos/reve-your-serene-abode/13.jpg",
-      "../../project-photos/reve-your-serene-abode/14.JPG",
-      "../../project-photos/reve-your-serene-abode/15.JPG",
-      "../../project-photos/reve-your-serene-abode/16.JPG",
-      "../../project-photos/reve-your-serene-abode/17.JPG",
-      "../../project-photos/reve-your-serene-abode/18.JPG",
-      "../../project-photos/reve-your-serene-abode/19.JPG",
-      "../../project-photos/reve-your-serene-abode/20.JPG",
-      "../../project-photos/reve-your-serene-abode/21.jpg",
-      "../../project-photos/reve-your-serene-abode/22.JPG",
-      "../../project-photos/reve-your-serene-abode/23.JPG",
-      "../../project-photos/reve-your-serene-abode/24.jpg",
-      "../../project-photos/reve-your-serene-abode/25.jpg",
-      "../../project-photos/reve-your-serene-abode/26.jpg",
-      "../../project-photos/reve-your-serene-abode/27.jpg",
-      "../../project-photos/reve-your-serene-abode/28.jpg"
+      "../../project-photos/reve-your-serene-abode/01.jpg?v=9dd1fbe4",
+      "../../project-photos/reve-your-serene-abode/02.jpg?v=0ec7fd50",
+      "../../project-photos/reve-your-serene-abode/03.JPG?v=e3fb43c9",
+      "../../project-photos/reve-your-serene-abode/04.JPG?v=bf7106b1",
+      "../../project-photos/reve-your-serene-abode/05.JPG?v=c1697c77",
+      "../../project-photos/reve-your-serene-abode/06.jpg?v=6d1b7556",
+      "../../project-photos/reve-your-serene-abode/07.jpg?v=e5b02264",
+      "../../project-photos/reve-your-serene-abode/08.jpg?v=8e0c0eb5",
+      "../../project-photos/reve-your-serene-abode/09.JPG?v=f6b1c3d2",
+      "../../project-photos/reve-your-serene-abode/10.jpg?v=2c04e5e1",
+      "../../project-photos/reve-your-serene-abode/11.JPG?v=dd279068",
+      "../../project-photos/reve-your-serene-abode/12.JPG?v=6328e769",
+      "../../project-photos/reve-your-serene-abode/13.jpg?v=0c71337a",
+      "../../project-photos/reve-your-serene-abode/14.JPG?v=d1153ac7",
+      "../../project-photos/reve-your-serene-abode/15.JPG?v=b94bd59a",
+      "../../project-photos/reve-your-serene-abode/16.JPG?v=90d2ff1e",
+      "../../project-photos/reve-your-serene-abode/17.JPG?v=802328e8",
+      "../../project-photos/reve-your-serene-abode/18.JPG?v=a39a2074",
+      "../../project-photos/reve-your-serene-abode/19.JPG?v=c48e4356",
+      "../../project-photos/reve-your-serene-abode/20.JPG?v=b6dec635",
+      "../../project-photos/reve-your-serene-abode/21.jpg?v=2c04e5e1",
+      "../../project-photos/reve-your-serene-abode/22.JPG?v=56a85f40",
+      "../../project-photos/reve-your-serene-abode/23.JPG?v=52b42125",
+      "../../project-photos/reve-your-serene-abode/24.jpg?v=8b2d564e",
+      "../../project-photos/reve-your-serene-abode/25.jpg?v=c6056e70",
+      "../../project-photos/reve-your-serene-abode/26.jpg?v=f819d7c1",
+      "../../project-photos/reve-your-serene-abode/27.jpg?v=a0fca2e3",
+      "../../project-photos/reve-your-serene-abode/28.jpg?v=3fb3f2d1"
     ],
     "folder": "reve-your-serene-abode"
   },
@@ -308,8 +308,8 @@ window.PROJECTS = [
     "status": "Proposed",
     "scope": "Design Consultancy",
     "images": [
-      "../../project-photos/amit-das-s-farmhouse/01.jpg",
-      "../../project-photos/amit-das-s-farmhouse/02.jpg"
+      "../../project-photos/amit-das-s-farmhouse/01.jpg?v=9f5ea4a4",
+      "../../project-photos/amit-das-s-farmhouse/02.jpg?v=4abf7cac"
     ],
     "folder": "amit-das-s-farmhouse"
   },
@@ -326,7 +326,7 @@ window.PROJECTS = [
     "status": "Proposed",
     "scope": "Design Consultancy",
     "images": [
-      "../../project-photos/bangalore-iim-plot/01.jpg"
+      "../../project-photos/bangalore-iim-plot/01.jpg?v=60d83431"
     ],
     "folder": "bangalore-iim-plot"
   },
@@ -343,11 +343,11 @@ window.PROJECTS = [
     "status": "Completed",
     "scope": "Design Consultancy",
     "images": [
-      "../../project-photos/rameshwaram-village/01.jpg",
-      "../../project-photos/rameshwaram-village/02.jpg",
-      "../../project-photos/rameshwaram-village/03.jpg",
-      "../../project-photos/rameshwaram-village/04.jpg",
-      "../../project-photos/rameshwaram-village/05.jpg"
+      "../../project-photos/rameshwaram-village/01.jpg?v=9cab9a2a",
+      "../../project-photos/rameshwaram-village/02.jpg?v=7972f70b",
+      "../../project-photos/rameshwaram-village/03.jpg?v=f8b131c1",
+      "../../project-photos/rameshwaram-village/04.jpg?v=273ca437",
+      "../../project-photos/rameshwaram-village/05.jpg?v=657ce724"
     ],
     "folder": "rameshwaram-village"
   },
@@ -364,10 +364,10 @@ window.PROJECTS = [
     "status": "Completed",
     "scope": "Design Consultancy",
     "images": [
-      "../../project-photos/rv-community-center/01.jpg",
-      "../../project-photos/rv-community-center/02.jpg",
-      "../../project-photos/rv-community-center/03.jpg",
-      "../../project-photos/rv-community-center/04.jpg"
+      "../../project-photos/rv-community-center/01.jpg?v=528ed0c4",
+      "../../project-photos/rv-community-center/02.jpg?v=33c0bdbf",
+      "../../project-photos/rv-community-center/03.jpg?v=b5d5e385",
+      "../../project-photos/rv-community-center/04.jpg?v=e7493fb3"
     ],
     "folder": "rv-community-center"
   },
@@ -384,10 +384,10 @@ window.PROJECTS = [
     "status": "Completed",
     "scope": "Design Consultancy",
     "images": [
-      "../../project-photos/rv-temple/01.jpg",
-      "../../project-photos/rv-temple/02.jpg",
-      "../../project-photos/rv-temple/03.jpg",
-      "../../project-photos/rv-temple/04.jpg"
+      "../../project-photos/rv-temple/01.jpg?v=ea7f6299",
+      "../../project-photos/rv-temple/02.jpg?v=22661a7b",
+      "../../project-photos/rv-temple/03.jpg?v=1bef6d74",
+      "../../project-photos/rv-temple/04.jpg?v=11c40e67"
     ],
     "folder": "rv-temple"
   },
@@ -404,8 +404,8 @@ window.PROJECTS = [
     "status": "Ongoing",
     "scope": "Design Consultancy",
     "images": [
-      "../../project-photos/hitesh/01.jpg",
-      "../../project-photos/hitesh/02.jpg"
+      "../../project-photos/hitesh/01.jpg?v=4c3eeb95",
+      "../../project-photos/hitesh/02.jpg?v=9fe7037d"
     ],
     "folder": "hitesh"
   },
@@ -422,11 +422,11 @@ window.PROJECTS = [
     "status": "Completed",
     "scope": "Design Consultancy",
     "images": [
-      "../../project-photos/sports-complex/01.jpg",
-      "../../project-photos/sports-complex/02.jpg",
-      "../../project-photos/sports-complex/03.jpg",
-      "../../project-photos/sports-complex/04.jpg",
-      "../../project-photos/sports-complex/05.jpg"
+      "../../project-photos/sports-complex/01.jpg?v=a8d3deca",
+      "../../project-photos/sports-complex/02.jpg?v=20b36a85",
+      "../../project-photos/sports-complex/03.jpg?v=113fc298",
+      "../../project-photos/sports-complex/04.jpg?v=4dbe70a7",
+      "../../project-photos/sports-complex/05.jpg?v=73fec7a6"
     ],
     "folder": "sports-complex"
   },
@@ -443,14 +443,14 @@ window.PROJECTS = [
     "status": "Ongoing",
     "scope": "Design Consultancy",
     "images": [
-      "../../project-photos/shree-radhe/01.jpg",
-      "../../project-photos/shree-radhe/02.jpg",
-      "../../project-photos/shree-radhe/03.jpg",
-      "../../project-photos/shree-radhe/04.jpg",
-      "../../project-photos/shree-radhe/05.jpg",
-      "../../project-photos/shree-radhe/06.jpg",
-      "../../project-photos/shree-radhe/07.jpg",
-      "../../project-photos/shree-radhe/08.jpg"
+      "../../project-photos/shree-radhe/01.jpg?v=06ef5aa4",
+      "../../project-photos/shree-radhe/02.jpg?v=0cedfc17",
+      "../../project-photos/shree-radhe/03.jpg?v=a393c72b",
+      "../../project-photos/shree-radhe/04.jpg?v=d8c7606c",
+      "../../project-photos/shree-radhe/05.jpg?v=319493d5",
+      "../../project-photos/shree-radhe/06.jpg?v=e7ecc0de",
+      "../../project-photos/shree-radhe/07.jpg?v=9f8e4149",
+      "../../project-photos/shree-radhe/08.jpg?v=b021b443"
     ],
     "folder": "shree-radhe"
   },
@@ -467,7 +467,7 @@ window.PROJECTS = [
     "status": "Ongoing",
     "scope": "Design Consultancy",
     "images": [
-      "../../project-photos/narendra-enclave/03.jpg"
+      "../../project-photos/narendra-enclave/03.jpg?v=7d705ee3"
     ],
     "folder": "narendra-enclave"
   },
@@ -484,7 +484,7 @@ window.PROJECTS = [
     "status": "Completed",
     "scope": "Design Consultancy",
     "images": [
-      "../../project-photos/vishakhapatnam-project/01.jpg"
+      "../../project-photos/vishakhapatnam-project/01.jpg?v=008c4920"
     ],
     "folder": "vishakhapatnam-project"
   },
@@ -501,9 +501,9 @@ window.PROJECTS = [
     "status": "Ongoing",
     "scope": "Design Consultancy",
     "images": [
-      "../../project-photos/rameshwaram-gardens/01.jpg",
-      "../../project-photos/rameshwaram-gardens/02.jpg",
-      "../../project-photos/rameshwaram-gardens/04.jpg"
+      "../../project-photos/rameshwaram-gardens/01.jpg?v=7b202ee8",
+      "../../project-photos/rameshwaram-gardens/02.jpg?v=f451d5be",
+      "../../project-photos/rameshwaram-gardens/04.jpg?v=b742cb7b"
     ],
     "folder": "rameshwaram-gardens"
   },
@@ -520,8 +520,8 @@ window.PROJECTS = [
     "status": "Ongoing",
     "scope": "Design Consultancy",
     "images": [
-      "../../project-photos/srinivas/01.jpg",
-      "../../project-photos/srinivas/02.jpg"
+      "../../project-photos/srinivas/01.jpg?v=d71d811c",
+      "../../project-photos/srinivas/02.jpg?v=7a82eb4a"
     ],
     "folder": "srinivas"
   },
@@ -538,15 +538,15 @@ window.PROJECTS = [
     "status": "Ongoing",
     "scope": "Design Consultancy",
     "images": [
-      "../../project-photos/rg-bungalow/01.jpg",
-      "../../project-photos/rg-bungalow/02.jpg",
-      "../../project-photos/rg-bungalow/03.jpg",
-      "../../project-photos/rg-bungalow/04.jpg",
-      "../../project-photos/rg-bungalow/05.jpg",
-      "../../project-photos/rg-bungalow/06.jpg",
-      "../../project-photos/rg-bungalow/07.jpg",
-      "../../project-photos/rg-bungalow/08.jpg",
-      "../../project-photos/rg-bungalow/09.jpg"
+      "../../project-photos/rg-bungalow/01.jpg?v=f911b5ab",
+      "../../project-photos/rg-bungalow/02.jpg?v=1a98ec7d",
+      "../../project-photos/rg-bungalow/03.jpg?v=4e7ada4e",
+      "../../project-photos/rg-bungalow/04.jpg?v=4f843bbd",
+      "../../project-photos/rg-bungalow/05.jpg?v=936649cf",
+      "../../project-photos/rg-bungalow/06.jpg?v=234a22c4",
+      "../../project-photos/rg-bungalow/07.jpg?v=e63684c2",
+      "../../project-photos/rg-bungalow/08.jpg?v=68765670",
+      "../../project-photos/rg-bungalow/09.jpg?v=9b90fcd7"
     ],
     "folder": "rg-bungalow"
   },
@@ -563,8 +563,8 @@ window.PROJECTS = [
     "status": "Ongoing",
     "scope": "Design Consultancy",
     "images": [
-      "../../project-photos/keshav-kunj/01.jpg",
-      "../../project-photos/keshav-kunj/02.jpg"
+      "../../project-photos/keshav-kunj/01.jpg?v=ac477cb6",
+      "../../project-photos/keshav-kunj/02.jpg?v=bb76abc7"
     ],
     "folder": "keshav-kunj"
   },
@@ -581,12 +581,12 @@ window.PROJECTS = [
     "status": "Completed",
     "scope": "Facade Design and Landscaping",
     "images": [
-      "../../project-photos/oak-serenity/01.jpg",
-      "../../project-photos/oak-serenity/02.jpg",
-      "../../project-photos/oak-serenity/03.jpg",
-      "../../project-photos/oak-serenity/04.jpg",
-      "../../project-photos/oak-serenity/05.jpg",
-      "../../project-photos/oak-serenity/06.jpg"
+      "../../project-photos/oak-serenity/01.jpg?v=9921a6fd",
+      "../../project-photos/oak-serenity/02.jpg?v=ae921fe8",
+      "../../project-photos/oak-serenity/03.jpg?v=3b6292d3",
+      "../../project-photos/oak-serenity/04.jpg?v=c7a85711",
+      "../../project-photos/oak-serenity/05.jpg?v=d230482d",
+      "../../project-photos/oak-serenity/06.jpg?v=57a7e7c7"
     ],
     "folder": "oak-serenity"
   },
@@ -603,9 +603,9 @@ window.PROJECTS = [
     "status": "Ongoing",
     "scope": "Design Consultancy",
     "images": [
-      "../../project-photos/induneil/01.jpg",
-      "../../project-photos/induneil/02.jpg",
-      "../../project-photos/induneil/03.jpg"
+      "../../project-photos/induneil/01.jpg?v=b75bc61a",
+      "../../project-photos/induneil/02.jpg?v=5ffd884f",
+      "../../project-photos/induneil/03.jpg?v=00b509f8"
     ],
     "folder": "induneil"
   },
@@ -622,7 +622,7 @@ window.PROJECTS = [
     "status": "Ongoing",
     "scope": "Design Consultancy",
     "images": [
-      "../../project-photos/sinheshwar-niwas/01.jpg"
+      "../../project-photos/sinheshwar-niwas/01.jpg?v=76eda073"
     ],
     "folder": "sinheshwar-niwas"
   },
@@ -639,8 +639,8 @@ window.PROJECTS = [
     "status": "Ongoing",
     "scope": "Design Consultancy",
     "images": [
-      "../../project-photos/devkinandan/01.jpg",
-      "../../project-photos/devkinandan/02.jpg"
+      "../../project-photos/devkinandan/01.jpg?v=1aa02282",
+      "../../project-photos/devkinandan/02.jpg?v=82a26919"
     ],
     "folder": "devkinandan"
   },
@@ -657,8 +657,8 @@ window.PROJECTS = [
     "status": "Ongoing",
     "scope": "Design Consultancy",
     "images": [
-      "../../project-photos/bhagat-bhavan/01.jpg",
-      "../../project-photos/bhagat-bhavan/02.jpg"
+      "../../project-photos/bhagat-bhavan/01.jpg?v=dac8f8f2",
+      "../../project-photos/bhagat-bhavan/02.jpg?v=25598a64"
     ],
     "folder": "bhagat-bhavan"
   },
@@ -675,10 +675,10 @@ window.PROJECTS = [
     "status": "Ongoing",
     "scope": "Design Consultancy",
     "images": [
-      "../../project-photos/sdm-house/01.jpg",
-      "../../project-photos/sdm-house/02.jpg",
-      "../../project-photos/sdm-house/03.jpg",
-      "../../project-photos/sdm-house/04.jpg"
+      "../../project-photos/sdm-house/01.jpg?v=6b538085",
+      "../../project-photos/sdm-house/02.jpg?v=6d4a5afd",
+      "../../project-photos/sdm-house/03.jpg?v=01d56bec",
+      "../../project-photos/sdm-house/04.jpg?v=0ac96ea0"
     ],
     "folder": "sdm-house"
   },
@@ -695,7 +695,7 @@ window.PROJECTS = [
     "status": "Ongoing",
     "scope": "Design Consultancy",
     "images": [
-      "../../project-photos/uma-enclave/01.jpg"
+      "../../project-photos/uma-enclave/01.jpg?v=4ac1134d"
     ],
     "folder": "uma-enclave"
   },
@@ -1355,7 +1355,7 @@ window.PROJECTS = [
     "status": "Proposed",
     "scope": "Design Consultancy",
     "images": [
-      "../../project-photos/gossner-college-gate/01.jpg"
+      "../../project-photos/gossner-college-gate/01.jpg?v=27e1dd14"
     ],
     "folder": "gossner-college-gate"
   },
@@ -1372,12 +1372,12 @@ window.PROJECTS = [
     "status": "Completed",
     "scope": "Design Consultancy",
     "images": [
-      "../../project-photos/oak-elegance-landscape/01.jpg",
-      "../../project-photos/oak-elegance-landscape/02.jpg",
-      "../../project-photos/oak-elegance-landscape/03.jpg",
-      "../../project-photos/oak-elegance-landscape/04.jpg",
-      "../../project-photos/oak-elegance-landscape/05.jpg",
-      "../../project-photos/oak-elegance-landscape/06.JPG"
+      "../../project-photos/oak-elegance-landscape/01.jpg?v=b7c22b48",
+      "../../project-photos/oak-elegance-landscape/02.jpg?v=96b3a914",
+      "../../project-photos/oak-elegance-landscape/03.jpg?v=948619dc",
+      "../../project-photos/oak-elegance-landscape/04.jpg?v=00ea5255",
+      "../../project-photos/oak-elegance-landscape/05.jpg?v=b7b5af12",
+      "../../project-photos/oak-elegance-landscape/06.JPG?v=906da9e6"
     ],
     "folder": "oak-elegance-landscape"
   },
@@ -1394,7 +1394,7 @@ window.PROJECTS = [
     "status": "Proposed",
     "scope": "Design Consultancy",
     "images": [
-      "../../project-photos/st-michael-s-school-gate/01.jpg"
+      "../../project-photos/st-michael-s-school-gate/01.jpg?v=1950680b"
     ],
     "folder": "st-michael-s-school-gate"
   },
@@ -1411,10 +1411,10 @@ window.PROJECTS = [
     "status": "Ongoing",
     "scope": "Design Consultancy",
     "images": [
-      "../../project-photos/oak-forest/01.jpg",
-      "../../project-photos/oak-forest/02.jpg",
-      "../../project-photos/oak-forest/03.jpg",
-      "../../project-photos/oak-forest/04.jpg"
+      "../../project-photos/oak-forest/01.jpg?v=751edc24",
+      "../../project-photos/oak-forest/02.jpg?v=471536dd",
+      "../../project-photos/oak-forest/03.jpg?v=074db5ff",
+      "../../project-photos/oak-forest/04.jpg?v=80ba952b"
     ],
     "folder": "oak-forest"
   },
@@ -1431,8 +1431,8 @@ window.PROJECTS = [
     "status": "Ongoing",
     "scope": "Design Consultancy",
     "images": [
-      "../../project-photos/triveni-garden/01.jpg",
-      "../../project-photos/triveni-garden/02.jpg"
+      "../../project-photos/triveni-garden/01.jpg?v=90e76ab1",
+      "../../project-photos/triveni-garden/02.jpg?v=3ec18fbe"
     ],
     "folder": "triveni-garden"
   }
