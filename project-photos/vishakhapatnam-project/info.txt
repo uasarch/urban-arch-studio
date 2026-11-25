@@ -10,7 +10,7 @@
 Title: Vishakhapatnam Project
 Category: Architecture
 Sector: Commercial
-Client: Mr. Mamidi Ranganath
+Client: Private
 Type: Commercial
 Year: 2023
 Area: 8306.60 Sq.Ft.

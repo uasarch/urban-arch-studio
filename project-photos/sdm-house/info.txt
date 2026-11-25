@@ -10,7 +10,7 @@
 Title: SDM House
 Category: Architecture
 Sector: Residential
-Client: Mr. Siddharth Kochhar
+Client: Private
 Type: Residential Bungalow
 Year: 2025
 Area: 4,600 Sq.Ft.

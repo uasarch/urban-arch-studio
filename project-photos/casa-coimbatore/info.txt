@@ -10,7 +10,7 @@
 Title: Casa Coimbatore
 Category: Architecture
 Sector: Commercial
-Client: Mr. Amir Kheuzema
+Client: Private
 Type: Mixed Use
 Year: 2020
 Area: 11,600 Sq.Ft.

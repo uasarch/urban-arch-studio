@@ -10,7 +10,7 @@ window.PROJECTS = [
     "title": "Villa Rodrigues",
     "category": "architecture",
     "sector": "Residential",
-    "client": "Mr. Alex Rodrigues",
+    "client": "Private",
     "type": "Bungalow",
     "year": "2017",
     "area": "4,000 Sq.Ft.",
@@ -90,10 +90,10 @@ window.PROJECTS = [
     "folder": "ekal-foundation-skill-development-centre"
   },
   {
-    "title": "Bachuda’s Outhouse",
+    "title": "Outhouse, Tharpakna",
     "category": "architecture",
     "sector": "Residential",
-    "client": "Mr. J. Choudhury",
+    "client": "Private",
     "type": "Residential Recreational",
     "year": "2019",
     "area": "700 Sq.Ft.",
@@ -102,10 +102,10 @@ window.PROJECTS = [
     "status": "Completed",
     "scope": "Design Consultancy",
     "images": [
-      "../../project-photos/bachuda-s-bungalow-extension/01.jpg?v=1c454be5",
-      "../../project-photos/bachuda-s-bungalow-extension/02.jpg?v=468aa436"
+      "../../project-photos/outhouse-tharpakna/01.jpg?v=1c454be5",
+      "../../project-photos/outhouse-tharpakna/02.jpg?v=468aa436"
     ],
-    "folder": "bachuda-s-bungalow-extension"
+    "folder": "outhouse-tharpakna"
   },
   {
     "title": "Aashirvad",
@@ -131,7 +131,7 @@ window.PROJECTS = [
     "title": "Chandrika Nivas",
     "category": "architecture",
     "sector": "Residential",
-    "client": "Mr. Neeraj Sharma",
+    "client": "Private",
     "type": "Residential Apartment",
     "year": "2019",
     "area": "60,000 Sq.Ft.",
@@ -167,7 +167,7 @@ window.PROJECTS = [
     "title": "Bungalow Extension",
     "category": "architecture",
     "sector": "Residential",
-    "client": "Mr. Jacob Mathew",
+    "client": "Private",
     "type": "Bungalow",
     "year": "2020",
     "area": "4,150 Sq.Ft.",
@@ -188,7 +188,7 @@ window.PROJECTS = [
     "title": "Casa Coimbatore",
     "category": "architecture",
     "sector": "Commercial",
-    "client": "Mr. Amir Kheuzema",
+    "client": "Private",
     "type": "Mixed Use",
     "year": "2020",
     "area": "11,600 Sq.Ft.",
@@ -197,7 +197,7 @@ window.PROJECTS = [
     "status": "Proposed",
     "scope": "Design Consultancy",
     "images": [
-      "../../assets/uploads/2025/09/20-A-06_Mr.-Amir-Khuzema.jpg"
+      "../../project-photos/casa-coimbatore/01.jpg?v=f8a41bbe"
     ],
     "folder": "casa-coimbatore"
   },
@@ -255,7 +255,7 @@ window.PROJECTS = [
     "title": "Reve_Your Serene Abode",
     "category": "architecture",
     "sector": "Residential",
-    "client": "Mr. Rakesh Shetty and Ms. Kanti Shetty",
+    "client": "Private",
     "type": "Bungalow",
     "year": "2021 - 2025",
     "area": "12,500 Sq.Ft.",
@@ -296,10 +296,10 @@ window.PROJECTS = [
     "folder": "reve-your-serene-abode"
   },
   {
-    "title": "Amit Das's Farmhouse",
+    "title": "Farmhouse, Amliya Kalyanpur",
     "category": "architecture",
     "sector": "Residential",
-    "client": "Mr. Amit Das",
+    "client": "Private",
     "type": "Farmhouse",
     "year": "2021",
     "area": "1,950 Sq.Ft.",
@@ -308,10 +308,10 @@ window.PROJECTS = [
     "status": "Proposed",
     "scope": "Design Consultancy",
     "images": [
-      "../../project-photos/amit-das-s-farmhouse/01.jpg?v=9f5ea4a4",
-      "../../project-photos/amit-das-s-farmhouse/02.jpg?v=4abf7cac"
+      "../../project-photos/farmhouse-amliya-kalyanpur/01.jpg?v=9f5ea4a4",
+      "../../project-photos/farmhouse-amliya-kalyanpur/02.jpg?v=4abf7cac"
     ],
-    "folder": "amit-das-s-farmhouse"
+    "folder": "farmhouse-amliya-kalyanpur"
   },
   {
     "title": "Bangalore IIM Plot",
@@ -475,7 +475,7 @@ window.PROJECTS = [
     "title": "Vishakhapatnam Project",
     "category": "architecture",
     "sector": "Commercial",
-    "client": "Mr. Mamidi Ranganath",
+    "client": "Private",
     "type": "Commercial",
     "year": "2023",
     "area": "8306.60 Sq.Ft.",
@@ -666,7 +666,7 @@ window.PROJECTS = [
     "title": "SDM House",
     "category": "architecture",
     "sector": "Residential",
-    "client": "Mr. Siddharth Kochhar",
+    "client": "Private",
     "type": "Residential Bungalow",
     "year": "2025",
     "area": "4,600 Sq.Ft.",
@@ -719,7 +719,7 @@ window.PROJECTS = [
     "folder": "pharmacy-dashmesh"
   },
   {
-    "title": "Mr. Achal Bangani",
+    "title": "A. Bangani & Associates Office",
     "category": "interior",
     "sector": "Commercial",
     "client": "A. Bangani and Associates",
@@ -750,13 +750,13 @@ window.PROJECTS = [
       "../../assets/uploads/2025/09/a17.jpg",
       "../../assets/uploads/2025/09/a18.jpg"
     ],
-    "folder": "mr-achal-bangani"
+    "folder": "a-bangani-and-associates-office"
   },
   {
-    "title": "Mr. Kushal Shah",
+    "title": "3.5BHK Residence, Kemps Corner",
     "category": "interior",
     "sector": "Residential",
-    "client": "Mr. Kushal Shah",
+    "client": "Private",
     "type": "3.5BHK Residential",
     "year": "2022",
     "area": "1,010 Sq.Ft.",
@@ -773,13 +773,13 @@ window.PROJECTS = [
       "../../assets/uploads/2025/09/6-7.jpg",
       "../../assets/uploads/2025/09/7-4.jpg"
     ],
-    "folder": "mr-kushal-shah"
+    "folder": "3-5bhk-residence-kemps-corner"
   },
   {
-    "title": "Dr. Yogesh Mehta",
+    "title": "Dental Clinic, Thane West",
     "category": "interior",
     "sector": "Commercial",
-    "client": "Dr. Yogesh Mehta",
+    "client": "Private",
     "type": "Dental Clinic",
     "year": "2022",
     "area": "450 Sq.Ft.",
@@ -793,7 +793,7 @@ window.PROJECTS = [
       "../../assets/uploads/2025/09/4-16.jpg",
       "../../assets/uploads/2025/09/3-20.jpg"
     ],
-    "folder": "dr-yogesh-mehta"
+    "folder": "dental-clinic-thane-west"
   },
   {
     "title": "GGFMC Physiotherapy Center",
@@ -819,10 +819,10 @@ window.PROJECTS = [
     "folder": "ggfmc-physiotherapy-center"
   },
   {
-    "title": "Amit, Goregoan West",
+    "title": "4BHK Residence, Goregaon West",
     "category": "interior",
     "sector": "Residential",
-    "client": "Mr. Amit",
+    "client": "Private",
     "type": "4BHK Residential",
     "year": "2022",
     "area": "1,725 Sq.Ft.",
@@ -843,13 +843,13 @@ window.PROJECTS = [
       "../../assets/uploads/2025/09/9-3.jpg",
       "../../assets/uploads/2025/09/11-2.jpg"
     ],
-    "folder": "amit-goregoan-west"
+    "folder": "4bhk-residence-goregaon-west"
   },
   {
-    "title": "Darpan Parekh",
+    "title": "Bungalow, Harrow, London",
     "category": "interior",
     "sector": "Residential",
-    "client": "Mr. Darpan Shah",
+    "client": "Private",
     "type": "Bungalow",
     "year": "2024",
     "area": "1800 Sq.Ft.",
@@ -865,13 +865,13 @@ window.PROJECTS = [
       "../../assets/uploads/2025/09/5-12.jpg",
       "../../assets/uploads/2025/09/6-10.jpg"
     ],
-    "folder": "darpan-parekh"
+    "folder": "bungalow-harrow-london"
   },
   {
-    "title": "Autee Residence",
+    "title": "2BHK Residence, Malad East",
     "category": "interior",
     "sector": "Residential",
-    "client": "Dr. Surekha Autee",
+    "client": "Private",
     "type": "2BHK Residential",
     "year": "2023",
     "area": "715 Sq.Ft.",
@@ -887,13 +887,13 @@ window.PROJECTS = [
       "../../assets/uploads/2025/09/5-13.jpg",
       "../../assets/uploads/2025/09/6-11.jpg"
     ],
-    "folder": "autee-residence"
+    "folder": "2bhk-residence-malad-east"
   },
   {
-    "title": "Mr. Sanjay Agarwal",
+    "title": "3BHK Residence, Mulund West",
     "category": "interior",
     "sector": "Residential",
-    "client": "Mr. Sanjay Agarwal",
+    "client": "Private",
     "type": "3BHK Residential",
     "year": "2023",
     "area": "1425 Sq.Ft.",
@@ -926,13 +926,13 @@ window.PROJECTS = [
       "../../assets/uploads/2025/09/22-1.jpg",
       "../../assets/uploads/2025/09/23-1.jpg"
     ],
-    "folder": "mr-sanjay-agarwal"
+    "folder": "3bhk-residence-mulund-west"
   },
   {
-    "title": "Kshitij Raj, Lalpur, Ranchi",
+    "title": "2BHK Residence, Lalpur",
     "category": "interior",
     "sector": "Residential",
-    "client": "Mr. Kshitij Raj",
+    "client": "Private",
     "type": "2BHK Residential",
     "year": "2024",
     "area": "700 Sq.Ft.",
@@ -947,13 +947,13 @@ window.PROJECTS = [
       "../../assets/uploads/2025/09/3-26.jpg",
       "../../assets/uploads/2025/09/5-15.jpg"
     ],
-    "folder": "kshitij-raj-lalpur-ranchi"
+    "folder": "2bhk-residence-lalpur"
   },
   {
     "title": "Homoeopathic Clinic",
     "category": "interior",
     "sector": "Commercial",
-    "client": "Dr. Vijay Gandhi",
+    "client": "Private",
     "type": "Clinic",
     "year": "2024",
     "area": "400 Sq.Ft.",
@@ -970,10 +970,10 @@ window.PROJECTS = [
     "folder": "homoeopathic-clinic"
   },
   {
-    "title": "Mr. Kiran Shah",
+    "title": "Guest House, Borivali East",
     "category": "interior",
     "sector": "Residential",
-    "client": "Mr. Kiran Shah",
+    "client": "Private",
     "type": "2BHK Guest House",
     "year": "2024",
     "area": "650 Sq.Ft.",
@@ -982,15 +982,15 @@ window.PROJECTS = [
     "status": "Completed",
     "scope": "Design Consultancy",
     "images": [
-      "../../assets/uploads/2025/09/24-I-09_Mr.-Kiran-Shah.jpg"
+      "../../project-photos/guest-house-borivali-east/01.jpg?v=445a7f5f"
     ],
-    "folder": "mr-kiran-shah"
+    "folder": "guest-house-borivali-east"
   },
   {
-    "title": "Shashank Kumar",
+    "title": "Bungalow Interiors, Harmu",
     "category": "interior",
     "sector": "Residential",
-    "client": "Mr. Shashank Kumar",
+    "client": "Private",
     "type": "Bungalow",
     "year": "2024",
     "area": "1800 Sq.Ft.",
@@ -1002,13 +1002,13 @@ window.PROJECTS = [
       "../../assets/uploads/2025/09/1-38.jpg",
       "../../assets/uploads/2025/09/2-35.jpg"
     ],
-    "folder": "shashank-kumar"
+    "folder": "bungalow-interiors-harmu"
   },
   {
-    "title": "Mahesh Shukla, Dahisar West",
+    "title": "2BHK Residence, Dahisar West",
     "category": "interior",
     "sector": "Residential",
-    "client": "Mr. Mahesh Shukla",
+    "client": "Private",
     "type": "2BHK Residential",
     "year": "2025",
     "area": "715 Sq.Ft.",
@@ -1021,7 +1021,7 @@ window.PROJECTS = [
       "../../assets/uploads/2025/09/1-39.jpg",
       "../../assets/uploads/2025/09/3-28.jpg"
     ],
-    "folder": "mahesh-shukla-dahisar-west"
+    "folder": "2bhk-residence-dahisar-west"
   },
   {
     "title": "MP's Office",
@@ -1047,10 +1047,10 @@ window.PROJECTS = [
     "folder": "mp-s-office"
   },
   {
-    "title": "Mrs. Amrita Khakhar",
+    "title": "1BHK Residence, Versova",
     "category": "interior",
     "sector": "Residential",
-    "client": "Mrs. Amrita Khakhar",
+    "client": "Private",
     "type": "1BHK Residential",
     "year": "2019",
     "area": "230 Sq.Ft",
@@ -1059,15 +1059,15 @@ window.PROJECTS = [
     "status": "Completed",
     "scope": "Design Consultancy",
     "images": [
-      "../../assets/uploads/2025/09/19-I-04_INT_Mrs.-Amita-Khakhar.jpg"
+      "../../project-photos/1bhk-residence-versova/01.jpg?v=aacd8300"
     ],
-    "folder": "mrs-amrita-khakhar"
+    "folder": "1bhk-residence-versova"
   },
   {
-    "title": "Mr. Neeraj Kumar",
+    "title": "3BHK Residence, Buti",
     "category": "interior",
     "sector": "Residential",
-    "client": "Mr. Neeraj Kumar",
+    "client": "Private",
     "type": "3BHK Residential",
     "year": "2019",
     "area": "1,400 Sq.Ft.",
@@ -1087,13 +1087,13 @@ window.PROJECTS = [
       "../../assets/uploads/2025/09/10-4.jpg",
       "../../assets/uploads/2025/09/9-5.jpg"
     ],
-    "folder": "mr-neeraj-kumar"
+    "folder": "3bhk-residence-buti"
   },
   {
-    "title": "Mrs. Veena Varma",
+    "title": "2BHK Residence, Seawoods",
     "category": "interior",
     "sector": "Residential",
-    "client": "Mrs. Veena Varma",
+    "client": "Private",
     "type": "2BHK Residential",
     "year": "2019",
     "area": "540 Sq.Ft.",
@@ -1106,14 +1106,14 @@ window.PROJECTS = [
       "../../assets/uploads/2025/09/2-38.jpg",
       "../../assets/uploads/2025/09/3-30.jpg"
     ],
-    "folder": "mrs-veena-varma"
+    "folder": "2bhk-residence-seawoods"
   },
   {
-    "title": "Mr. Bharat",
+    "title": "Garments Showroom, Bandra West",
     "category": "interior",
-    "sector": "Residential",
-    "client": "Garments Showroom",
-    "type": "2BHK Residential",
+    "sector": "Commercial",
+    "client": "Private",
+    "type": "Retail Showroom",
     "year": "2019",
     "area": "150 Sq.Ft.",
     "location": "Bandra West, Mumbai",
@@ -1121,15 +1121,15 @@ window.PROJECTS = [
     "status": "Proposed",
     "scope": "Design Consultancy",
     "images": [
-      "../../assets/uploads/2025/09/19-I-16_Mr.-Bharat.jpg"
+      "../../project-photos/garments-showroom-bandra-west/01.jpg?v=2e6d0446"
     ],
-    "folder": "mr-bharat"
+    "folder": "garments-showroom-bandra-west"
   },
   {
-    "title": "Mr. Prabhakar Jaiswal",
+    "title": "3BHK Residence, Kathal More",
     "category": "interior",
     "sector": "Residential",
-    "client": "Mr. Prabhakar Jaiswal",
+    "client": "Private",
     "type": "3BHK Residential",
     "year": "2019",
     "area": "1,100 Sq.Ft.",
@@ -1138,15 +1138,15 @@ window.PROJECTS = [
     "status": "Completed",
     "scope": "Design & Build",
     "images": [
-      "../../assets/uploads/2025/09/19-I-25_Mr.-Prabhakar-Jaiswal.jpg"
+      "../../project-photos/3bhk-residence-kathal-more/01.jpg?v=be069904"
     ],
-    "folder": "mr-prabhakar-jaiswal"
+    "folder": "3bhk-residence-kathal-more"
   },
   {
-    "title": "Mr. Vishal Varsheney",
+    "title": "3BHK Residence, Kandra",
     "category": "interior",
     "sector": "Residential",
-    "client": "Mr. Vishal Varsheney",
+    "client": "Private",
     "type": "3BHK Residential",
     "year": "2019",
     "area": "1,650 Sq.Ft.",
@@ -1158,13 +1158,13 @@ window.PROJECTS = [
       "../../assets/uploads/2025/09/1-42.jpg",
       "../../assets/uploads/2025/09/2-39.jpg"
     ],
-    "folder": "mr-vishal-varsheney"
+    "folder": "3bhk-residence-kandra"
   },
   {
-    "title": "Ms. Priyadarshani Singh",
+    "title": "3BHK Residence, Bokaro",
     "category": "interior",
     "sector": "Residential",
-    "client": "Ms. Priyadarshani Singh",
+    "client": "Private",
     "type": "3BHK Residential",
     "year": "2019",
     "area": "1,200 Sq.Ft.",
@@ -1178,13 +1178,13 @@ window.PROJECTS = [
       "../../assets/uploads/2025/09/3-31.jpg",
       "../../assets/uploads/2025/09/4-25.jpg"
     ],
-    "folder": "ms-priyadarshani-singh"
+    "folder": "3bhk-residence-bokaro"
   },
   {
-    "title": "Mr. Pawan Keshari",
+    "title": "3BHK Residence, Deogarh",
     "category": "interior",
     "sector": "Residential",
-    "client": "Mr. Pawan Keshari",
+    "client": "Private",
     "type": "3BHK Residential",
     "year": "2019",
     "area": "2,400 Sq.Ft.",
@@ -1197,13 +1197,13 @@ window.PROJECTS = [
       "../../assets/uploads/2025/09/2-41.jpg",
       "../../assets/uploads/2025/09/3-32.jpg"
     ],
-    "folder": "mr-pawan-keshari"
+    "folder": "3bhk-residence-deogarh"
   },
   {
-    "title": "Mr. Vivek Raipat",
+    "title": "Bedroom, Hinoo",
     "category": "interior",
     "sector": "Residential",
-    "client": "Mr. Vivek Raipat",
+    "client": "Private",
     "type": "Bed Room",
     "year": "2020",
     "area": "200 Sq.Ft.",
@@ -1217,13 +1217,13 @@ window.PROJECTS = [
       "../../assets/uploads/2025/09/3-33.jpg",
       "../../assets/uploads/2025/09/4-26.jpg"
     ],
-    "folder": "mr-vivek-raipat"
+    "folder": "bedroom-hinoo"
   },
   {
-    "title": "Mr. Rishi Jagtiani",
+    "title": "2.5BHK Residence, Andheri West",
     "category": "interior",
     "sector": "Residential",
-    "client": "Mr. Rishi Jagtiani",
+    "client": "Private",
     "type": "2.5BHK Residential",
     "year": "2021",
     "area": "815 Sq.Ft.",
@@ -1241,13 +1241,13 @@ window.PROJECTS = [
       "../../assets/uploads/2025/09/7-9.jpg",
       "../../assets/uploads/2025/09/8-7.jpg"
     ],
-    "folder": "mr-rishi-jagtiani"
+    "folder": "2-5bhk-residence-andheri-west"
   },
   {
-    "title": "Mr. Pragnesh Thakkar",
+    "title": "2.5BHK Residence, Mulund West",
     "category": "interior",
     "sector": "Residential",
-    "client": "Mr. Pragnesh Thakkar",
+    "client": "Private",
     "type": "2.5BHK Residential",
     "year": "2021",
     "area": "900 Sq.Ft.",
@@ -1260,13 +1260,13 @@ window.PROJECTS = [
       "../../assets/uploads/2025/09/2-44.jpg",
       "../../assets/uploads/2025/09/3-35.jpg"
     ],
-    "folder": "mr-pragnesh-thakkar"
+    "folder": "2-5bhk-residence-mulund-west"
   },
   {
     "title": "The Curve Dental Solutions",
     "category": "interior",
     "sector": "Commercial",
-    "client": "Dr. Vinit Pandhi and Dr. Priyanka Pandhi",
+    "client": "Private",
     "type": "Dental Clinic",
     "year": "2021",
     "area": "600 Sq.Ft.",
@@ -1329,7 +1329,7 @@ window.PROJECTS = [
     "title": "CV Farmhouse",
     "category": "landscape",
     "sector": "Residential",
-    "client": "C.V.",
+    "client": "Private",
     "type": "Landscape Design",
     "year": "2023",
     "area": "1,08,893 Sq.Ft.",

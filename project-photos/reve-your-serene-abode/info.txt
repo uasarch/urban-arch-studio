@@ -10,7 +10,7 @@
 Title: Reve_Your Serene Abode
 Category: Architecture
 Sector: Residential
-Client: Mr. Rakesh Shetty and Ms. Kanti Shetty
+Client: Private
 Type: Bungalow
 Year: 2021 - 2025
 Area: 12,500 Sq.Ft.

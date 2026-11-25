@@ -10,7 +10,7 @@
 Title: Bungalow Extension
 Category: Architecture
 Sector: Residential
-Client: Mr. Jacob Mathew
+Client: Private
 Type: Bungalow
 Year: 2020
 Area: 4,150 Sq.Ft.

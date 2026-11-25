@@ -10,7 +10,7 @@
 Title: Chandrika Nivas
 Category: Architecture
 Sector: Residential
-Client: Mr. Neeraj Sharma
+Client: Private
 Type: Residential Apartment
 Year: 2019
 Area: 60,000 Sq.Ft.
