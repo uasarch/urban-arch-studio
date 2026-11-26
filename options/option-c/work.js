@@ -233,7 +233,7 @@
             const ex = big.wc / 2 + a * (rings + 0.5), ey = big.hc / 2 + a * (rings + 0.5);
             n -= Math.max(4, Math.floor(4 * (ex + ey) / (a * 0.9))); rings++;
           }
-          margin = Math.ceil(a * rings);
+          margin = Math.ceil(a * rings * 0.8);
         }
         const spot = firstFit(big.wc + 2 * margin, big.hc + 2 * margin);
         if (!spot) continue;
@@ -247,16 +247,38 @@
       }
       if (bottom * cell > H + coverMax * 2 && tiles.length >= 24) break;
     }
-    // close up the band along the bottom with small photos, so the tile meets its own top
-    // (where it repeats) without big holes
+    // Fill every gap left that is big enough for a small photo (including along the bottom,
+    // where the tile meets its own top). Each gap gets a photo from a project placed as far away
+    // as possible, and no photo is used twice, so a repeat never shows near its original.
     const TH = bottom * cell;
-    const band = Math.max(0, bottom - coverRows * 2);
-    firstOpen = Math.max(firstOpen, band);
-    for (let j = 0, misses = 0; j < 800 && misses < 6; j++) {
-      const el = base[j % base.length];
-      const s = sizeOf(el, between(S.small) * 0.85);
-      const at = firstFit(s.wc, s.hc, bottom);
-      if (at) { put(el, at.x, at.y, s.wc, s.hc); misses = 0; } else misses++;
+    const wrap = (d, n) => { d = Math.abs(d) % n; return Math.min(d, n - d); };
+    const where = new Map();                 // photo -> centres (px) of every place it shows
+    tiles.forEach(t => { if (!where.has(t.src)) where.set(t.src, []); where.get(t.src).push([t.x + t.w / 2, t.y + t.h / 2]); });
+    const spare = base.filter(el => { const r = +el.dataset.r || 1.5; return r > 1.15 && r < 2; });
+    const pool = spare.length >= 12 ? spare : base;
+    const boxSide = S.small[0] * W;
+    const box = { wc: Math.round((boxSide * Math.sqrt(1.5) + gap) / cell), hc: Math.round((boxSide / Math.sqrt(1.5) + gap) / cell) };
+    const filled = new Set();
+    for (let y = 0; y + box.hc <= bottom; y++) {
+      for (let x = 0; x < cols; x++) {
+        if (!isFree(x, y, box.wc, box.hc)) continue;
+        const px = (x + box.wc / 2) * cell, py = (y + box.hc / 2) * cell;
+        let pick = null, far = -1;
+        for (const el of pool) {
+          if (filled.has(el) && filled.size < pool.length) continue;
+          const d = Math.min(...(where.get(el) || [[Infinity, Infinity]]).map(([cx, cy]) => Math.hypot(wrap(cx - px, TW), wrap(cy - py, TH))));
+          if (d > far) { far = d; pick = el; }
+        }
+        if (!pick) continue;
+        // fit the chosen photo inside the gap, keeping its shape
+        const r = +pick.dataset.r || 1.5;
+        let wc = box.wc, hc = Math.max(2, Math.round(((box.wc * cell - gap) / r + gap) / cell));
+        if (hc > box.hc) { hc = box.hc; wc = Math.max(2, Math.round(((box.hc * cell - gap) * r + gap) / cell)); }
+        put(pick, x, y, wc, hc);
+        filled.add(pick);
+        where.get(pick).push([(x + wc / 2) * cell, (y + hc / 2) * cell]);
+        x += wc - 1;
+      }
     }
     // the first copy of each photo is the real link; repeats are clones
     galEl.querySelectorAll('.ga-item.copy').forEach(el => el.remove());
