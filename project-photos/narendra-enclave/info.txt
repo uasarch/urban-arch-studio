@@ -7,6 +7,7 @@
 #   Year:     e.g. 2021, 2018 - 2021, or 2024 - Ongoing
 #   Featured: yes = show it in "Selected work" on the home page
 #   Pin:      1 to 9 = show it first on the Projects page, in that order (empty = newest first)
+#   Text photos: numbers of the photos that are only text (e.g. 2 or 24, 25), left out of the Gallery view
 
 Title: Narendra Enclave
 Category: Architecture
@@ -21,3 +22,4 @@ Status: Ongoing
 Scope: Design Consultancy
 Featured: no
 Pin:
+Text photos:

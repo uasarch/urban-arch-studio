@@ -26,6 +26,14 @@ window.PROJECTS = [
       "../../assets/uploads/2025/09/6.jpg",
       "../../assets/uploads/2025/09/5.jpg"
     ],
+    "sizes": [
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600"
+    ],
     "folder": "villa-rodrigues"
   },
   {
@@ -40,10 +48,18 @@ window.PROJECTS = [
     "region": "Ranchi",
     "status": "Completed",
     "scope": "Design Consultancy",
+    "text": [
+      2
+    ],
     "images": [
       "../../project-photos/kalyani-enclave/01.jpg?v=0e0a40e7",
       "../../project-photos/kalyani-enclave/02.jpg?v=6503c9ca",
       "../../project-photos/kalyani-enclave/03.jpg?v=ed1fa899"
+    ],
+    "sizes": [
+      "1048x619",
+      "1213x682",
+      "2400x1695"
     ],
     "folder": "kalyani-enclave"
   },
@@ -59,11 +75,20 @@ window.PROJECTS = [
     "region": "Rest of India",
     "status": "Completed",
     "scope": "Design Consultancy",
+    "text": [
+      2
+    ],
     "images": [
       "../../project-photos/army-officer-s-living/01.jpg?v=385949ff",
       "../../project-photos/army-officer-s-living/02.jpg?v=b188631e",
       "../../project-photos/army-officer-s-living/03.jpg?v=d911f1bc",
       "../../project-photos/army-officer-s-living/04.jpg?v=29d5a5bc"
+    ],
+    "sizes": [
+      "1672x941",
+      "1213x682",
+      "2400x1696",
+      "2400x2400"
     ],
     "folder": "army-officer-s-living"
   },
@@ -80,6 +105,9 @@ window.PROJECTS = [
     "status": "Completed",
     "scope": "Design Consultancy",
     "pin": 3,
+    "text": [
+      2
+    ],
     "images": [
       "../../project-photos/ekal-foundation-skill-development-centre/01.jpg?v=54762baf",
       "../../project-photos/ekal-foundation-skill-development-centre/02.jpg?v=ef6dffad",
@@ -87,6 +115,14 @@ window.PROJECTS = [
       "../../project-photos/ekal-foundation-skill-development-centre/04.jpg?v=febc24c3",
       "../../project-photos/ekal-foundation-skill-development-centre/05.jpg?v=3299cc10",
       "../../project-photos/ekal-foundation-skill-development-centre/06.jpg?v=020a5e78"
+    ],
+    "sizes": [
+      "1672x941",
+      "1213x682",
+      "2400x1695",
+      "2400x1695",
+      "1672x941",
+      "1672x941"
     ],
     "folder": "ekal-foundation-skill-development-centre"
   },
@@ -105,6 +141,10 @@ window.PROJECTS = [
     "images": [
       "../../project-photos/outhouse-tharpakna/01.jpg?v=1c454be5",
       "../../project-photos/outhouse-tharpakna/02.jpg?v=468aa436"
+    ],
+    "sizes": [
+      "2400x1350",
+      "2400x1350"
     ],
     "folder": "outhouse-tharpakna"
   },
@@ -126,6 +166,12 @@ window.PROJECTS = [
       "../../project-photos/aashirvad/03.jpg?v=47572c31",
       "../../project-photos/aashirvad/04.jpg?v=eee0a552"
     ],
+    "sizes": [
+      "1672x941",
+      "2400x1695",
+      "1672x941",
+      "1672x941"
+    ],
     "folder": "aashirvad"
   },
   {
@@ -143,6 +189,9 @@ window.PROJECTS = [
     "images": [
       "../../project-photos/chandrika-nivas/01.jpg?v=0db6b971"
     ],
+    "sizes": [
+      "1920x1080"
+    ],
     "folder": "chandrika-nivas"
   },
   {
@@ -157,10 +206,18 @@ window.PROJECTS = [
     "region": "Ranchi",
     "status": "Completed",
     "scope": "Design Consultancy",
+    "text": [
+      2
+    ],
     "images": [
       "../../project-photos/mridula-nivas/01.jpg?v=0a042ca7",
       "../../project-photos/mridula-nivas/02.jpg?v=6c24d8bd",
       "../../project-photos/mridula-nivas/03.jpg?v=4a6bb47d"
+    ],
+    "sizes": [
+      "1699x1050",
+      "1213x682",
+      "2400x1695"
     ],
     "folder": "mridula-nivas"
   },
@@ -183,6 +240,13 @@ window.PROJECTS = [
       "../../project-photos/bungalow-extension/05.jpg?v=4447479b",
       "../../project-photos/bungalow-extension/06.jpg?v=9fd8777e"
     ],
+    "sizes": [
+      "1671x941",
+      "2400x1695",
+      "2400x1695",
+      "1672x941",
+      "1672x941"
+    ],
     "folder": "bungalow-extension"
   },
   {
@@ -199,6 +263,9 @@ window.PROJECTS = [
     "scope": "Design Consultancy",
     "images": [
       "../../project-photos/casa-coimbatore/01.jpg?v=f8a41bbe"
+    ],
+    "sizes": [
+      "1000x600"
     ],
     "folder": "casa-coimbatore"
   },
@@ -218,6 +285,10 @@ window.PROJECTS = [
       "../../assets/uploads/2025/09/2-8.jpg",
       "../../assets/uploads/2025/09/1-8.jpg"
     ],
+    "sizes": [
+      "1000x600",
+      "1000x600"
+    ],
     "folder": "basargarh-apartment"
   },
   {
@@ -233,6 +304,10 @@ window.PROJECTS = [
     "status": "Architecture Competition",
     "scope": "Design Consultancy",
     "pin": 2,
+    "text": [
+      2,
+      3
+    ],
     "images": [
       "../../project-photos/statue-of-oneness/01.jpg?v=7be60479",
       "../../project-photos/statue-of-oneness/02.jpg?v=5ede9d48",
@@ -251,6 +326,24 @@ window.PROJECTS = [
       "../../project-photos/statue-of-oneness/15.jpg?v=98387d32",
       "../../project-photos/statue-of-oneness/16.jpg?v=da7d207e"
     ],
+    "sizes": [
+      "1920x1080",
+      "1213x682",
+      "1213x682",
+      "1920x1080",
+      "1920x1080",
+      "1920x1080",
+      "1920x1080",
+      "1920x1080",
+      "1920x1080",
+      "1920x1080",
+      "1920x1080",
+      "1920x1080",
+      "1920x1080",
+      "1920x1080",
+      "1920x1080",
+      "2400x1717"
+    ],
     "folder": "statue-of-oneness"
   },
   {
@@ -266,6 +359,13 @@ window.PROJECTS = [
     "status": "Completed",
     "scope": "Design Consultancy",
     "pin": 1,
+    "text": [
+      24,
+      25,
+      26,
+      27,
+      28
+    ],
     "images": [
       "../../project-photos/reve-your-serene-abode/01.jpg?v=9dd1fbe4",
       "../../project-photos/reve-your-serene-abode/02.jpg?v=0ec7fd50",
@@ -296,6 +396,36 @@ window.PROJECTS = [
       "../../project-photos/reve-your-serene-abode/27.jpg?v=a0fca2e3",
       "../../project-photos/reve-your-serene-abode/28.jpg?v=3fb3f2d1"
     ],
+    "sizes": [
+      "2160x1223",
+      "2160x1311",
+      "2160x1325",
+      "2160x1440",
+      "2160x1062",
+      "2160x1223",
+      "2160x1223",
+      "2160x1223",
+      "2160x1223",
+      "2160x1304",
+      "2160x1225",
+      "2160x1193",
+      "2160x1315",
+      "2160x1405",
+      "2160x1252",
+      "2160x1224",
+      "2160x1315",
+      "2160x1277",
+      "2160x1295",
+      "2160x1267",
+      "2160x1304",
+      "2160x1315",
+      "2160x1146",
+      "1213x682",
+      "1213x682",
+      "1213x682",
+      "1213x682",
+      "1213x682"
+    ],
     "folder": "reve-your-serene-abode"
   },
   {
@@ -314,6 +444,10 @@ window.PROJECTS = [
       "../../project-photos/farmhouse-amliya-kalyanpur/01.jpg?v=9f5ea4a4",
       "../../project-photos/farmhouse-amliya-kalyanpur/02.jpg?v=4abf7cac"
     ],
+    "sizes": [
+      "1672x941",
+      "2400x1695"
+    ],
     "folder": "farmhouse-amliya-kalyanpur"
   },
   {
@@ -330,6 +464,9 @@ window.PROJECTS = [
     "scope": "Design Consultancy",
     "images": [
       "../../project-photos/bangalore-iim-plot/01.jpg?v=60d83431"
+    ],
+    "sizes": [
+      "2400x1695"
     ],
     "folder": "bangalore-iim-plot"
   },
@@ -352,6 +489,13 @@ window.PROJECTS = [
       "../../project-photos/rameshwaram-village/04.jpg?v=273ca437",
       "../../project-photos/rameshwaram-village/05.jpg?v=657ce724"
     ],
+    "sizes": [
+      "2400x1350",
+      "2400x1350",
+      "2400x1350",
+      "2400x1350",
+      "2400x1695"
+    ],
     "folder": "rameshwaram-village"
   },
   {
@@ -371,6 +515,12 @@ window.PROJECTS = [
       "../../project-photos/rv-community-center/02.jpg?v=33c0bdbf",
       "../../project-photos/rv-community-center/03.jpg?v=b5d5e385",
       "../../project-photos/rv-community-center/04.jpg?v=e7493fb3"
+    ],
+    "sizes": [
+      "1672x941",
+      "1672x941",
+      "1672x941",
+      "2400x1695"
     ],
     "folder": "rv-community-center"
   },
@@ -393,6 +543,12 @@ window.PROJECTS = [
       "../../project-photos/rv-temple/03.jpg?v=1bef6d74",
       "../../project-photos/rv-temple/04.jpg?v=11c40e67"
     ],
+    "sizes": [
+      "1672x941",
+      "1672x941",
+      "1672x941",
+      "1672x941"
+    ],
     "folder": "rv-temple"
   },
   {
@@ -411,6 +567,10 @@ window.PROJECTS = [
       "../../project-photos/hitesh/01.jpg?v=4c3eeb95",
       "../../project-photos/hitesh/02.jpg?v=9fe7037d"
     ],
+    "sizes": [
+      "1672x941",
+      "2400x1695"
+    ],
     "folder": "hitesh"
   },
   {
@@ -426,12 +586,22 @@ window.PROJECTS = [
     "status": "Completed",
     "scope": "Design Consultancy",
     "pin": 5,
+    "text": [
+      2
+    ],
     "images": [
       "../../project-photos/sports-complex/01.jpg?v=a8d3deca",
       "../../project-photos/sports-complex/02.jpg?v=20b36a85",
       "../../project-photos/sports-complex/03.jpg?v=113fc298",
       "../../project-photos/sports-complex/04.jpg?v=4dbe70a7",
       "../../project-photos/sports-complex/05.jpg?v=73fec7a6"
+    ],
+    "sizes": [
+      "1920x1080",
+      "1213x682",
+      "1672x941",
+      "1672x941",
+      "1672x941"
     ],
     "folder": "sports-complex"
   },
@@ -447,6 +617,9 @@ window.PROJECTS = [
     "region": "Ranchi",
     "status": "Ongoing",
     "scope": "Design Consultancy",
+    "text": [
+      2
+    ],
     "images": [
       "../../project-photos/shree-radhe/01.jpg?v=06ef5aa4",
       "../../project-photos/shree-radhe/02.jpg?v=0cedfc17",
@@ -456,6 +629,16 @@ window.PROJECTS = [
       "../../project-photos/shree-radhe/06.jpg?v=e7ecc0de",
       "../../project-photos/shree-radhe/07.jpg?v=9f8e4149",
       "../../project-photos/shree-radhe/08.jpg?v=b021b443"
+    ],
+    "sizes": [
+      "1672x941",
+      "1213x682",
+      "1672x941",
+      "1672x941",
+      "1466x1073",
+      "1672x941",
+      "2400x1695",
+      "1181x824"
     ],
     "folder": "shree-radhe"
   },
@@ -474,6 +657,9 @@ window.PROJECTS = [
     "images": [
       "../../project-photos/narendra-enclave/03.jpg?v=7d705ee3"
     ],
+    "sizes": [
+      "2400x1695"
+    ],
     "folder": "narendra-enclave"
   },
   {
@@ -490,6 +676,9 @@ window.PROJECTS = [
     "scope": "Design Consultancy",
     "images": [
       "../../project-photos/vishakhapatnam-project/01.jpg?v=008c4920"
+    ],
+    "sizes": [
+      "1468x1071"
     ],
     "folder": "vishakhapatnam-project"
   },
@@ -510,6 +699,11 @@ window.PROJECTS = [
       "../../project-photos/rameshwaram-gardens/02.jpg?v=f451d5be",
       "../../project-photos/rameshwaram-gardens/04.jpg?v=b742cb7b"
     ],
+    "sizes": [
+      "1467x1072",
+      "2400x1695",
+      "1467x1072"
+    ],
     "folder": "rameshwaram-gardens"
   },
   {
@@ -527,6 +721,10 @@ window.PROJECTS = [
     "images": [
       "../../project-photos/srinivas/01.jpg?v=d71d811c",
       "../../project-photos/srinivas/02.jpg?v=7a82eb4a"
+    ],
+    "sizes": [
+      "1671x941",
+      "2400x1695"
     ],
     "folder": "srinivas"
   },
@@ -553,6 +751,17 @@ window.PROJECTS = [
       "../../project-photos/rg-bungalow/08.jpg?v=68765670",
       "../../project-photos/rg-bungalow/09.jpg?v=9b90fcd7"
     ],
+    "sizes": [
+      "1920x1080",
+      "2400x1695",
+      "2400x1695",
+      "1920x1080",
+      "2400x1695",
+      "2400x1695",
+      "1920x1080",
+      "2400x1695",
+      "2400x1695"
+    ],
     "folder": "rg-bungalow"
   },
   {
@@ -570,6 +779,10 @@ window.PROJECTS = [
     "images": [
       "../../project-photos/keshav-kunj/01.jpg?v=ac477cb6",
       "../../project-photos/keshav-kunj/02.jpg?v=bb76abc7"
+    ],
+    "sizes": [
+      "1672x941",
+      "2400x1695"
     ],
     "folder": "keshav-kunj"
   },
@@ -593,6 +806,14 @@ window.PROJECTS = [
       "../../project-photos/oak-serenity/05.jpg?v=d230482d",
       "../../project-photos/oak-serenity/06.jpg?v=57a7e7c7"
     ],
+    "sizes": [
+      "2400x1350",
+      "2400x1350",
+      "2400x1350",
+      "2400x1350",
+      "2400x2400",
+      "2400x2400"
+    ],
     "folder": "oak-serenity"
   },
   {
@@ -607,10 +828,18 @@ window.PROJECTS = [
     "region": "Ranchi",
     "status": "Ongoing",
     "scope": "Design Consultancy",
+    "text": [
+      2
+    ],
     "images": [
       "../../project-photos/induneil/01.jpg?v=b75bc61a",
       "../../project-photos/induneil/02.jpg?v=5ffd884f",
       "../../project-photos/induneil/03.jpg?v=00b509f8"
+    ],
+    "sizes": [
+      "1672x941",
+      "1213x682",
+      "2400x1695"
     ],
     "folder": "induneil"
   },
@@ -628,6 +857,9 @@ window.PROJECTS = [
     "scope": "Design Consultancy",
     "images": [
       "../../project-photos/sinheshwar-niwas/01.jpg?v=76eda073"
+    ],
+    "sizes": [
+      "2400x1695"
     ],
     "folder": "sinheshwar-niwas"
   },
@@ -647,6 +879,10 @@ window.PROJECTS = [
       "../../project-photos/devkinandan/01.jpg?v=1aa02282",
       "../../project-photos/devkinandan/02.jpg?v=82a26919"
     ],
+    "sizes": [
+      "1672x941",
+      "2400x1695"
+    ],
     "folder": "devkinandan"
   },
   {
@@ -664,6 +900,10 @@ window.PROJECTS = [
     "images": [
       "../../project-photos/bhagat-bhavan/01.jpg?v=dac8f8f2",
       "../../project-photos/bhagat-bhavan/02.jpg?v=25598a64"
+    ],
+    "sizes": [
+      "1536x1024",
+      "2400x1695"
     ],
     "folder": "bhagat-bhavan"
   },
@@ -685,6 +925,12 @@ window.PROJECTS = [
       "../../project-photos/sdm-house/03.jpg?v=01d56bec",
       "../../project-photos/sdm-house/04.jpg?v=0ac96ea0"
     ],
+    "sizes": [
+      "1672x941",
+      "2400x1695",
+      "2400x1695",
+      "2400x1695"
+    ],
     "folder": "sdm-house"
   },
   {
@@ -701,6 +947,9 @@ window.PROJECTS = [
     "scope": "Design Consultancy",
     "images": [
       "../../project-photos/uma-enclave/01.jpg?v=4ac1134d"
+    ],
+    "sizes": [
+      "2400x1695"
     ],
     "folder": "uma-enclave"
   },
@@ -721,6 +970,11 @@ window.PROJECTS = [
       "../../project-photos/pharmacy-dashmesh/02.jpg?v=b4225aeb",
       "../../project-photos/pharmacy-dashmesh/03.jpg?v=397b3c2f"
     ],
+    "sizes": [
+      "1659x948",
+      "1659x948",
+      "1659x948"
+    ],
     "folder": "pharmacy-dashmesh"
   },
   {
@@ -735,6 +989,9 @@ window.PROJECTS = [
     "region": "Mumbai",
     "status": "Completed",
     "scope": "Design Consultancy",
+    "text": [
+      3
+    ],
     "images": [
       "../../assets/uploads/2025/09/a1.jpg",
       "../../assets/uploads/2025/09/a2.jpg",
@@ -754,6 +1011,26 @@ window.PROJECTS = [
       "../../assets/uploads/2025/09/a15.jpg",
       "../../assets/uploads/2025/09/a17.jpg",
       "../../assets/uploads/2025/09/a18.jpg"
+    ],
+    "sizes": [
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600"
     ],
     "folder": "a-bangani-and-associates-office"
   },
@@ -778,6 +1055,15 @@ window.PROJECTS = [
       "../../assets/uploads/2025/09/6-7.jpg",
       "../../assets/uploads/2025/09/7-4.jpg"
     ],
+    "sizes": [
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600"
+    ],
     "folder": "3-5bhk-residence-kemps-corner"
   },
   {
@@ -798,6 +1084,12 @@ window.PROJECTS = [
       "../../assets/uploads/2025/09/4-16.jpg",
       "../../assets/uploads/2025/09/3-20.jpg"
     ],
+    "sizes": [
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600"
+    ],
     "folder": "dental-clinic-thane-west"
   },
   {
@@ -813,6 +1105,9 @@ window.PROJECTS = [
     "status": "Completed",
     "scope": "Design & Build",
     "pin": 7,
+    "text": [
+      2
+    ],
     "images": [
       "../../project-photos/ggfmc-physiotherapy-center/01.jpg?v=0d5722c8",
       "../../project-photos/ggfmc-physiotherapy-center/02.jpg?v=036b52a2",
@@ -821,6 +1116,15 @@ window.PROJECTS = [
       "../../project-photos/ggfmc-physiotherapy-center/05.jpg?v=d0112cea",
       "../../project-photos/ggfmc-physiotherapy-center/06.jpg?v=1b927a58",
       "../../project-photos/ggfmc-physiotherapy-center/07.jpg?v=a91e8269"
+    ],
+    "sizes": [
+      "1672x941",
+      "1213x682",
+      "1672x941",
+      "1672x941",
+      "1672x941",
+      "1671x941",
+      "1672x941"
     ],
     "folder": "ggfmc-physiotherapy-center"
   },
@@ -849,6 +1153,19 @@ window.PROJECTS = [
       "../../project-photos/4bhk-residence-goregaon-west/10.jpg?v=8e7faacc",
       "../../project-photos/4bhk-residence-goregaon-west/11.jpg?v=8136eb0b"
     ],
+    "sizes": [
+      "1672x941",
+      "1672x941",
+      "1672x941",
+      "1671x941",
+      "1671x941",
+      "1672x941",
+      "1672x941",
+      "1671x941",
+      "1672x941",
+      "1670x941",
+      "1671x941"
+    ],
     "folder": "4bhk-residence-goregaon-west"
   },
   {
@@ -871,6 +1188,14 @@ window.PROJECTS = [
       "../../assets/uploads/2025/09/5-12.jpg",
       "../../assets/uploads/2025/09/6-10.jpg"
     ],
+    "sizes": [
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600"
+    ],
     "folder": "bungalow-harrow-london"
   },
   {
@@ -885,6 +1210,9 @@ window.PROJECTS = [
     "region": "Mumbai",
     "status": "Completed",
     "scope": "Design & Build",
+    "text": [
+      2
+    ],
     "images": [
       "../../assets/uploads/2025/09/2-31.jpg",
       "../../assets/uploads/2025/09/1-34.jpg",
@@ -892,6 +1220,14 @@ window.PROJECTS = [
       "../../assets/uploads/2025/09/4-20.jpg",
       "../../assets/uploads/2025/09/5-13.jpg",
       "../../assets/uploads/2025/09/6-11.jpg"
+    ],
+    "sizes": [
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600"
     ],
     "folder": "2bhk-residence-malad-east"
   },
@@ -907,6 +1243,9 @@ window.PROJECTS = [
     "region": "Mumbai",
     "status": "Completed",
     "scope": "Design & Build",
+    "text": [
+      2
+    ],
     "images": [
       "../../assets/uploads/2025/09/2-32.jpg",
       "../../assets/uploads/2025/09/1-35.jpg",
@@ -932,6 +1271,31 @@ window.PROJECTS = [
       "../../assets/uploads/2025/09/22-1.jpg",
       "../../assets/uploads/2025/09/23-1.jpg"
     ],
+    "sizes": [
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600"
+    ],
     "folder": "3bhk-residence-mulund-west"
   },
   {
@@ -953,6 +1317,13 @@ window.PROJECTS = [
       "../../project-photos/2bhk-residence-lalpur/04.jpg?v=4df22619",
       "../../project-photos/2bhk-residence-lalpur/05.jpg?v=8d4be76e"
     ],
+    "sizes": [
+      "1470x1070",
+      "1470x1070",
+      "1469x1071",
+      "1470x1070",
+      "1468x1071"
+    ],
     "folder": "2bhk-residence-lalpur"
   },
   {
@@ -967,11 +1338,20 @@ window.PROJECTS = [
     "region": "Mumbai",
     "status": "Completed",
     "scope": "Design & Build",
+    "text": [
+      2
+    ],
     "images": [
       "../../assets/uploads/2025/09/1-37.jpg",
       "../../assets/uploads/2025/09/2-34.jpg",
       "../../assets/uploads/2025/09/4-23.jpg",
       "../../assets/uploads/2025/09/3-27.jpg"
+    ],
+    "sizes": [
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600"
     ],
     "folder": "homoeopathic-clinic"
   },
@@ -996,6 +1376,15 @@ window.PROJECTS = [
       "../../project-photos/guest-house-borivali-east/06.jpg?v=11cbce48",
       "../../project-photos/guest-house-borivali-east/07.jpg?v=c37aa9d3"
     ],
+    "sizes": [
+      "1671x941",
+      "1671x941",
+      "1671x941",
+      "1670x942",
+      "1672x941",
+      "1672x941",
+      "1086x1448"
+    ],
     "folder": "guest-house-borivali-east"
   },
   {
@@ -1015,6 +1404,10 @@ window.PROJECTS = [
       "../../project-photos/bungalow-interiors-harmu/01.jpg?v=c4e09d2c",
       "../../project-photos/bungalow-interiors-harmu/02.jpg?v=65368d6f"
     ],
+    "sizes": [
+      "1672x941",
+      "1470x1070"
+    ],
     "folder": "bungalow-interiors-harmu"
   },
   {
@@ -1029,10 +1422,18 @@ window.PROJECTS = [
     "region": "Mumbai",
     "status": "Completed",
     "scope": "Design & Build",
+    "text": [
+      2
+    ],
     "images": [
       "../../assets/uploads/2025/09/2-36.jpg",
       "../../assets/uploads/2025/09/1-39.jpg",
       "../../assets/uploads/2025/09/3-28.jpg"
+    ],
+    "sizes": [
+      "1000x600",
+      "1000x600",
+      "1000x600"
     ],
     "folder": "2bhk-residence-dahisar-west"
   },
@@ -1057,6 +1458,15 @@ window.PROJECTS = [
       "../../assets/uploads/2026/06/06.png",
       "../../assets/uploads/2026/06/07-scaled.jpg"
     ],
+    "sizes": [
+      "1920x1080",
+      "1920x1080",
+      "1920x1080",
+      "1920x1080",
+      "1920x1080",
+      "1920x1080",
+      "2560x1440"
+    ],
     "folder": "mp-s-office"
   },
   {
@@ -1074,6 +1484,9 @@ window.PROJECTS = [
     "images": [
       "../../project-photos/1bhk-residence-versova/01.jpg?v=aacd8300"
     ],
+    "sizes": [
+      "1000x600"
+    ],
     "folder": "1bhk-residence-versova"
   },
   {
@@ -1088,6 +1501,9 @@ window.PROJECTS = [
     "region": "Ranchi",
     "status": "Completed",
     "scope": "Design Consultancy",
+    "text": [
+      2
+    ],
     "images": [
       "../../assets/uploads/2025/09/1-40.jpg",
       "../../assets/uploads/2025/09/2-37.jpg",
@@ -1099,6 +1515,18 @@ window.PROJECTS = [
       "../../assets/uploads/2025/09/8-6.jpg",
       "../../assets/uploads/2025/09/10-4.jpg",
       "../../assets/uploads/2025/09/9-5.jpg"
+    ],
+    "sizes": [
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600"
     ],
     "folder": "3bhk-residence-buti"
   },
@@ -1119,6 +1547,11 @@ window.PROJECTS = [
       "../../assets/uploads/2025/09/2-38.jpg",
       "../../assets/uploads/2025/09/3-30.jpg"
     ],
+    "sizes": [
+      "1000x600",
+      "1000x600",
+      "1000x600"
+    ],
     "folder": "2bhk-residence-seawoods"
   },
   {
@@ -1135,6 +1568,9 @@ window.PROJECTS = [
     "scope": "Design Consultancy",
     "images": [
       "../../project-photos/garments-showroom-bandra-west/01.jpg?v=2e6d0446"
+    ],
+    "sizes": [
+      "1659x948"
     ],
     "folder": "garments-showroom-bandra-west"
   },
@@ -1153,6 +1589,9 @@ window.PROJECTS = [
     "images": [
       "../../project-photos/3bhk-residence-kathal-more/01.jpg?v=be069904"
     ],
+    "sizes": [
+      "1000x600"
+    ],
     "folder": "3bhk-residence-kathal-more"
   },
   {
@@ -1170,6 +1609,10 @@ window.PROJECTS = [
     "images": [
       "../../assets/uploads/2025/09/1-42.jpg",
       "../../assets/uploads/2025/09/2-39.jpg"
+    ],
+    "sizes": [
+      "1000x600",
+      "1000x600"
     ],
     "folder": "3bhk-residence-kandra"
   },
@@ -1191,6 +1634,12 @@ window.PROJECTS = [
       "../../assets/uploads/2025/09/3-31.jpg",
       "../../assets/uploads/2025/09/4-25.jpg"
     ],
+    "sizes": [
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600"
+    ],
     "folder": "3bhk-residence-bokaro"
   },
   {
@@ -1209,6 +1658,11 @@ window.PROJECTS = [
       "../../assets/uploads/2025/09/1-44.jpg",
       "../../assets/uploads/2025/09/2-41.jpg",
       "../../assets/uploads/2025/09/3-32.jpg"
+    ],
+    "sizes": [
+      "1000x600",
+      "1000x600",
+      "1000x600"
     ],
     "folder": "3bhk-residence-deogarh"
   },
@@ -1229,6 +1683,11 @@ window.PROJECTS = [
       "../../project-photos/bedroom-hinoo/02.jpg?v=5481d9a2",
       "../../project-photos/bedroom-hinoo/03.jpg?v=ecf824e6"
     ],
+    "sizes": [
+      "1672x941",
+      "1671x941",
+      "1670x941"
+    ],
     "folder": "bedroom-hinoo"
   },
   {
@@ -1243,6 +1702,9 @@ window.PROJECTS = [
     "region": "Mumbai",
     "status": "Completed",
     "scope": "Design Consultancy",
+    "text": [
+      2
+    ],
     "images": [
       "../../assets/uploads/2025/09/2-43.jpg",
       "../../assets/uploads/2025/09/1-46.jpg",
@@ -1252,6 +1714,16 @@ window.PROJECTS = [
       "../../assets/uploads/2025/09/6-14.jpg",
       "../../assets/uploads/2025/09/7-9.jpg",
       "../../assets/uploads/2025/09/8-7.jpg"
+    ],
+    "sizes": [
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600"
     ],
     "folder": "2-5bhk-residence-andheri-west"
   },
@@ -1272,6 +1744,11 @@ window.PROJECTS = [
       "../../assets/uploads/2025/09/2-44.jpg",
       "../../assets/uploads/2025/09/3-35.jpg"
     ],
+    "sizes": [
+      "1000x600",
+      "1000x600",
+      "1000x600"
+    ],
     "folder": "2-5bhk-residence-mulund-west"
   },
   {
@@ -1287,6 +1764,9 @@ window.PROJECTS = [
     "status": "Completed",
     "scope": "Design Consultancy",
     "pin": 4,
+    "text": [
+      2
+    ],
     "images": [
       "../../assets/uploads/2025/09/2-45.jpg",
       "../../assets/uploads/2025/09/1-48.jpg",
@@ -1297,6 +1777,17 @@ window.PROJECTS = [
       "../../assets/uploads/2025/09/8-8.jpg",
       "../../assets/uploads/2025/09/7-10.jpg",
       "../../assets/uploads/2025/09/9-6.jpg"
+    ],
+    "sizes": [
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600",
+      "1000x600"
     ],
     "folder": "the-curve-dental-solutions"
   },
@@ -1317,6 +1808,12 @@ window.PROJECTS = [
       "../../project-photos/aranya-restaurant/02.jpg?v=e82f6650",
       "../../project-photos/aranya-restaurant/03.jpg?v=92c74856",
       "../../project-photos/aranya-restaurant/04.jpg?v=a5cde8f2"
+    ],
+    "sizes": [
+      "1671x941",
+      "1670x942",
+      "1672x941",
+      "1672x941"
     ],
     "folder": "aranya-restaurant"
   },
@@ -1339,6 +1836,13 @@ window.PROJECTS = [
       "../../project-photos/oak-elegance/04.jpg?v=8ee00244",
       "../../project-photos/oak-elegance/05.jpg?v=85dacbb0"
     ],
+    "sizes": [
+      "1920x1080",
+      "1920x1080",
+      "1920x1080",
+      "1920x1080",
+      "1920x1080"
+    ],
     "folder": "oak-elegance"
   },
   {
@@ -1356,6 +1860,9 @@ window.PROJECTS = [
     "images": [
       "../../assets/uploads/2025/09/21-A-13_CV-Farmhouse.jpg"
     ],
+    "sizes": [
+      "1000x600"
+    ],
     "folder": "cv-farmhouse"
   },
   {
@@ -1372,6 +1879,9 @@ window.PROJECTS = [
     "scope": "Design Consultancy",
     "images": [
       "../../project-photos/gossner-college-gate/01.jpg?v=27e1dd14"
+    ],
+    "sizes": [
+      "1671x941"
     ],
     "folder": "gossner-college-gate"
   },
@@ -1395,6 +1905,14 @@ window.PROJECTS = [
       "../../project-photos/oak-elegance-landscape/05.jpg?v=b7b5af12",
       "../../project-photos/oak-elegance-landscape/06.JPG?v=906da9e6"
     ],
+    "sizes": [
+      "1659x948",
+      "1659x948",
+      "1659x948",
+      "1659x948",
+      "2400x1695",
+      "2400x1350"
+    ],
     "folder": "oak-elegance-landscape"
   },
   {
@@ -1411,6 +1929,9 @@ window.PROJECTS = [
     "scope": "Design Consultancy",
     "images": [
       "../../project-photos/st-michael-s-school-gate/01.jpg?v=1950680b"
+    ],
+    "sizes": [
+      "1659x948"
     ],
     "folder": "st-michael-s-school-gate"
   },
@@ -1432,6 +1953,12 @@ window.PROJECTS = [
       "../../project-photos/oak-forest/03.jpg?v=074db5ff",
       "../../project-photos/oak-forest/04.jpg?v=80ba952b"
     ],
+    "sizes": [
+      "1659x948",
+      "1659x948",
+      "1670x941",
+      "2400x1695"
+    ],
     "folder": "oak-forest"
   },
   {
@@ -1450,6 +1977,10 @@ window.PROJECTS = [
     "images": [
       "../../project-photos/triveni-garden/01.jpg?v=90e76ab1",
       "../../project-photos/triveni-garden/02.jpg?v=3ec18fbe"
+    ],
+    "sizes": [
+      "1672x941",
+      "2400x1695"
     ],
     "folder": "triveni-garden"
   }

@@ -38,7 +38,7 @@ FIELDS = [
     ("Title", "title"), ("Category", "category"), ("Sector", "sector"), ("Client", "client"),
     ("Type", "type"), ("Year", "year"), ("Area", "area"), ("Location", "location"),
     ("Region", "region"), ("Status", "status"), ("Scope", "scope"), ("Featured", "featured"),
-    ("Pin", "pin"),
+    ("Pin", "pin"), ("Text photos", "text"),
 ]
 CATEGORIES = {"architecture": "Architecture", "interior": "Interior Design", "landscape": "Landscape"}
 ALLOWED = {
@@ -55,6 +55,7 @@ HEADER = """# Project details for the Urban Arch Studio website.
 #   Year:     e.g. 2021, 2018 - 2021, or 2024 - Ongoing
 #   Featured: yes = show it in "Selected work" on the home page
 #   Pin:      1 to 9 = show it first on the Projects page, in that order (empty = newest first)
+#   Text photos: numbers of the photos that are only text (e.g. 2 or 24, 25), left out of the Gallery view
 """
 DATA_HEADER = """// Project list for the Option B pages. It is built from the folders in project-photos/
 // by tools/update_project_photos.py, so change project-photos/<project>/info.txt instead of this file.
@@ -116,6 +117,8 @@ def write_info(folder, p):
             value = "yes" if value else "no"
         if key == "pin":
             value = value or ""
+        if key == "text":
+            value = ", ".join(str(n) for n in value) if value else ""
         lines.append(f"{label}: {value}")
     (folder / "info.txt").write_text("\n".join(lines) + "\n", encoding="utf-8")
 
@@ -165,6 +168,13 @@ def read_info(path, problems):
                 problems.append(f"{path.parent.name}: Pin '{info['pin']}' should be a number like 1, 2, 3 (or empty)")
             info.pop("pin")
             info["_unpin"] = True
+    if "text" in info:
+        nums = [int(n) for n in re.findall(r"\d+", info["text"]) if int(n) > 0]
+        if nums:
+            info["text"] = sorted(set(nums))
+        else:
+            info.pop("text")
+            info["_untext"] = True
     return info
 
 
@@ -216,6 +226,30 @@ def photos_in(folder):
             for f in sorted(files, key=lambda f: natural_key(f.name))]
 
 
+def photo_sizes(images):
+    """Width x height of each photo (as the browser shows it), so the pages can lay photos
+    out before they load. Needs Pillow; without it the sizes are simply left out."""
+    try:
+        from PIL import Image
+    except ImportError:
+        return None
+    sizes = []
+    for src in images:
+        path = (SITE / src.split("?", 1)[0]).resolve()
+        try:
+            with Image.open(path) as im:
+                w, h = im.size
+                try:
+                    if im.getexif().get(0x0112, 1) in (5, 6, 7, 8):  # rotated by EXIF
+                        w, h = h, w
+                except Exception:
+                    pass
+        except Exception:
+            return None
+        sizes.append(f"{w}x{h}")
+    return sizes
+
+
 def export():
     projects = load_data()
     assign_folders(projects)
@@ -263,6 +297,8 @@ def update():
                 p.pop("featured", None)
             if info.pop("_unpin", False):
                 p.pop("pin", None)
+            if info.pop("_untext", False):
+                p.pop("text", None)
             p.update(info)  # an empty value clears that detail on the site
         elif not before:
             problems.append(f"{name}: new folder has no info.txt, skipped")
@@ -282,6 +318,11 @@ def update():
         # keep a tidy field order
         ordered = {key: p[key] for _, key in FIELDS if key in p}
         ordered["images"] = p["images"]
+        sizes = photo_sizes(p["images"])
+        if sizes:
+            ordered["sizes"] = sizes
+        elif p.get("sizes") and len(p["sizes"]) == len(p["images"]):
+            ordered["sizes"] = p["sizes"]
         ordered["folder"] = name
         result.append(ordered)
         if not before:

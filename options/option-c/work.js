@@ -75,59 +75,206 @@
         `<img src="${esc(src)}" alt="" loading="lazy">`).join('')}</div>
     </a>`).join('');
 
-  // Gallery: every photo, scattered at different sizes with open space around them.
-  // Each row holds 1 to 4 photos of different widths, set at different heights, on a
-  // fine column grid. A fixed seed keeps the arrangement the same on every visit.
-  const GAL = [
-    { min: 1000, cols: 24, counts: [1, 2, 2, 3, 3, 3, 4], span: [4, 9], solo: [8, 12] },
-    { min: 600, cols: 12, counts: [1, 2, 2, 2, 3], span: [3, 6], solo: [6, 8] },
-    { min: 0, cols: 10, counts: [1, 1, 2, 2, 2], span: [3, 6], solo: [6, 9] }
-  ];
-  const galMode = () => GAL.find(m => window.innerWidth >= m.min);
+  // Gallery: every photo as a loose collage running edge to edge, like the reference.
+  // Photos get mixed sizes (mostly small, some medium, a few large), keep their own shape,
+  // and are packed upward into the lowest free spot, leaving small gaps and the odd open patch.
+  // Sizes come from data/projects.js ("sizes"); a fixed seed keeps the collage the same on every visit.
   const rng = seed => () => { // mulberry32
     seed |= 0; seed = seed + 0x6D2B79F5 | 0;
     let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
     t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
     return ((t ^ t >>> 14) >>> 0) / 4294967296;
   };
-  const renderGallery = list => {
-    const photos = list.flatMap(p => p.images.map((src, n) => ({ p, src, n })));
-    const m = galMode();
-    const rand = rng(1931);
-    const int = (lo, hi) => lo + Math.floor(rand() * (hi - lo + 1));
-    const pick = a => a[Math.floor(rand() * a.length)];
-    const out = [];
-    let i = 0, row = 1;
-    while (i < photos.length) {
-      const k = Math.min(pick(m.counts), photos.length - i);
-      const spans = Array.from({ length: k }, () => k === 1 ? int(...m.solo) : int(...m.span));
-      while (spans.reduce((x, y) => x + y, 0) + (k - 1) > m.cols) spans[spans.indexOf(Math.max(...spans))]--;
-      // share the spare columns out as gaps: before, between and after the photos
-      let spare = m.cols - spans.reduce((x, y) => x + y, 0) - (k - 1);
-      const gaps = Array(k + 1).fill(0);
-      while (spare-- > 0) gaps[int(0, k)]++;
-      let col = 1 + gaps[0];
-      spans.forEach((span, j) => {
-        const { p, src, n } = photos[i++];
-        const align = pick(['start', 'start', 'center', 'end']);
-        const drop = align === 'start' ? int(0, 6) : 0;
-        out.push(`
-    <a class="ga-item" href="#p=${p.id}" data-id="${p.id}" data-photo="${n}"
-       style="grid-column:${col} / span ${span};grid-row:${row};align-self:${align};margin-top:${drop}vw">
-      <img src="${esc(src)}" alt="${esc(p.title)}${n ? ' — photo ' + (n + 1) : ''}" loading="lazy">
-      <span class="ga-cap">${esc(p.title)}</span>
-    </a>`);
-        col += span + 1 + gaps[j + 1];
-      });
-      row++;
-    }
-    gridColsFor(m);
-    return out.join('');
+  const ratioOf = (p, n) => {
+    const m = /^(\d+)x(\d+)$/.exec((p.sizes || [])[n] || '');
+    return m ? +m[1] / +m[2] : 1.5;
   };
-  const gridColsFor = m => galEl.style.setProperty('--ga-cols', m.cols);
-  let lastMode = galMode();
+  // Photos only load once they first come on screen (data-src), as the canvas can be huge
+  // photos that are only text ("Text photos" in info.txt) are left out of the gallery
+  const renderGallery = list => list.flatMap(p => p.images.map((src, n) => (p.text || []).includes(n + 1) ? '' : `
+    <a class="ga-item" href="#p=${p.id}" data-id="${p.id}" data-photo="${n}" data-r="${ratioOf(p, n).toFixed(4)}">
+      <img data-src="${esc(src)}" alt="${esc(p.title)}${n ? ' — photo ' + (n + 1) : ''}" decoding="async">
+      <span class="ga-cap">${esc(p.title)}</span>
+    </a>`)).join('');
+
+  /* The gallery is an endless canvas: it fills the screen, moves in any direction
+     (mouse wheel / trackpad, dragging, touch, arrow keys) and repeats so it never runs out.
+     One "tile" of photos is packed once and wraps around left-right and top-bottom. */
+  const gal = { tiles: [], TW: 0, TH: 0, W: 0, H: 0, x: 0, y: 0, tx: 0, ty: 0, raf: 0, on: false };
+  const mod = (a, n) => ((a % n) + n) % n;
+
+  const packTile = () => {
+    const W = galEl.clientWidth, H = galEl.clientHeight;
+    if (!W || !H) return;
+    const phone = W < 600;
+    const gap = Math.round(Math.min(24, Math.max(8, W * 0.016)));
+    const SIZES = phone
+      ? [[0.5, 0.17, 0.25], [0.35, 0.27, 0.35], [0.15, 0.42, 0.55]]
+      : [[0.5, 0.075, 0.11], [0.35, 0.12, 0.17], [0.15, 0.24, 0.32]];
+    const maxSide = SIZES[2][2] * W * 1.8;                 // widest / tallest a photo can get
+    const TW = Math.round(Math.max(W * 1.5, W + maxSide)); // wider than the screen, so a photo never shows twice side by side
+    const step = 8, cols = Math.ceil(TW / step);
+    const base = [...galEl.querySelectorAll('.ga-item:not(.copy)')];
+    if (!base.length) return;
+    const rand = rng(1931);
+    const pickSize = () => {
+      let u = rand();
+      for (const [share, lo, hi] of SIZES) { if ((u -= share) <= 0) return lo + rand() * (hi - lo); }
+      return SIZES[0][1];
+    };
+    // place the photos (repeating the set when there are few) until the tile is well taller than the screen
+    const sky = new Float64Array(cols);
+    const tiles = [];
+    for (let round = 0; round < 40; round++) {
+      for (const el of base) {
+        const r = +el.dataset.r || 1.5;
+        const side = pickSize() * W;
+        const w = Math.round(side * Math.sqrt(r)), h = Math.round(side / Math.sqrt(r));
+        const span = Math.min(cols, Math.ceil((w + gap) / step));
+        let best = Infinity, bestC = 0;
+        for (let c = 0; c < cols; c++) {
+          let top = 0;
+          for (let k = 0; k < span; k++) { const v = sky[(c + k) % cols]; if (v > top) top = v; }
+          const score = top + rand() * gap * 2;   // a little chance so it never settles into rows
+          if (score < best) { best = score; bestC = c; }
+        }
+        let top = 0;
+        for (let k = 0; k < span; k++) top = Math.max(top, sky[(bestC + k) % cols]);
+        if (rand() < 0.22) top += gap * (1 + rand() * 3);      // now and then an open patch
+        for (let k = 0; k < span; k++) sky[(bestC + k) % cols] = top + h + gap;
+        tiles.push({ src: el, x: bestC * step, y: Math.round(top), w, h });
+      }
+      if (Math.min(...sky) > H + maxSide && tiles.length >= 24) break;
+    }
+    const TH = Math.ceil(Math.max(...sky));
+    // the first copy of each photo is the real link; repeats are clones
+    galEl.querySelectorAll('.ga-item.copy').forEach(el => el.remove());
+    const used = new Set();
+    tiles.forEach(t => {
+      let el = t.src;
+      if (used.has(el)) {
+        el = t.src.cloneNode(true);
+        el.classList.add('copy');
+        const img = el.querySelector('img'), orig = t.src.querySelector('img');
+        img.classList.remove('ld');
+        img.dataset.src = orig.dataset.src || orig.getAttribute('src');
+        img.removeAttribute('src');
+        galEl.appendChild(el);
+      }
+      used.add(t.src);
+      t.el = el;
+      el.style.width = t.w + 'px';
+      el.style.height = t.h + 'px';
+      el.classList.add('in');
+    });
+    Object.assign(gal, { tiles, TW, TH, W, H });
+    drawGallery(true);
+  };
+
+  const drawGallery = force => {
+    const { tiles, TW, TH, W, H } = gal;
+    tiles.forEach(t => {
+      const sx = mod(t.x - gal.x + t.w, TW) - t.w;
+      const sy = mod(t.y - gal.y + t.h, TH) - t.h;
+      const show = sx < W && sy < H;
+      if (show) {
+        t.el.style.transform = `translate3d(${sx.toFixed(1)}px,${sy.toFixed(1)}px,0)`;
+        if (!t.shown || force) {
+          t.el.style.visibility = 'visible';
+          const img = t.el.querySelector('img');
+          if (img.dataset.src) {
+            img.addEventListener('load', () => img.classList.add('ld'), { once: true });
+            img.addEventListener('error', () => img.classList.add('ld'), { once: true });
+            img.src = img.dataset.src; img.removeAttribute('data-src');
+          }
+        }
+      } else if (t.shown || force) t.el.style.visibility = 'hidden';
+      t.shown = show;
+    });
+  };
+
+  const tick = () => {
+    gal.x += (gal.tx - gal.x) * 0.14;
+    gal.y += (gal.ty - gal.y) * 0.14;
+    if (Math.abs(gal.tx - gal.x) < 0.3 && Math.abs(gal.ty - gal.y) < 0.3) { gal.x = gal.tx; gal.y = gal.ty; gal.raf = 0; }
+    else gal.raf = requestAnimationFrame(tick);
+    drawGallery();
+  };
+  const moveBy = (dx, dy, now) => {
+    gal.tx += dx; gal.ty += dy;
+    if (now) { cancelAnimationFrame(gal.raf); gal.raf = 0; gal.x = gal.tx; gal.y = gal.ty; drawGallery(); return; }
+    if (!gal.raf) gal.raf = requestAnimationFrame(tick);
+  };
+
+  galEl.addEventListener('wheel', e => {
+    if (!gal.on) return;
+    e.preventDefault();
+    const k = e.deltaMode === 1 ? 32 : e.deltaMode === 2 ? galEl.clientHeight : 1;
+    // shift + wheel moves sideways with a plain mouse
+    if (e.shiftKey && !e.deltaX) moveBy(e.deltaY * k, 0); else moveBy(e.deltaX * k, e.deltaY * k);
+  }, { passive: false });
+
+  // drag with the mouse or a finger; a flick keeps it gliding for a moment
+  let drag = null, dragged = false;
+  galEl.addEventListener('pointerdown', e => {
+    if (!gal.on || e.button > 0) return;
+    drag = { id: e.pointerId, x: e.clientX, y: e.clientY, sx: e.clientX, sy: e.clientY, t: performance.now(), vx: 0, vy: 0 };
+    dragged = false;
+  });
+  window.addEventListener('pointermove', e => {
+    if (!drag || e.pointerId !== drag.id) return;
+    const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+    const now = performance.now(), dt = Math.max(1, now - drag.t);
+    drag.vx = dx / dt; drag.vy = dy / dt;
+    drag.x = e.clientX; drag.y = e.clientY; drag.t = now;
+    if (!dragged && Math.hypot(e.clientX - drag.sx, e.clientY - drag.sy) > 6) {
+      dragged = true; galEl.classList.add('dragging');
+      try { galEl.setPointerCapture(e.pointerId); } catch (err) { /* ignore */ }
+    }
+    if (dragged) moveBy(-dx, -dy, true);
+  });
+  const endDrag = e => {
+    if (!drag || (e && e.pointerId !== drag.id)) return;
+    if (dragged && performance.now() - drag.t < 80) moveBy(-drag.vx * 260, -drag.vy * 260);
+    drag = null; galEl.classList.remove('dragging');
+  };
+  window.addEventListener('pointerup', endDrag);
+  window.addEventListener('pointercancel', endDrag);
+  // a drag is not a click
+  galEl.addEventListener('click', e => { if (dragged) { e.preventDefault(); e.stopPropagation(); dragged = false; } }, true);
+  galEl.addEventListener('dragstart', e => e.preventDefault());
+  document.addEventListener('keydown', e => {
+    if (!gal.on || document.getElementById('projectView').classList.contains('open')) return;
+    const st = e.shiftKey ? 600 : 220;
+    const d = { ArrowLeft: [-st, 0], ArrowRight: [st, 0], ArrowUp: [0, -st], ArrowDown: [0, st] }[e.key];
+    if (d) { e.preventDefault(); moveBy(...d); }
+  });
+
+  const startGallery = () => {
+    gal.on = true;
+    document.documentElement.classList.add('ga-mode');
+    window.scrollTo(0, 0);
+    gal.x = gal.y = gal.tx = gal.ty = 0;
+    packTile();
+  };
+  const stopGallery = () => {
+    gal.on = false;
+    document.documentElement.classList.remove('ga-mode');
+    cancelAnimationFrame(gal.raf); gal.raf = 0;
+    gal.tiles = [];
+  };
+  let galSize = '', galTimer;
   window.addEventListener('resize', () => {
-    if (view === 'gallery' && galMode() !== lastMode) { lastMode = galMode(); render(); }
+    if (!gal.on) return;
+    clearTimeout(galTimer);
+    galTimer = setTimeout(() => {
+      const size = galEl.clientWidth + 'x' + galEl.clientHeight;
+      if (size === galSize) return;
+      galSize = size;
+      // a phone's address bar showing or hiding only changes the height a little: keep the layout
+      if (gal.W === galEl.clientWidth && Math.abs(gal.H - galEl.clientHeight) < 160) { gal.H = galEl.clientHeight; drawGallery(true); return; }
+      packTile();
+    }, 150);
   });
 
   const fadeIn = root => {
@@ -157,7 +304,8 @@
     Object.entries(VIEWS).forEach(([k, v]) => { v.hidden = k !== view; if (k !== view) v.innerHTML = ''; });
     switchBtns.forEach(b => { const on = b.dataset.view === view; b.classList.toggle('active', on); b.setAttribute('aria-selected', on); });
     galHover = null; galEl.classList.remove('hovering');
-    fadeIn(el);
+    if (view === 'gallery') { startGallery(); galSize = galEl.clientWidth + 'x' + galEl.clientHeight; }
+    else { stopGallery(); fadeIn(el); }
   };
 
   const filterHash = () => value === 'all'
@@ -181,7 +329,7 @@
     view = b.dataset.view; store.set('uas-work-view', view);
     const top = document.getElementById('workViews').getBoundingClientRect().top;
     render();
-    if (top < 0) document.getElementById('workViews').scrollIntoView({ behavior: 'smooth' });
+    if (top < 0 && view !== 'gallery') document.getElementById('workViews').scrollIntoView({ behavior: 'smooth' });
   }));
 
   // List view: photo strip drifts with the mouse; other rows fade back

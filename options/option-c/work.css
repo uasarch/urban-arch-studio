@@ -71,8 +71,15 @@
 }
 
 /* ---------- Gallery: every photo ---------- */
-/* photos of different sizes, scattered with open space (layout set in work.js) */
-.wk-gallery { display: grid; grid-template-columns: repeat(var(--ga-cols, 24), minmax(0, 1fr)); column-gap: 20px; row-gap: 5vw; padding-top: 2vw; }
+/* An endless canvas filling the screen under the menu; work.js places and moves every photo */
+html.ga-mode, html.ga-mode body { overflow: hidden; overscroll-behavior: none; }
+html.ga-mode .wk-head, html.ga-mode .footer { display: none; }
+html.ga-mode .work-page { padding-bottom: 0; }
+.wk-gallery { position: fixed; left: 0; right: 0; top: var(--nav-h); bottom: 0; overflow: hidden; touch-action: none; user-select: none; -webkit-user-select: none; cursor: grab; }
+.wk-gallery.dragging { cursor: grabbing; }
+.wk-gallery.dragging .ga-item { pointer-events: none; }
+.wk-gallery .ga-item { position: absolute; left: 0; top: 0; visibility: hidden; opacity: 1; transform: none; transition: opacity .5s var(--ease); will-change: transform; -webkit-user-drag: none; }
+.wk-gallery .ga-item img { width: 100%; height: 100%; object-fit: cover; -webkit-user-drag: none; }
 .ga-item { position: relative; display: block; overflow: hidden; background: var(--tint); color: #fff; text-decoration: none; }
 .ga-item img { width: 100%; height: auto; }
 .ga-cap { position: absolute; left: 0; right: 0; bottom: 0; padding: 40px 14px 12px; font-family: var(--head); font-size: .9rem; font-weight: 500; background: linear-gradient(transparent, rgba(0,0,0,.55)); opacity: 0; transform: translateY(8px); transition: opacity .4s var(--ease), transform .4s var(--ease); }
@@ -84,7 +91,7 @@
   .wk-gallery.hovering .ga-item.in.hl { opacity: 1; }
 }
 @media (hover: none), (pointer: coarse) {
-  .ga-cap { opacity: 1; transform: none; padding-top: 28px; font-size: .8rem; }
+  .ga-cap { display: none; }   /* no pointer to hover with: a tap opens the project */
 }
 
 /* ---------- Grid / List / Gallery switch ---------- */
@@ -139,7 +146,6 @@ html.pv-lock, html.pv-lock body { overflow: hidden; }
   .wk-grid .g-item:nth-child(even) { margin-top: 0; }
   .l-row { gap: 14px; padding: 18px 0; }
   .l-strip { height: 84px; }
-  .wk-gallery { column-gap: 10px; row-gap: 9vw; }
   .wk-switch { bottom: 14px; }
   .wk-switch button { padding: 9px 13px; }
   .pv-bar { padding: 0 16px; gap: 16px; height: 56px; }
