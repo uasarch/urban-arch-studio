@@ -231,6 +231,7 @@ window.PROJECTS = [
     "region": "Rest of India",
     "status": "Architecture Competition",
     "scope": "Design Consultancy",
+    "pin": 2,
     "images": [
       "../../project-photos/statue-of-oneness/01.jpg?v=7be60479",
       "../../project-photos/statue-of-oneness/02.jpg?v=5ede9d48",
@@ -521,6 +522,7 @@ window.PROJECTS = [
     "region": "Ranchi",
     "status": "Ongoing",
     "scope": "Design Consultancy",
+    "pin": 8,
     "images": [
       "../../project-photos/srinivas/01.jpg?v=d71d811c",
       "../../project-photos/srinivas/02.jpg?v=7a82eb4a"
@@ -1006,9 +1008,10 @@ window.PROJECTS = [
     "region": "Ranchi",
     "status": "Completed",
     "scope": "Design and Build",
+    "pin": 9,
     "images": [
-      "../../assets/uploads/2025/09/1-38.jpg",
-      "../../assets/uploads/2025/09/2-35.jpg"
+      "../../project-photos/bungalow-interiors-harmu/01.jpg?v=c4e09d2c",
+      "../../project-photos/bungalow-interiors-harmu/02.jpg?v=65368d6f"
     ],
     "folder": "bungalow-interiors-harmu"
   },
@@ -1282,6 +1285,7 @@ window.PROJECTS = [
     "region": "Mumbai",
     "status": "Completed",
     "scope": "Design Consultancy",
+    "pin": 4,
     "images": [
       "../../assets/uploads/2025/09/2-45.jpg",
       "../../assets/uploads/2025/09/1-48.jpg",
@@ -1438,6 +1442,7 @@ window.PROJECTS = [
     "region": "Ranchi",
     "status": "Ongoing",
     "scope": "Design Consultancy",
+    "pin": 7,
     "images": [
       "../../project-photos/triveni-garden/01.jpg?v=90e76ab1",
       "../../project-photos/triveni-garden/02.jpg?v=3ec18fbe"

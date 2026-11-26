@@ -20,4 +20,4 @@ Region: Rest of India
 Status: Architecture Competition
 Scope: Design Consultancy
 Featured: no
-Pin:
+Pin: 2
