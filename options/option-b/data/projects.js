@@ -385,6 +385,7 @@ window.PROJECTS = [
     "region": "Rest of Jharkhand",
     "status": "Completed",
     "scope": "Design Consultancy",
+    "pin": 3,
     "images": [
       "../../project-photos/rv-temple/01.jpg?v=ea7f6299",
       "../../project-photos/rv-temple/02.jpg?v=22661a7b",
@@ -423,7 +424,7 @@ window.PROJECTS = [
     "region": "International",
     "status": "Completed",
     "scope": "Design Consultancy",
-    "pin": 6,
+    "pin": 5,
     "images": [
       "../../project-photos/sports-complex/01.jpg?v=a8d3deca",
       "../../project-photos/sports-complex/02.jpg?v=20b36a85",
@@ -716,9 +717,9 @@ window.PROJECTS = [
     "status": "Completed",
     "scope": "Design Consultancy",
     "images": [
-      "../../assets/uploads/2025/09/2-25.jpg",
-      "../../assets/uploads/2025/09/1-28.jpg",
-      "../../assets/uploads/2025/09/3-18.jpg"
+      "../../project-photos/pharmacy-dashmesh/01.jpg?v=cc31883f",
+      "../../project-photos/pharmacy-dashmesh/02.jpg?v=b4225aeb",
+      "../../project-photos/pharmacy-dashmesh/03.jpg?v=397b3c2f"
     ],
     "folder": "pharmacy-dashmesh"
   },
@@ -945,11 +946,11 @@ window.PROJECTS = [
     "status": "Completed",
     "scope": "Design and Build",
     "images": [
-      "../../assets/uploads/2025/09/2-33.jpg",
-      "../../assets/uploads/2025/09/1-36.jpg",
-      "../../assets/uploads/2025/09/4-22.jpg",
-      "../../assets/uploads/2025/09/3-26.jpg",
-      "../../assets/uploads/2025/09/5-15.jpg"
+      "../../project-photos/2bhk-residence-lalpur/01.jpg?v=11f88d6d",
+      "../../project-photos/2bhk-residence-lalpur/02.jpg?v=9e8d6ae2",
+      "../../project-photos/2bhk-residence-lalpur/03.jpg?v=d1e10efe",
+      "../../project-photos/2bhk-residence-lalpur/04.jpg?v=4df22619",
+      "../../project-photos/2bhk-residence-lalpur/05.jpg?v=8d4be76e"
     ],
     "folder": "2bhk-residence-lalpur"
   },
@@ -1223,10 +1224,9 @@ window.PROJECTS = [
     "status": "Completed",
     "scope": "Design & Build",
     "images": [
-      "../../assets/uploads/2025/09/2-42.jpg",
-      "../../assets/uploads/2025/09/1-45.jpg",
-      "../../assets/uploads/2025/09/3-33.jpg",
-      "../../assets/uploads/2025/09/4-26.jpg"
+      "../../project-photos/bedroom-hinoo/01.jpg?v=0e3d6624",
+      "../../project-photos/bedroom-hinoo/02.jpg?v=5481d9a2",
+      "../../project-photos/bedroom-hinoo/03.jpg?v=ecf824e6"
     ],
     "folder": "bedroom-hinoo"
   },
@@ -1312,7 +1312,10 @@ window.PROJECTS = [
     "status": "Completed",
     "scope": "Design Consultancy",
     "images": [
-      "../../assets/uploads/2025/09/21-I-30_Green-Acres-Restaurant-Ranchi.jpg"
+      "../../project-photos/aranya-restaurant/01.jpg?v=c479d9e2",
+      "../../project-photos/aranya-restaurant/02.jpg?v=e82f6650",
+      "../../project-photos/aranya-restaurant/03.jpg?v=92c74856",
+      "../../project-photos/aranya-restaurant/04.jpg?v=a5cde8f2"
     ],
     "folder": "aranya-restaurant"
   },
@@ -1329,11 +1332,11 @@ window.PROJECTS = [
     "status": "Ongoing",
     "scope": "Design Consultancy",
     "images": [
-      "../../assets/uploads/2025/09/1-49.jpg",
-      "../../assets/uploads/2025/09/2-46.jpg",
-      "../../assets/uploads/2025/09/3-37.jpg",
-      "../../assets/uploads/2025/09/4-29.jpg",
-      "../../assets/uploads/2025/09/5-20.jpg"
+      "../../project-photos/oak-elegance/01.jpg?v=e5bd3d47",
+      "../../project-photos/oak-elegance/02.jpg?v=61ca092a",
+      "../../project-photos/oak-elegance/03.jpg?v=9609e4b8",
+      "../../project-photos/oak-elegance/04.jpg?v=8ee00244",
+      "../../project-photos/oak-elegance/05.jpg?v=85dacbb0"
     ],
     "folder": "oak-elegance"
   },
