@@ -174,15 +174,21 @@
       }
       return null;
     };
-    // the free spot closest round the cluster's big photo, hugging its edges
-    const around = (c, wc, hc) => {
+    // the free spot round the cluster's big photo: closest to its edges, or (with a target)
+    // closest to a chosen point on a ring round it
+    const around = (c, wc, hc, target) => {
       for (const reach of [1.7, 3, 5]) {
-        const rx = Math.ceil((c.wc + wc) / 2 * reach), ry = Math.ceil((c.hc + hc) / 2 * reach);
+        const ex = (c.wc + wc) / 2, ey = (c.hc + hc) / 2;
+        const rx = Math.ceil(Math.max(ex * reach, target ? Math.abs(target[0]) + wc * 2 : 0));
+        const ry = Math.ceil(Math.max(ey * reach, target ? Math.abs(target[1]) + hc * 2 : 0));
         const cand = [];
         for (let dy = -ry; dy <= ry; dy++) {
           for (let dx = -rx; dx <= rx; dx++) {
-            const nx = Math.abs(dx) / ((c.wc + wc) / 2), ny = Math.abs(dy) / ((c.hc + hc) / 2);
-            cand.push([Math.max(nx, ny) + 0.25 * Math.hypot(nx, ny) + rand() * 0.02, dx, dy]);
+            const nx = Math.abs(dx) / ex, ny = Math.abs(dy) / ey;
+            const score = target
+              ? Math.hypot((dx - target[0]) / ex, (dy - target[1]) / ey) + 0.1 * Math.max(nx, ny)
+              : Math.max(nx, ny) + 0.25 * Math.hypot(nx, ny);
+            cand.push([score + rand() * 0.02, dx, dy]);
           }
         }
         cand.sort((a, b) => a[0] - b[0]);
@@ -193,21 +199,51 @@
       }
       return null;
     };
+    // Projects with more than 7 photos: the small photos go evenly all round photo no. 1,
+    // ring after ring. Returns a target point (offset from the big photo's centre) for each.
+    const ringTargets = (c, sizes) => {
+      const a = sizes.reduce((t, s) => t + (s.wc + s.hc) / 2, 0) / sizes.length;  // a small photo's typical size
+      const out = [];
+      for (let j = 0, i = 0; i < sizes.length; j++) {
+        const ex = c.wc / 2 + a * (j + 0.5), ey = c.hc / 2 + a * (j + 0.5);
+        const cap = Math.max(4, Math.floor(4 * (ex + ey) / (a * 0.9)));
+        const count = Math.min(cap, sizes.length - i);           // the last ring spreads out evenly too
+        for (let k = 0; k < count; k++, i++) {
+          const th = -Math.PI / 2 + 2 * Math.PI * (k + (j % 2) * 0.5) / count;
+          const t = 1 / Math.max(Math.abs(Math.cos(th)) / ex, Math.abs(Math.sin(th)) / ey);
+          out.push([Math.cos(th) * t, Math.sin(th) * t]);
+        }
+      }
+      return { targets: out };
+    };
 
     // build clusters until the tile is well taller than the screen (repeating projects if few)
     const coverRows = Math.ceil(coverMax / cell);
     for (let round = 0; round < 40; round++) {
       for (const g of groups) {
         const big = sizeOf(g[0], between(g.length > 1 ? S.cover : S.single));
-        const spot = firstFit(big.wc, big.hc);
-        if (!spot) continue;
-        put(g[0], spot.x, spot.y, big.wc, big.hc);
-        const c = tiles[tiles.length - 1];
-        for (const el of g.slice(1)) {
-          const s = sizeOf(el, between(S.small));
-          const at = around(c, s.wc, s.hc) || firstFit(s.wc, s.hc);
-          if (at) put(el, at.x, at.y, s.wc, s.hc);
+        const rest = g.slice(1).map(el => ({ el, ...sizeOf(el, between(S.small)) }));
+        const ring = rest.length > 6;                       // more than 7 photos in all
+        let margin = 0;
+        if (ring) {
+          // keep room free on every side of photo no. 1 for the rings of small photos
+          const a = rest.reduce((t, s) => t + (s.wc + s.hc) / 2, 0) / rest.length;
+          let n = rest.length, rings = 0;
+          while (n > 0) {
+            const ex = big.wc / 2 + a * (rings + 0.5), ey = big.hc / 2 + a * (rings + 0.5);
+            n -= Math.max(4, Math.floor(4 * (ex + ey) / (a * 0.9))); rings++;
+          }
+          margin = Math.ceil(a * rings);
         }
+        const spot = firstFit(big.wc + 2 * margin, big.hc + 2 * margin);
+        if (!spot) continue;
+        put(g[0], spot.x + margin, spot.y + margin, big.wc, big.hc);
+        const c = tiles[tiles.length - 1];
+        const targets = ring ? ringTargets(c, rest).targets : [];
+        rest.forEach((s, i) => {
+          const at = around(c, s.wc, s.hc, targets[i]) || firstFit(s.wc, s.hc);
+          if (at) put(s.el, at.x, at.y, s.wc, s.hc);
+        });
       }
       if (bottom * cell > H + coverMax * 2 && tiles.length >= 24) break;
     }
