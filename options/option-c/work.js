@@ -75,10 +75,9 @@
         `<img src="${esc(src)}" alt="" loading="lazy">`).join('')}</div>
     </a>`).join('');
 
-  // Gallery: every photo as a loose collage running edge to edge, like the reference.
-  // Photos get mixed sizes (mostly small, some medium, a few large), keep their own shape,
-  // and are packed upward into the lowest free spot, leaving small gaps and the odd open patch.
-  // Sizes come from data/projects.js ("sizes"); a fixed seed keeps the collage the same on every visit.
+  // Gallery: every project as a cluster (its first photo large, the rest smaller around it),
+  // the clusters locked together into one collage. Photo shapes come from data/projects.js
+  // ("sizes"); a fixed seed keeps the collage the same on every visit.
   const rng = seed => () => { // mulberry32
     seed |= 0; seed = seed + 0x6D2B79F5 | 0;
     let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
@@ -107,46 +106,122 @@
     const W = galEl.clientWidth, H = galEl.clientHeight;
     if (!W || !H) return;
     const phone = W < 600;
-    const gap = Math.round(Math.min(24, Math.max(8, W * 0.016)));
-    const SIZES = phone
-      ? [[0.5, 0.17, 0.25], [0.35, 0.27, 0.35], [0.15, 0.42, 0.55]]
-      : [[0.5, 0.075, 0.11], [0.35, 0.12, 0.17], [0.15, 0.24, 0.32]];
-    const maxSide = SIZES[2][2] * W * 1.8;                 // widest / tallest a photo can get
-    const TW = Math.round(Math.max(W * 1.5, W + maxSide)); // wider than the screen, so a photo never shows twice side by side
-    const step = 8, cols = Math.ceil(TW / step);
+    const gap = Math.round(Math.min(20, Math.max(8, W * 0.014)));
+    // Every project is a cluster: its first photo large in the middle, the others smaller and
+    // fitted round it. Sizes are the side of a square of the same area, as a share of screen width.
+    const S = phone
+      ? { cover: [0.46, 0.56], single: [0.34, 0.42], small: [0.18, 0.25] }
+      : { cover: [0.17, 0.22], single: [0.12, 0.15], small: [0.062, 0.095] };
+    const coverMax = S.cover[1] * W * 1.6;
+    // Photos sit on a fine square grid ("cells"), so they lock together with even gaps.
+    const cell = phone ? 8 : 12;
+    const cols = Math.ceil(Math.max(W * 1.5, W + coverMax) / cell);
+    const TW = cols * cell;                // wider than the screen, so a photo never shows twice side by side
     const base = [...galEl.querySelectorAll('.ga-item:not(.copy)')];
     if (!base.length) return;
+    const groups = [];
+    base.forEach(el => {
+      const g = groups[groups.length - 1];
+      if (g && g[0].dataset.id === el.dataset.id) g.push(el); else groups.push([el]);
+    });
     const rand = rng(1931);
-    const pickSize = () => {
-      let u = rand();
-      for (const [share, lo, hi] of SIZES) { if ((u -= share) <= 0) return lo + rand() * (hi - lo); }
-      return SIZES[0][1];
+    const between = ([lo, hi]) => (lo + rand() * (hi - lo)) * W;
+
+    // which cells are taken (rows are added as the tile grows; columns wrap round)
+    let rows = 0, occ = new Uint8Array(0);
+    const grow = need => {
+      if (need <= rows) return;
+      const n = Math.max(need, rows * 2, 512);
+      const a = new Uint8Array(n * cols); a.set(occ); occ = a; rows = n;
     };
-    // place the photos (repeating the set when there are few) until the tile is well taller than the screen
-    const sky = new Float64Array(cols);
-    const tiles = [];
-    for (let round = 0; round < 40; round++) {
-      for (const el of base) {
-        const r = +el.dataset.r || 1.5;
-        const side = pickSize() * W;
-        const w = Math.round(side * Math.sqrt(r)), h = Math.round(side / Math.sqrt(r));
-        const span = Math.min(cols, Math.ceil((w + gap) / step));
-        let best = Infinity, bestC = 0;
-        for (let c = 0; c < cols; c++) {
-          let top = 0;
-          for (let k = 0; k < span; k++) { const v = sky[(c + k) % cols]; if (v > top) top = v; }
-          const score = top + rand() * gap * 2;   // a little chance so it never settles into rows
-          if (score < best) { best = score; bestC = c; }
-        }
-        let top = 0;
-        for (let k = 0; k < span; k++) top = Math.max(top, sky[(bestC + k) % cols]);
-        if (rand() < 0.22) top += gap * (1 + rand() * 3);      // now and then an open patch
-        for (let k = 0; k < span; k++) sky[(bestC + k) % cols] = top + h + gap;
-        tiles.push({ src: el, x: bestC * step, y: Math.round(top), w, h });
+    const isFree = (x, y, wc, hc) => {
+      if (y < 0) return false;
+      grow(y + hc);
+      for (let j = 0; j < hc; j++) {
+        const row = (y + j) * cols;
+        for (let i = 0; i < wc; i++) if (occ[row + mod(x + i, cols)]) return false;
       }
-      if (Math.min(...sky) > H + maxSide && tiles.length >= 24) break;
+      return true;
+    };
+    const take = (x, y, wc, hc) => {
+      for (let j = 0; j < hc; j++) {
+        const row = (y + j) * cols;
+        for (let i = 0; i < wc; i++) occ[row + mod(x + i, cols)] = 1;
+      }
+    };
+    // a photo of a given size, rounded to whole cells (a few pixels may be trimmed off its edges)
+    const sizeOf = (el, side) => {
+      const r = +el.dataset.r || 1.5;
+      const wc = Math.max(2, Math.round((side * Math.sqrt(r) + gap) / cell));
+      const hc = Math.max(2, Math.round((side / Math.sqrt(r) + gap) / cell));
+      return { wc, hc };
+    };
+    const tiles = [];
+    let bottom = 0, firstOpen = 0;
+    const put = (el, x, y, wc, hc) => {
+      take(x, y, wc, hc);
+      x = mod(x, cols);
+      tiles.push({ src: el, x: x * cell, y: y * cell, w: wc * cell - gap, h: hc * cell - gap, cx: x + wc / 2, cy: y + hc / 2, wc, hc });
+      bottom = Math.max(bottom, y + hc);
+    };
+    // first free spot from the top (used for each cluster's big photo, and to fill holes)
+    const firstFit = (wc, hc, maxY) => {
+      for (;;) { grow(firstOpen + 1); let full = true; for (let i = 0; i < cols; i++) if (!occ[firstOpen * cols + i]) { full = false; break; } if (!full) break; firstOpen++; }
+      const shift = Math.floor(rand() * cols);
+      for (let y = firstOpen; y < (maxY ?? firstOpen + 4000); y++) {
+        if (maxY != null && y + hc > maxY) return null;
+        for (let k = 0; k < cols; k++) { const x = (k + shift) % cols; if (isFree(x, y, wc, hc)) return { x, y }; }
+      }
+      return null;
+    };
+    // the free spot closest round the cluster's big photo, hugging its edges
+    const around = (c, wc, hc) => {
+      for (const reach of [1.7, 3, 5]) {
+        const rx = Math.ceil((c.wc + wc) / 2 * reach), ry = Math.ceil((c.hc + hc) / 2 * reach);
+        const cand = [];
+        for (let dy = -ry; dy <= ry; dy++) {
+          for (let dx = -rx; dx <= rx; dx++) {
+            const nx = Math.abs(dx) / ((c.wc + wc) / 2), ny = Math.abs(dy) / ((c.hc + hc) / 2);
+            cand.push([Math.max(nx, ny) + 0.25 * Math.hypot(nx, ny) + rand() * 0.02, dx, dy]);
+          }
+        }
+        cand.sort((a, b) => a[0] - b[0]);
+        for (const [, dx, dy] of cand) {
+          const x = Math.round(c.cx + dx - wc / 2), y = Math.round(c.cy + dy - hc / 2);
+          if (isFree(x, y, wc, hc)) return { x, y };
+        }
+      }
+      return null;
+    };
+
+    // build clusters until the tile is well taller than the screen (repeating projects if few)
+    const coverRows = Math.ceil(coverMax / cell);
+    for (let round = 0; round < 40; round++) {
+      for (const g of groups) {
+        const big = sizeOf(g[0], between(g.length > 1 ? S.cover : S.single));
+        const spot = firstFit(big.wc, big.hc);
+        if (!spot) continue;
+        put(g[0], spot.x, spot.y, big.wc, big.hc);
+        const c = tiles[tiles.length - 1];
+        for (const el of g.slice(1)) {
+          const s = sizeOf(el, between(S.small));
+          const at = around(c, s.wc, s.hc) || firstFit(s.wc, s.hc);
+          if (at) put(el, at.x, at.y, s.wc, s.hc);
+        }
+      }
+      if (bottom * cell > H + coverMax * 2 && tiles.length >= 24) break;
     }
-    const TH = Math.ceil(Math.max(...sky));
+    // close up the band along the bottom with small photos, so the tile meets its own top
+    // (where it repeats) without big holes
+    const TH = bottom * cell;
+    const band = Math.max(0, bottom - coverRows * 2);
+    firstOpen = Math.max(firstOpen, band);
+    for (let j = 0, misses = 0; j < 800 && misses < 6; j++) {
+      const el = base[j % base.length];
+      const s = sizeOf(el, between(S.small) * 0.85);
+      const at = firstFit(s.wc, s.hc, bottom);
+      if (at) { put(el, at.x, at.y, s.wc, s.hc); misses = 0; } else misses++;
+    }
     // the first copy of each photo is the real link; repeats are clones
     galEl.querySelectorAll('.ga-item.copy').forEach(el => el.remove());
     const used = new Set();
@@ -256,6 +331,9 @@
     window.scrollTo(0, 0);
     gal.x = gal.y = gal.tx = gal.ty = 0;
     packTile();
+    // open centred on the first project's big photo
+    const first = gal.tiles[0];
+    if (first) { gal.x = gal.tx = first.x + first.w / 2 - gal.W / 2; drawGallery(true); }
   };
   const stopGallery = () => {
     gal.on = false;
