@@ -79,6 +79,7 @@ window.PROJECTS = [
     "region": "Rest of India",
     "status": "Completed",
     "scope": "Design Consultancy",
+    "pin": 3,
     "images": [
       "../../project-photos/ekal-foundation-skill-development-centre/01.jpg?v=54762baf",
       "../../project-photos/ekal-foundation-skill-development-centre/02.jpg?v=ef6dffad",
@@ -385,7 +386,7 @@ window.PROJECTS = [
     "region": "Rest of Jharkhand",
     "status": "Completed",
     "scope": "Design Consultancy",
-    "pin": 3,
+    "pin": 8,
     "images": [
       "../../project-photos/rv-temple/01.jpg?v=ea7f6299",
       "../../project-photos/rv-temple/02.jpg?v=22661a7b",
@@ -523,7 +524,6 @@ window.PROJECTS = [
     "region": "Ranchi",
     "status": "Ongoing",
     "scope": "Design Consultancy",
-    "pin": 8,
     "images": [
       "../../project-photos/srinivas/01.jpg?v=d71d811c",
       "../../project-photos/srinivas/02.jpg?v=7a82eb4a"
@@ -812,14 +812,15 @@ window.PROJECTS = [
     "region": "Mumbai",
     "status": "Completed",
     "scope": "Design & Build",
+    "pin": 7,
     "images": [
-      "../../assets/uploads/2025/09/2-28.jpg",
-      "../../assets/uploads/2025/09/1-31.jpg",
-      "../../assets/uploads/2025/09/3-21.jpg",
-      "../../assets/uploads/2025/09/4-17.jpg",
-      "../../assets/uploads/2025/09/5-10.jpg",
-      "../../assets/uploads/2025/09/6-8.jpg",
-      "../../assets/uploads/2025/09/7-5.jpg"
+      "../../project-photos/ggfmc-physiotherapy-center/01.jpg?v=0d5722c8",
+      "../../project-photos/ggfmc-physiotherapy-center/02.jpg?v=036b52a2",
+      "../../project-photos/ggfmc-physiotherapy-center/03.jpg?v=a1be5cfe",
+      "../../project-photos/ggfmc-physiotherapy-center/04.jpg?v=f8f13d27",
+      "../../project-photos/ggfmc-physiotherapy-center/05.jpg?v=d0112cea",
+      "../../project-photos/ggfmc-physiotherapy-center/06.jpg?v=1b927a58",
+      "../../project-photos/ggfmc-physiotherapy-center/07.jpg?v=a91e8269"
     ],
     "folder": "ggfmc-physiotherapy-center"
   },
@@ -836,17 +837,17 @@ window.PROJECTS = [
     "status": "Completed",
     "scope": "Design Consultancy",
     "images": [
-      "../../assets/uploads/2025/09/2-29.jpg",
-      "../../assets/uploads/2025/09/1-32.jpg",
-      "../../assets/uploads/2025/09/3-22.jpg",
-      "../../assets/uploads/2025/09/4-18.jpg",
-      "../../assets/uploads/2025/09/5-11.jpg",
-      "../../assets/uploads/2025/09/6-9.jpg",
-      "../../assets/uploads/2025/09/7-6.jpg",
-      "../../assets/uploads/2025/09/8-4.jpg",
-      "../../assets/uploads/2025/09/10-2.jpg",
-      "../../assets/uploads/2025/09/9-3.jpg",
-      "../../assets/uploads/2025/09/11-2.jpg"
+      "../../project-photos/4bhk-residence-goregaon-west/01.jpg?v=bb6e466e",
+      "../../project-photos/4bhk-residence-goregaon-west/02.jpg?v=d6ed4641",
+      "../../project-photos/4bhk-residence-goregaon-west/03.jpg?v=65e4a882",
+      "../../project-photos/4bhk-residence-goregaon-west/04.jpg?v=2d969030",
+      "../../project-photos/4bhk-residence-goregaon-west/05.jpg?v=dae90bc8",
+      "../../project-photos/4bhk-residence-goregaon-west/06.jpg?v=847b366d",
+      "../../project-photos/4bhk-residence-goregaon-west/07.jpg?v=3284cb95",
+      "../../project-photos/4bhk-residence-goregaon-west/08.jpg?v=c047b6ba",
+      "../../project-photos/4bhk-residence-goregaon-west/09.jpg?v=d8aa34c8",
+      "../../project-photos/4bhk-residence-goregaon-west/10.jpg?v=8e7faacc",
+      "../../project-photos/4bhk-residence-goregaon-west/11.jpg?v=8136eb0b"
     ],
     "folder": "4bhk-residence-goregaon-west"
   },
@@ -1445,7 +1446,7 @@ window.PROJECTS = [
     "region": "Ranchi",
     "status": "Ongoing",
     "scope": "Design Consultancy",
-    "pin": 7,
+    "pin": 6,
     "images": [
       "../../project-photos/triveni-garden/01.jpg?v=90e76ab1",
       "../../project-photos/triveni-garden/02.jpg?v=3ec18fbe"

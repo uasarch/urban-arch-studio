@@ -20,4 +20,4 @@ Region: Ranchi
 Status: Ongoing
 Scope: Design Consultancy
 Featured: no
-Pin: 7
+Pin: 6
