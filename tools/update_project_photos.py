@@ -38,6 +38,7 @@ FIELDS = [
     ("Title", "title"), ("Category", "category"), ("Sector", "sector"), ("Client", "client"),
     ("Type", "type"), ("Year", "year"), ("Area", "area"), ("Location", "location"),
     ("Region", "region"), ("Status", "status"), ("Scope", "scope"), ("Featured", "featured"),
+    ("Pin", "pin"),
 ]
 CATEGORIES = {"architecture": "Architecture", "interior": "Interior Design", "landscape": "Landscape"}
 ALLOWED = {
@@ -53,6 +54,7 @@ HEADER = """# Project details for the Urban Arch Studio website.
 #   Status:   Completed | Ongoing | Proposed | Architecture Competition
 #   Year:     e.g. 2021, 2018 - 2021, or 2024 - Ongoing
 #   Featured: yes = show it in "Selected work" on the home page
+#   Pin:      1 to 9 = show it first on the Projects page, in that order (empty = newest first)
 """
 DATA_HEADER = """// Project list for the Option B pages. It is built from the folders in project-photos/
 // by tools/update_project_photos.py, so change project-photos/<project>/info.txt instead of this file.
@@ -111,6 +113,8 @@ def write_info(folder, p):
             value = CATEGORIES.get(value, value)
         if key == "featured":
             value = "yes" if value else "no"
+        if key == "pin":
+            value = value or ""
         lines.append(f"{label}: {value}")
     (folder / "info.txt").write_text("\n".join(lines) + "\n", encoding="utf-8")
 
@@ -152,6 +156,14 @@ def read_info(path, problems):
         else:
             info.pop("featured")
             info["_unfeature"] = True
+    if "pin" in info:
+        if info["pin"].isdigit() and int(info["pin"]) > 0:
+            info["pin"] = int(info["pin"])
+        else:
+            if info["pin"]:
+                problems.append(f"{path.parent.name}: Pin '{info['pin']}' should be a number like 1, 2, 3 (or empty)")
+            info.pop("pin")
+            info["_unpin"] = True
     return info
 
 
@@ -248,6 +260,8 @@ def update():
             info = read_info(info_file, problems)
             if info.pop("_unfeature", False):
                 p.pop("featured", None)
+            if info.pop("_unpin", False):
+                p.pop("pin", None)
             p.update(info)  # an empty value clears that detail on the site
         elif not before:
             problems.append(f"{name}: new folder has no info.txt, skipped")

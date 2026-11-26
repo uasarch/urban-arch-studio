@@ -263,6 +263,7 @@ window.PROJECTS = [
     "region": "Rest of India",
     "status": "Completed",
     "scope": "Design Consultancy",
+    "pin": 1,
     "images": [
       "../../project-photos/reve-your-serene-abode/01.jpg?v=9dd1fbe4",
       "../../project-photos/reve-your-serene-abode/02.jpg?v=0ec7fd50",
@@ -421,6 +422,7 @@ window.PROJECTS = [
     "region": "International",
     "status": "Completed",
     "scope": "Design Consultancy",
+    "pin": 6,
     "images": [
       "../../project-photos/sports-complex/01.jpg?v=a8d3deca",
       "../../project-photos/sports-complex/02.jpg?v=20b36a85",
@@ -982,7 +984,13 @@ window.PROJECTS = [
     "status": "Completed",
     "scope": "Design Consultancy",
     "images": [
-      "../../project-photos/guest-house-borivali-east/01.jpg?v=445a7f5f"
+      "../../project-photos/guest-house-borivali-east/01.jpg?v=4bdb6f23",
+      "../../project-photos/guest-house-borivali-east/02.jpg?v=32608b1d",
+      "../../project-photos/guest-house-borivali-east/03.jpg?v=13ae2524",
+      "../../project-photos/guest-house-borivali-east/04.jpg?v=8bd7e8ad",
+      "../../project-photos/guest-house-borivali-east/05.jpg?v=9e83ae8b",
+      "../../project-photos/guest-house-borivali-east/06.jpg?v=11cbce48",
+      "../../project-photos/guest-house-borivali-east/07.jpg?v=c37aa9d3"
     ],
     "folder": "guest-house-borivali-east"
   },

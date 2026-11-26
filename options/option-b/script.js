@@ -121,8 +121,11 @@ if (grid && window.PROJECTS) {
   const seen = {};
   PROJECTS.forEach(p => { let id = slug(p.title); if (seen[id]) id += '-' + p.category; seen[id] = 1; p.id = id; });
 
-  // Newest first (by start year, then ongoing / later finish first)
+  // Pinned projects first ("Pin: 1" to "Pin: 9" in info.txt), then the rest newest first
+  // (by start year, then ongoing / later finish first)
+  const pin = p => +p.pin > 0 ? +p.pin : Infinity;
   const order = PROJECTS.map((_, i) => i).sort((a, b) =>
+    (pin(PROJECTS[a]) - pin(PROJECTS[b]) || 0) ||
     (startYear(PROJECTS[b]) - startYear(PROJECTS[a])) || (endYear(PROJECTS[b]) - endYear(PROJECTS[a])) || a - b);
 
   grid.innerHTML = order.map(i => {

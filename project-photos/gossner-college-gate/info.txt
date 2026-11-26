@@ -6,6 +6,7 @@
 #   Status:   Completed | Ongoing | Proposed | Architecture Competition
 #   Year:     e.g. 2021, 2018 - 2021, or 2024 - Ongoing
 #   Featured: yes = show it in "Selected work" on the home page
+#   Pin:      1 to 9 = show it first on the Projects page, in that order (empty = newest first)
 
 Title: Gossner College Gate
 Category: Landscape
@@ -19,3 +20,4 @@ Region: Ranchi
 Status: Proposed
 Scope: Design Consultancy
 Featured: no
+Pin:

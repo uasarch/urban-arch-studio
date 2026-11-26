@@ -9,6 +9,7 @@ Every folder here is one project on the website. Each folder holds:
 
 - **Text:** open its `info.txt`, change the words after the colons, save. Leave a value empty to hide that detail.
 - **Photos:** put the new photos in its folder. Once a folder has photos, they **replace all** of that project's old photos, so include every photo you want shown. A folder without photos keeps the old ones.
+- **Projects page order:** set `Pin: 1` … `Pin: 9` on the projects you want shown first, in that order. All other projects follow, newest first. Leave `Pin:` empty to let a project fall back to newest first.
 - **Home page:** set `Featured: yes` on the projects you want in "Selected work". If none are featured, the newest projects are shown.
 
 ## Add a new project
