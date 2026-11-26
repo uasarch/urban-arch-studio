@@ -71,14 +71,17 @@
 }
 
 /* ---------- Gallery: every photo ---------- */
-.wk-gallery { display: flex; gap: 16px; align-items: flex-start; }
-.ga-col { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 16px; }
+/* photos of different sizes, scattered with open space (layout set in work.js) */
+.wk-gallery { display: grid; grid-template-columns: repeat(var(--ga-cols, 24), minmax(0, 1fr)); column-gap: 20px; row-gap: 5vw; padding-top: 2vw; }
 .ga-item { position: relative; display: block; overflow: hidden; background: var(--tint); color: #fff; text-decoration: none; }
 .ga-item img { width: 100%; height: auto; }
 .ga-cap { position: absolute; left: 0; right: 0; bottom: 0; padding: 40px 14px 12px; font-family: var(--head); font-size: .9rem; font-weight: 500; background: linear-gradient(transparent, rgba(0,0,0,.55)); opacity: 0; transform: translateY(8px); transition: opacity .4s var(--ease), transform .4s var(--ease); }
 @media (hover: hover) and (pointer: fine) {
   .ga-item:hover img { transform: scale(1.035); }
   .ga-item:hover .ga-cap { opacity: 1; transform: none; }
+  /* same as the list view: the pointed-at project stays bright, the rest fade back */
+  .wk-gallery.hovering .ga-item.in { opacity: .35; }
+  .wk-gallery.hovering .ga-item.in.hl { opacity: 1; }
 }
 @media (hover: none), (pointer: coarse) {
   .ga-cap { opacity: 1; transform: none; padding-top: 28px; font-size: .8rem; }
@@ -136,7 +139,7 @@ html.pv-lock, html.pv-lock body { overflow: hidden; }
   .wk-grid .g-item:nth-child(even) { margin-top: 0; }
   .l-row { gap: 14px; padding: 18px 0; }
   .l-strip { height: 84px; }
-  .wk-gallery, .ga-col { gap: 8px; }
+  .wk-gallery { column-gap: 10px; row-gap: 9vw; }
   .wk-switch { bottom: 14px; }
   .wk-switch button { padding: 9px 13px; }
   .pv-bar { padding: 0 16px; gap: 16px; height: 56px; }

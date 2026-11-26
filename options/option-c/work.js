@@ -75,21 +75,59 @@
         `<img src="${esc(src)}" alt="" loading="lazy">`).join('')}</div>
     </a>`).join('');
 
-  // Gallery: every photo, dealt across the columns so the order reads left to right
-  const galCols = () => window.innerWidth >= 1200 ? 4 : window.innerWidth >= 760 ? 3 : 2;
+  // Gallery: every photo, scattered at different sizes with open space around them.
+  // Each row holds 1 to 4 photos of different widths, set at different heights, on a
+  // fine column grid. A fixed seed keeps the arrangement the same on every visit.
+  const GAL = [
+    { min: 1000, cols: 24, counts: [1, 2, 2, 3, 3, 3, 4], span: [4, 9], solo: [8, 12] },
+    { min: 600, cols: 12, counts: [1, 2, 2, 2, 3], span: [3, 6], solo: [6, 8] },
+    { min: 0, cols: 10, counts: [1, 1, 2, 2, 2], span: [3, 6], solo: [6, 9] }
+  ];
+  const galMode = () => GAL.find(m => window.innerWidth >= m.min);
+  const rng = seed => () => { // mulberry32
+    seed |= 0; seed = seed + 0x6D2B79F5 | 0;
+    let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+  };
   const renderGallery = list => {
-    const items = list.flatMap(p => p.images.map((src, n) => `
-    <a class="ga-item" href="#p=${p.id}" data-id="${p.id}" data-photo="${n}">
+    const photos = list.flatMap(p => p.images.map((src, n) => ({ p, src, n })));
+    const m = galMode();
+    const rand = rng(1931);
+    const int = (lo, hi) => lo + Math.floor(rand() * (hi - lo + 1));
+    const pick = a => a[Math.floor(rand() * a.length)];
+    const out = [];
+    let i = 0, row = 1;
+    while (i < photos.length) {
+      const k = Math.min(pick(m.counts), photos.length - i);
+      const spans = Array.from({ length: k }, () => k === 1 ? int(...m.solo) : int(...m.span));
+      while (spans.reduce((x, y) => x + y, 0) + (k - 1) > m.cols) spans[spans.indexOf(Math.max(...spans))]--;
+      // share the spare columns out as gaps: before, between and after the photos
+      let spare = m.cols - spans.reduce((x, y) => x + y, 0) - (k - 1);
+      const gaps = Array(k + 1).fill(0);
+      while (spare-- > 0) gaps[int(0, k)]++;
+      let col = 1 + gaps[0];
+      spans.forEach((span, j) => {
+        const { p, src, n } = photos[i++];
+        const align = pick(['start', 'start', 'center', 'end']);
+        const drop = align === 'start' ? int(0, 6) : 0;
+        out.push(`
+    <a class="ga-item" href="#p=${p.id}" data-id="${p.id}" data-photo="${n}"
+       style="grid-column:${col} / span ${span};grid-row:${row};align-self:${align};margin-top:${drop}vw">
       <img src="${esc(src)}" alt="${esc(p.title)}${n ? ' — photo ' + (n + 1) : ''}" loading="lazy">
       <span class="ga-cap">${esc(p.title)}</span>
-    </a>`));
-    const cols = Array.from({ length: galCols() }, () => []);
-    items.forEach((h, i) => cols[i % cols.length].push(h));
-    return cols.map(c => `<div class="ga-col">${c.join('')}</div>`).join('');
+    </a>`);
+        col += span + 1 + gaps[j + 1];
+      });
+      row++;
+    }
+    gridColsFor(m);
+    return out.join('');
   };
-  let lastCols = galCols();
+  const gridColsFor = m => galEl.style.setProperty('--ga-cols', m.cols);
+  let lastMode = galMode();
   window.addEventListener('resize', () => {
-    if (view === 'gallery' && galCols() !== lastCols) { lastCols = galCols(); render(); }
+    if (view === 'gallery' && galMode() !== lastMode) { lastMode = galMode(); render(); }
   });
 
   const fadeIn = root => {
@@ -118,6 +156,7 @@
     el.innerHTML = view === 'grid' ? renderGrid(list) : view === 'list' ? renderList(list) : renderGallery(list);
     Object.entries(VIEWS).forEach(([k, v]) => { v.hidden = k !== view; if (k !== view) v.innerHTML = ''; });
     switchBtns.forEach(b => { const on = b.dataset.view === view; b.classList.toggle('active', on); b.setAttribute('aria-selected', on); });
+    galHover = null; galEl.classList.remove('hovering');
     fadeIn(el);
   };
 
@@ -154,6 +193,21 @@
     const extra = strip.scrollWidth - r.width;
     if (extra > 0) strip.scrollLeft = extra * Math.min(1, Math.max(0, (e.clientX - r.left) / r.width));
   });
+
+  // Gallery view: pointing at a photo lights up every photo of that project; the rest fade back
+  let galHover = null;
+  const galLight = id => {
+    if (id === galHover) return;
+    galHover = id;
+    galEl.classList.toggle('hovering', !!id);
+    galEl.querySelectorAll('.ga-item').forEach(a => a.classList.toggle('hl', !!id && a.dataset.id === id));
+  };
+  galEl.addEventListener('mouseover', e => {
+    if (!matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+    const a = e.target.closest('.ga-item');
+    if (a) galLight(a.dataset.id); // gaps between photos keep the current project lit
+  });
+  galEl.addEventListener('mouseleave', () => galLight(null));
 
   /* ---------- One project, opened over the page ---------- */
   const pv = document.getElementById('projectView');
