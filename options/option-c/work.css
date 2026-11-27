@@ -19,42 +19,14 @@
 .wk-body .no-results { padding: 40px 0; color: var(--muted); }
 
 /* Photos fade in once loaded */
-.wk-view img, .pv img { opacity: 0; transition: opacity .6s var(--ease), transform 1.1s var(--ease); }
-.wk-view img.ld, .pv img.ld { opacity: 1; }
+.wk-view:not(.project-grid) img, .pv img { opacity: 0; transition: opacity .6s var(--ease), transform 1.1s var(--ease); }
+.wk-view:not(.project-grid) img.ld, .pv img.ld { opacity: 1; }
 
 /* Items rise in as they come into view */
-.g-item, .l-row, .ga-item { opacity: 0; transform: translateY(40px); transition: opacity .9s var(--ease) var(--d, 0ms), transform .9s var(--ease) var(--d, 0ms); }
-.g-item.in, .l-row.in, .ga-item.in { opacity: 1; transform: none; }
+.pj, .l-row, .ga-item { opacity: 0; transform: translateY(40px); transition: opacity .9s var(--ease) var(--d, 0ms), transform .9s var(--ease) var(--d, 0ms); }
+.pj.in, .l-row.in, .ga-item.in { opacity: 1; transform: none; }
 
-/* ---------- Grid: a loose editorial layout on 15 columns ---------- */
-.wk-grid { display: grid; grid-template-columns: repeat(15, 1fr); gap: 20px; align-items: start; }
-.g-item { text-decoration: none; color: var(--ink); display: flex; flex-direction: column; gap: 14px; }
-.g-media { overflow: hidden; background: var(--tint); }
-.g-media img { width: 100%; height: auto; }
-.g-cap { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
-.g-text h2 { font-family: var(--head); font-size: 1rem; font-weight: 500; line-height: 1.3; letter-spacing: -.01em; }
-.g-text p { font-size: .88rem; color: var(--muted); line-height: 1.4; margin-top: 2px; }
-.g-swap { position: relative; overflow: hidden; flex: none; font-family: var(--serif); font-size: 1.25rem; line-height: 1.2; text-align: right; }
-.g-swap span { display: block; transition: transform .6s var(--ease); }
-.g-go { position: absolute; right: 0; top: 0; transform: translateY(101%); }
-.g-go::after { content: ""; position: absolute; left: 0; right: 0; bottom: 1px; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: right; transition: transform .5s var(--ease); }
-@media (hover: hover) and (pointer: fine) {
-  .g-item:hover .g-media img { transform: scale(1.035); }
-  .g-item:hover .g-yr { transform: translateY(-101%); }
-  .g-item:hover .g-go { transform: none; }
-  .g-item:hover .g-go::after { transform: scaleX(1); transform-origin: left; transition-delay: .25s; }
-}
-/* the ten-step pattern: column span and drop */
-.g-item.s0 { grid-column: 1 / 8; }
-.g-item.s1 { grid-column: 9 / 16; margin-top: 9vw; }
-.g-item.s2 { grid-column: 2 / 6; margin-top: 8vw; }
-.g-item.s3 { grid-column: 7 / 12; margin-top: 3vw; }
-.g-item.s4 { grid-column: 12 / 16; margin-top: 13vw; }
-.g-item.s5 { grid-column: 4 / 9; margin-top: 7vw; }
-.g-item.s6 { grid-column: 10 / 16; margin-top: 2vw; }
-.g-item.s7 { grid-column: 1 / 7; margin-top: 6vw; }
-.g-item.s8 { grid-column: 8 / 12; margin-top: 12vw; }
-.g-item.s9 { grid-column: 12 / 16; margin-top: 4vw; }
+/* ---------- Grid: Option B's project grid (styles.css .project-grid / .pj / .pd) ---------- */
 
 /* ---------- List: one row per project with its photo strip ---------- */
 .wk-list { border-top: 1px solid var(--line); }
@@ -129,9 +101,6 @@ html.pv-lock, html.pv-lock body { overflow: hidden; }
 
 /* ---------- Smaller screens ---------- */
 @media (max-width: 1000px) {
-  .wk-grid { grid-template-columns: 1fr 1fr; gap: 40px 20px; }
-  .wk-grid .g-item[class*=" s"] { grid-column: auto; margin-top: 0; }
-  .wk-grid .g-item:nth-child(even) { margin-top: 64px; }
   .l-row { grid-template-columns: 40px 1fr; }
   .l-strip { grid-column: 2; height: 96px; overflow-x: auto; scrollbar-width: none; }
   .l-strip::-webkit-scrollbar { display: none; }
@@ -142,8 +111,6 @@ html.pv-lock, html.pv-lock body { overflow: hidden; }
   .work-page { --gut: 16px; }
   .wk-head { padding: 32px 0 32px; }
   .wk-head h1 { margin: 12px 0 28px; }
-  .wk-grid { grid-template-columns: 1fr; gap: 44px; }
-  .wk-grid .g-item:nth-child(even) { margin-top: 0; }
   .l-row { gap: 14px; padding: 18px 0; }
   .l-strip { height: 84px; }
   .wk-switch { bottom: 14px; }
@@ -154,7 +121,7 @@ html.pv-lock, html.pv-lock body { overflow: hidden; }
   .pv-inner { padding: 24px 16px 40px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .g-item, .l-row, .ga-item { opacity: 1; transform: none; transition: none; }
+  .pj, .l-row, .ga-item { opacity: 1; transform: none; transition: none; }
   .wk-view img, .pv img { transition: opacity .2s; }
   .pv, .pv.open { transform: none; transition: opacity .2s, visibility 0s; }
   .pv.swap .pv-info, .pv.swap .pv-photos { animation: none; }

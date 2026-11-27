@@ -49,6 +49,9 @@
 
   const shownProjects = () => value === 'all' ? ORDER : ORDER.filter(p => slug(dim.get(p) || '') === value);
 
+  // set by the grid panel code further down
+  let closeInline = () => {}, inlineId = () => null, openGrid = () => false;
+
   /* ---------- Views ---------- */
   const VIEWS = { grid: gridEl, list: listEl, gallery: galEl };
   // projects.html?view=list opens a view directly; otherwise the visitor's last choice
@@ -58,13 +61,12 @@
 
   const meta = p => [p.location, startYear(p)].filter(Boolean).map(esc).join(' · ');
 
+  // Grid: Option B's cards (photo whole on a blurred copy of itself, title, place · year)
   const renderGrid = list => list.map((p, k) => `
-    <a class="g-item s${k % 10}" href="#p=${p.id}" data-id="${p.id}" style="--d:${(k % 3) * 90}ms">
-      <div class="g-media"><img src="${esc(p.images[0])}" alt="${esc(p.title)}" loading="${k < 4 ? 'eager' : 'lazy'}"></div>
-      <div class="g-cap">
-        <div class="g-text"><h2>${esc(p.title)}</h2><p>${esc(p.location)}</p></div>
-        <div class="g-swap"><span class="g-yr">${esc(startYear(p))}</span><span class="g-go">View</span></div>
-      </div>
+    <a class="pj" href="#p=${p.id}" data-id="${p.id}" style="--d:${(k % 3) * 90}ms">
+      <div class="pj-media" style="--src:url('${esc(p.images[0])}')"><img src="${esc(p.images[0])}" alt="${esc(p.title)}" loading="${k < 6 ? 'eager' : 'lazy'}"></div>
+      <h3><span>${esc(p.title)}</span></h3>
+      <p>${meta(p)}</p>
     </a>`).join('');
 
   const renderList = list => list.map((p, k) => `
@@ -419,13 +421,14 @@
       const done = () => img.classList.add('ld');
       if (img.complete && img.naturalWidth) done(); else { img.addEventListener('load', done, { once: true }); img.addEventListener('error', done, { once: true }); }
     });
-    root.querySelectorAll('.g-item, .l-row, .ga-item').forEach(el => io.observe(el));
+    root.querySelectorAll('.pj, .l-row, .ga-item').forEach(el => io.observe(el));
   };
   const io = new IntersectionObserver(entries => entries.forEach(e => {
     if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
   }), { rootMargin: '0px 0px -6% 0px' });
 
   const render = () => {
+    closeInline(true);
     dimsEl.querySelectorAll('.dim').forEach(b => {
       const on = b.dataset.dim === dim.key;
       b.classList.toggle('active', on);
@@ -543,7 +546,7 @@
     pv.setAttribute('aria-hidden', 'true');
     document.documentElement.classList.remove('pv-lock');
     current = null;
-    setURL(filterHash());
+    setURL(inlineId() ? `${location.pathname}${location.search}#p=${inlineId()}` : filterHash());
     if (returnFocus) returnFocus.focus({ preventScroll: true });
   };
   const step = d => {
@@ -569,10 +572,231 @@
     else if (e.key === 'ArrowLeft') step(-1);
   });
 
+  /* ---------- Grid view: Option B's grid, a project opens in place below its row ---------- */
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const FACTS = [['Client', 'client'], ['Typology', 'type'], ['Sector', 'sector'], ['Size', 'area'], ['Status', 'status'], ['Scope', 'scope']];
+  const panel = document.createElement('section');
+  panel.className = 'pd';
+  let openId = null;
+  const cards = () => [...gridEl.querySelectorAll('.pj')];
+  const cardOf = id => gridEl.querySelector(`.pj[data-id="${CSS.escape(id)}"]`);
+  const byId = id => ORDER.find(p => p.id === id);
+
+  /* Click: the thumbnail flies into place as the first big photo of the opened project */
+  let flight = null;
+  const endFlight = () => {
+    if (!flight) return;
+    cancelAnimationFrame(flight.raf);
+    flight.ghost.remove();
+    flight.target.classList.remove('pd-landing');
+    flight = null;
+  };
+  const fly = card => {
+    endFlight();
+    const src = card.querySelector('.pj-media img');
+    const target = panel.querySelector('.pd-strip img');
+    if (reduceMotion.matches || !src || !target || !src.complete || !src.naturalWidth) return;
+    const box = src.getBoundingClientRect();
+    const ratio = src.naturalWidth / src.naturalHeight;
+    const fw = Math.min(box.width, box.height * ratio), fh = fw / ratio;
+    const from = { left: box.left + (box.width - fw) / 2, top: box.top + (box.height - fh) / 2, width: fw, height: fh };
+    const ghost = new Image();
+    ghost.src = src.currentSrc || src.src;
+    ghost.className = 'pj-fly';
+    ghost.alt = '';
+    ghost.style.width = `${from.width}px`;
+    ghost.style.height = `${from.height}px`;
+    ghost.style.transform = `translate3d(${from.left}px, ${from.top}px, 0)`;
+    document.body.appendChild(ghost);
+    target.classList.add('pd-flown', 'pd-landing');
+    const dur = 900, t0 = performance.now();
+    const ease = t => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+    const lerp = (a, b, e) => a + (b - a) * e;
+    flight = { ghost, target, raf: 0 };
+    const stepFly = now => {
+      const t = Math.min(1, (now - t0) / dur), e = ease(t);
+      const r = target.getBoundingClientRect(); // follows the page while it scrolls to the panel
+      const w = r.width || from.width, h = r.height || from.width / ratio;
+      ghost.style.transform = `translate3d(${lerp(from.left, r.left, e)}px, ${lerp(from.top, r.top, e)}px, 0) scale(${lerp(1, w / from.width, e)}, ${lerp(1, h / from.height, e)})`;
+      if (t < 1) { flight.raf = requestAnimationFrame(stepFly); return; }
+      target.classList.remove('pd-landing');
+      flight = null;
+      ghost.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 220 }).onfinish = () => ghost.remove();
+    };
+    stepFly(t0);
+  };
+
+  // the panel goes after the last card on the open card's row; only moved when that spot changes
+  const place = () => {
+    const card = cardOf(openId);
+    if (!card) return;
+    let end = card;
+    cards().forEach(c => { if (c.offsetTop === card.offsetTop) end = c; });
+    if (panel.isConnected && panel.previousElementSibling === end) return;
+    end.after(panel);
+  };
+  const strip = () => panel.querySelector('.pd-strip');
+  const photos = () => [...panel.querySelectorAll('.pd-strip img')];
+  const shownPhoto = () => {
+    const s = strip(), imgs = photos();
+    if (s.scrollLeft + s.clientWidth >= s.scrollWidth - 4) return imgs.length - 1;
+    let best = 0;
+    imgs.forEach((img, k) => { if (Math.abs(img.offsetLeft - s.scrollLeft) < Math.abs(imgs[best].offsetLeft - s.scrollLeft)) best = k; });
+    return best;
+  };
+  const syncHeight = () => {
+    const img = photos()[shownPhoto()];
+    if (img && img.offsetHeight) panel.style.setProperty('--ph', `${img.offsetHeight}px`);
+  };
+  const updateCount = () => { const c = panel.querySelector('.pd-count'); if (c) c.textContent = `${pad(shownPhoto() + 1)} / ${pad(photos().length)}`; };
+  const goPhoto = d => {
+    strip().classList.remove('settling');
+    const imgs = photos(), j = Math.max(0, Math.min(imgs.length - 1, shownPhoto() + d));
+    strip().scrollTo({ left: imgs[j].offsetLeft, behavior: 'smooth' });
+  };
+
+  const openInline = (id, scroll = true) => {
+    const card = cardOf(id), p = byId(id);
+    if (!card || !p) return false;
+    cards().forEach(c => c.classList.toggle('active', c === card));
+    openId = id;
+    const th = card.querySelector('.pj-media img');
+    const firstSize = th && th.naturalWidth ? ` width="${th.naturalWidth}" height="${th.naturalHeight}"` : '';
+    // switching projects can take the panel out from above the tapped card: keep that card still on screen
+    const cardTop = card.getBoundingClientRect().top;
+    panel.remove();
+    panel.innerHTML = `
+      <div class="pd-info">
+        <button class="pd-close" aria-label="Close project" style="--d:4"><i class="fa-solid fa-xmark"></i></button>
+        <p class="eyebrow" style="--d:0">${esc(LABELS[p.category] || '')}</p>
+        <h2 style="--d:1">${esc(p.title)}</h2>
+        <p class="pd-sub" style="--d:2">${esc(p.location)}<br>${esc(p.year)}</p>
+        <dl class="pd-facts" style="--d:3">
+          ${FACTS.filter(([, k]) => p[k]).map(([l, k], n) => `<div style="--d:${n + 3}"><dt>${l}</dt><dd>${esc(p[k])}</dd></div>`).join('')}
+        </dl>
+        ${p.images.length > 1 ? `
+        <div class="pd-nav" style="--d:9">
+          <button class="pd-arrow prev" aria-label="Previous photo"><i class="fa-solid fa-arrow-left"></i></button>
+          <span class="pd-count">01 / ${pad(p.images.length)}</span>
+          <button class="pd-arrow next" aria-label="Next photo"><i class="fa-solid fa-arrow-right"></i></button>
+        </div>` : ''}
+      </div>
+      <div class="pd-strip" tabindex="0" aria-label="Photos of ${esc(p.title)}">
+        ${p.images.map((src, k) => `<img src="${esc(src)}" alt="${esc(p.title)} — photo ${k + 1}" data-i="${k}"${k === 0 ? firstSize : ''} style="--d:${Math.min(k, 5)}">`).join('')}
+      </div>`;
+    place();
+    const shift = card.getBoundingClientRect().top - cardTop;
+    if (Math.abs(shift) > 1) window.scrollBy({ top: shift, behavior: 'instant' });
+    const s = strip(), imgs = photos();
+    if (imgs.length > 1) s.addEventListener('scroll', updateCount, { passive: true });
+    // hold the strip at the first photo while photos are still loading (no width yet)
+    s.classList.add('settling');
+    const unsettle = () => s.classList.remove('settling');
+    const settle = () => {
+      if (!s.classList.contains('settling')) return;
+      s.scrollLeft = 0;
+      if (imgs.every(img => img.complete)) unsettle();
+    };
+    imgs.forEach(img => { if (!img.complete) { img.addEventListener('load', settle); img.addEventListener('error', settle); } });
+    panel.style.removeProperty('--ph');
+    imgs.forEach(img => img.addEventListener('load', syncHeight));
+    s.addEventListener('scroll', syncHeight, { passive: true });
+    ['pointerdown', 'wheel', 'touchstart', 'keydown'].forEach(ev => s.addEventListener(ev, unsettle, { passive: true, once: true }));
+    settle();
+    syncHeight();
+    setURL(`${location.pathname}${location.search}#p=${id}`);
+    if (scroll) {
+      fly(card);
+      requestAnimationFrame(() => panel.scrollIntoView({ behavior: reduceMotion.matches ? 'auto' : 'smooth', block: 'start' }));
+    }
+    return true;
+  };
+  // closing folds the panel shut (a copy collapses while the real one is removed straight away)
+  const collapse = () => {
+    if (reduceMotion.matches || !panel.isConnected) return panel.remove();
+    const h = panel.offsetHeight;
+    const gap = parseFloat(getComputedStyle(gridEl).rowGap) || 0;
+    const g = panel.cloneNode(true);
+    g.classList.add('pd-leaving');
+    g.setAttribute('aria-hidden', 'true');
+    g.inert = true;
+    panel.replaceWith(g);
+    g.animate(
+      [{ height: `${h}px`, opacity: 1 }, { height: '0px', opacity: 0, paddingTop: '0px', paddingBottom: '0px', borderTopWidth: '0px', borderBottomWidth: '0px', marginBottom: `${-gap}px` }],
+      { duration: 520, easing: 'cubic-bezier(.65, 0, .35, 1)' }
+    ).onfinish = () => g.remove();
+  };
+  closeInline = (quiet = false) => {
+    if (openId === null) return;
+    const card = cardOf(openId);
+    endFlight();
+    if (quiet) panel.remove(); else collapse();
+    cards().forEach(c => c.classList.remove('active'));
+    openId = null;
+    if (!quiet) { setURL(filterHash()); if (card) card.focus({ preventScroll: true }); }
+  };
+  inlineId = () => openId;
+
+  gridEl.addEventListener('click', e => {
+    const card = e.target.closest('.pj');
+    if (card) {
+      if (e.metaKey || e.ctrlKey || e.shiftKey) return;
+      e.preventDefault(); e.stopPropagation();
+      if (card.dataset.id === openId) closeInline(); else openInline(card.dataset.id);
+      return;
+    }
+    if (!e.target.closest('.pd')) return;
+    e.stopPropagation();
+    if (e.target.closest('.pd-close')) return closeInline();
+    if (e.target.closest('.pd-arrow')) return goPhoto(e.target.closest('.prev') ? -1 : 1);
+    const img = e.target.closest('.pd-strip img');
+    if (img) openProject(openId, +img.dataset.i); // a photo opens the full project view at that photo
+  });
+  // mouse wheel over the photos moves one photo per scroll; at either end it scrolls the page again
+  let wheelLock = 0;
+  panel.addEventListener('wheel', e => {
+    if (!e.target.closest('.pd-strip') || e.ctrlKey) return;
+    if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+    const dir = Math.sign(e.deltaY);
+    if (!dir) return;
+    const now = performance.now();
+    if (now < wheelLock) { e.preventDefault(); return; }
+    const i = shownPhoto(), last = photos().length - 1;
+    if ((dir < 0 && i === 0) || (dir > 0 && i === last)) return;
+    e.preventDefault();
+    wheelLock = now + 550;
+    goPhoto(dir);
+  }, { passive: false });
+  panel.addEventListener('keydown', e => {
+    if (!e.target.closest('.pd-strip')) return;
+    if (e.key === 'ArrowRight') { e.preventDefault(); goPhoto(1); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); goPhoto(-1); }
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && openId !== null && !pv.classList.contains('open')) closeInline();
+  });
+  // phones fire "resize" when the address bar shows or hides; only a width change moves the panel
+  let lastWidth = window.innerWidth, gridTimer;
+  window.addEventListener('resize', () => {
+    if (window.innerWidth === lastWidth) return;
+    lastWidth = window.innerWidth;
+    clearTimeout(gridTimer);
+    gridTimer = setTimeout(() => { if (openId !== null) { place(); syncHeight(); } }, 150);
+  });
+  openGrid = openInline;
+
   /* ---------- Links ---------- */
   const fromHash = () => {
     const [k, v] = decodeURIComponent(location.hash.slice(1)).toLowerCase().split('=');
-    if (k === 'p') { if (!openProject(v)) closeProject(); return; }
+    if (k === 'p') {
+      if (view === 'grid' && ORDER.some(p => p.id === v)) {
+        closeProject();
+        if (!gridEl.querySelector(`.pj[data-id="${CSS.escape(v)}"]`)) { dim = DIMS[0]; value = 'all'; render(); }
+        if (openGrid(v)) return;
+      }
+      if (!openProject(v)) closeProject();
+      return;
+    }
     closeProject();
     if (LABELS[k]) { dim = DIMS[0]; value = slug(LABELS[k]); }
     else if (DIMS.some(d => d.key === k)) { dim = DIMS.find(d => d.key === k); value = v || 'all'; }
