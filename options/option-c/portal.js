@@ -116,7 +116,7 @@
 
     $('boqNote').textContent = groups.length ? `${groups.reduce((s, g) => s + g.items.length, 0)} items · ${Math.round(overall)}% done by value` : '';
     $('boqList').innerHTML = groups.length ? groups.map((g, k) => `
-      <details class="boq-g"${k === 0 ? ' open' : ''}>
+      <details class="boq-g" id="bg-${k}"${k === 0 ? ' open' : ''}>
         <summary>
           <b>${esc(g.group)}</b>
           <span class="done">${Math.round(g.done)}% done<div class="meter thin"><span style="width:${g.done}%"></span></div></span>
@@ -159,8 +159,8 @@
       </div>`;
     $('payTable').innerHTML = `
       <thead><tr><th>Milestone</th><th class="n">Share</th><th class="n">Amount</th><th>Due date</th><th>Status</th></tr></thead>
-      <tbody>${pays.map(p => `
-        <tr><td class="strong">${esc(p.milestone)}</td><td class="n">${+p.pct || 0}%</td><td class="n strong">${rupees(p.amount)}</td>
+      <tbody>${pays.map((p, k) => `
+        <tr id="py-${k}"><td class="strong">${esc(p.milestone)}</td><td class="n">${+p.pct || 0}%</td><td class="n strong">${rupees(p.amount)}</td>
         <td>${fmtDate(p.due)}</td><td>${payChip(p)}</td></tr>`).join('')}
       </tbody>`;
   }
@@ -185,10 +185,10 @@
     $('gantt').innerHTML = `
       <div class="g-scale"><div></div><div class="g-months">${months.map(m =>
         `<span style="left:${x(m)}">${m.toLocaleDateString('en-IN', { month: 'short' })}${m.getMonth() === 0 || +m === +start ? ` ${String(m.getFullYear()).slice(2)}` : ''}</span>`).join('')}${today}</div></div>
-      ${stages.map(s => {
+      ${stages.map((s, k) => {
         const actEnd = s.ae || (s.as ? (TODAY > s.as ? TODAY : s.as) : null);
         return `
-        <div class="g-row">
+        <div class="g-row" id="st-${k}">
           <div class="g-name"><b>${esc(s.name)}</b><small>Planned ${dates(s.ps, s.pe)}</small>${stageChip(s)}</div>
           <div class="g-track">
             ${grid}
@@ -229,7 +229,7 @@
     $('dashView').hidden = !pr;
     $('askOpen').hidden = !pr;
     closeAsk();
-    log.innerHTML = ''; greeted = false;
+    log.innerHTML = ''; greeted = false; setChips(START);
     if (pr) render();
     window.scrollTo(0, 0);
   };
@@ -267,9 +267,10 @@
   }, { rootMargin: '-40% 0px -55% 0px' });
   document.querySelectorAll('.pt-sec').forEach(s => secObs.observe(s));
 
-  /* ---------- Assistant (prototype: rules over the project data) ---------- */
+  /* ---------- Assistant (free: rules over this project's own records; nothing typed leaves the page) ---------- */
   const ask = $('ask'), log = $('askLog');
   let greeted = false;
+  const STUDIO = { phone: '919869825589', phoneShow: '+91 98698 25589', email: 'utkarsh@urbanarchstudio.co.in' };
   const say = (html, who = 'bot') => {
     const m = document.createElement('div');
     m.className = `msg ${who}`;
@@ -278,11 +279,18 @@
     log.scrollTop = log.scrollHeight;
     return m;
   };
+  const START = ['How much do I owe?', 'What is happening on site?', 'What is next?', 'When is handover?', 'Is anything delayed?', 'Show me site photos', 'Talk to the studio'];
+  const setChips = list => { $('askChips').innerHTML = list.map(q => `<button type="button">${esc(q)}</button>`).join(''); };
+
   function openAsk() {
     ask.classList.add('open'); ask.setAttribute('aria-hidden', 'false'); $('askOpen').hidden = true;
     if (!greeted) {
       greeted = true;
-      say(`<p>Hello! I can tell you about your project's timeline, costs, site progress and payments.</p><p>What would you like to know?</p>`);
+      const a = M.active[0];
+      const now = a ? `${esc(a.name)} is ${a.progress}% done` : `the work is ${Math.round(M.overall)}% done overall`;
+      say(`<p>Hello! I answer from your project's records: dates, costs, site progress and payments. English or Hinglish both work.</p>
+        <p class="ask-sub">Right now ${now}${M.dueAmt ? `, and ${rupees(M.dueAmt)} is due` : ''}.</p>`);
+      setChips(START);
     }
     setTimeout(() => $('askInput').focus(), 150);
   }
@@ -294,69 +302,277 @@
   $('askClose').addEventListener('click', closeAsk);
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && ask.classList.contains('open')) closeAsk(); });
 
-  const SUGGEST = ['How much do I owe?', 'When is handover?', 'What is happening on site?', 'Is anything delayed?', 'What is the total cost?'];
-  $('askChips').innerHTML = SUGGEST.map(q => `<button type="button">${esc(q)}</button>`).join('');
   $('askChips').addEventListener('click', e => { const b = e.target.closest('button'); if (b) send(b.textContent); });
   $('askForm').addEventListener('submit', e => { e.preventDefault(); const v = $('askInput').value.trim(); if (v) { $('askInput').value = ''; send(v); } });
+
+  // "Show me" buttons: scroll to that part of the dashboard and light it up for a moment
+  log.addEventListener('click', e => {
+    const b = e.target.closest('.ask-jump');
+    if (!b) return;
+    const el = document.querySelector(b.dataset.jump);
+    if (!el) return;
+    if (window.innerWidth <= 760) closeAsk();
+    if (el.tagName === 'DETAILS') el.open = true;
+    const calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    el.scrollIntoView({ behavior: calm ? 'auto' : 'smooth', block: el.classList.contains('pt-sec') ? 'start' : 'center' });
+    el.classList.remove('pt-flash'); void el.offsetWidth; el.classList.add('pt-flash');
+    setTimeout(() => el.classList.remove('pt-flash'), 2200);
+  });
 
   function send(q) {
     say(esc(q), 'me');
     const t = say('<span>•</span><span>•</span><span>•</span>');
     t.classList.add('typing');
-    setTimeout(() => { t.remove(); say(answer(q)); }, 650);
+    setTimeout(() => {
+      t.remove();
+      const r = answer(q);
+      say(r.html);
+      setChips(r.chips || START);
+    }, 500 + Math.random() * 300);
+  }
+
+  /* Understanding the question: keywords per topic (English, Hinglish, a little Hindi) */
+  const TOPICS = {
+    change: ['change', 'changes', 'modify', 'replace', 'different', 'alter', 'badal', 'badalna', 'badlna', 'add', 'remove', 'upgrade', 'colour', 'color', 'instead'],
+    paid: ['paid', 'diya', 'diye', 'receipt', 'receipts', 'history', 'jama', 'so far', 'already'],
+    pay: ['owe', 'due', 'pay', 'pays', 'payment', 'payments', 'balance', 'outstanding', 'pending', 'instalment', 'installment', 'invoice', 'money', 'paisa', 'paise', 'baaki', 'baki', 'bakaya', 'dena', 'dene', 'bhugtan', 'rupees', 'rupaye', 'पैसा', 'बाकी', 'भुगतान'],
+    delay: ['delay', 'late', 'behind', 'on track', 'on time', 'slow', 'der', 'deri', 'atka', 'ruka', 'देर'],
+    handover: ['handover', 'hand over', 'finish', 'completion', 'move in', 'shift', 'ready', 'deadline', 'end date', 'possession', 'khatam', 'kab tak', 'poora', 'pura', 'din', 'lagenge', 'chabi', 'keys'],
+    next: ['next', 'this week', 'upcoming', 'coming', 'aage', 'agla', 'agle', 'after this', 'future', 'आगे'],
+    photos: ['photo', 'photos', 'picture', 'pictures', 'pics', 'pic', 'image', 'images', 'tasveer', 'dikhao', 'look like', 'फोटो'],
+    site: ['site', 'progress', 'happening', 'status', 'update', 'updates', 'kaam', 'chal', 'going on', 'currently', 'right now', 'काम'],
+    cost: ['boq', 'cost', 'costs', 'budget', 'total', 'price', 'quotation', 'quote', 'estimate', 'value', 'kharcha', 'kharch', 'lagat', 'rate', 'kitne', 'खर्चा'],
+    contact: ['contact', 'call', 'phone', 'talk', 'speak', 'architect', 'whatsapp', 'number', 'email', 'baat', 'meet', 'meeting', 'visit', 'milna', 'complaint', 'problem', 'issue', 'studio'],
+    help: ['help', 'what can you', 'kya puch', 'options', 'madad'],
+    thanks: ['thank', 'thanks', 'dhanyavad', 'dhanyawad', 'shukriya', 'ok thanks'],
+    hello: ['hello', 'hi', 'hey', 'namaste', 'namaskar', 'good morning', 'good evening', 'नमस्ते']
+  };
+  const ORDER = Object.keys(TOPICS); // earlier wins a tie
+  const WHEN = ['when', 'kab', 'date', 'start', 'begin', 'shuru', 'finish', 'end', 'कब'];
+  const STOP = new Set(['what', 'when', 'where', 'which', 'much', 'many', 'does', 'will', 'have', 'about', 'tell', 'status', 'cost', 'costs', 'price', 'start', 'finish', 'stage', 'work', 'works', 'done', 'complete', 'progress', 'there', 'that', 'this', 'with', 'from', 'into', 'kitna', 'kitne', 'hoga', 'total', 'payment', 'amount', 'show', 'photo', 'photos', 'update', 'please', 'your', 'project', 'site', 'going', 'happening', 'paid', 'next', 'handover', 'change', 'colour', 'color', 'different', 'replace', 'instead']);
+
+  function readQuestion(q) {
+    const s = ' ' + q.toLowerCase().replace(/[’']/g, '').replace(/[^a-z0-9ऀ-ॿ]+/g, ' ').trim() + ' ';
+    const tokens = s.trim().split(' ');
+    const match = k => k.includes(' ') ? s.includes(` ${k} `) : tokens.some(t => t === k || (k.length >= 4 && t.startsWith(k)));
+    const score = {};
+    ORDER.forEach(k => { score[k] = TOPICS[k].filter(match).length; });
+    const top = ORDER.reduce((a, k) => (score[k] > (score[a] || 0) ? k : a), null);
+    const words = tokens.filter(w => w.length > 3 && !STOP.has(w));
+    const hits = name => {
+      const n = String(name).toLowerCase();
+      return words.filter(w => n.includes(w) || (w.endsWith('s') && n.includes(w.slice(0, -1)))).length;
+    };
+    const best = (list, nameOf) => {
+      let b = null, n = 0;
+      list.forEach((x, k) => { const h = hits(nameOf(x)); if (h > n) { b = { x, k }; n = h; } });
+      return b && { ...b, n };
+    };
+    return { score, top, when: WHEN.some(match), hits, best };
+  }
+
+  /* Pieces answers are built from */
+  const waLink = q => `https://wa.me/${STUDIO.phone}?text=${encodeURIComponent(`Hello, this is about my project "${M.P.title || ''}"${M.P.location ? ` (${M.P.location})` : ''}.${q ? `\n\n${q}` : ''}`)}`;
+  const waBtn = (q, label = 'Ask the studio on WhatsApp') => `<a class="ask-wa" href="${esc(waLink(q))}" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i>${esc(label)}</a>`;
+  const jumpBtn = (sel, label) => `<button type="button" class="ask-jump" data-jump="${esc(sel)}">${esc(label)} <i class="fa-solid fa-arrow-right"></i></button>`;
+  const bar = (pct, label = '') => `<span class="ask-meter">${label ? `<span class="ask-meter-name">${esc(label)}</span>` : ''}<span class="meter thin"><span style="width:${Math.round(pct)}%"></span></span><span>${Math.round(pct)}%</span></span>`;
+  const photosOf = ups => ups.flatMap(u => (u.photos || []).map(src => ({ src, stage: u.stage })));
+  const thumbs = list => list.length ? `<div class="ask-photos">${list.slice(0, 4).map(p =>
+    `<a href="${esc(p.src)}" target="_blank" rel="noopener"><img src="${esc(p.src)}" alt="Site photo: ${esc(p.stage)}" loading="lazy"></a>`).join('')}</div>` : '';
+  const inDays = n => n === 0 ? 'today' : n > 0 ? `in ${n} day${n === 1 ? '' : 's'}` : `${-n} day${n === -1 ? '' : 's'} ago`;
+  const notYet = what => ({ html: `<p>Your ${what} hasn't been added yet. The studio will put it up soon.</p>${waBtn(`Could you share the ${what} for my project?`)}` });
+
+  function stageAnswer(st, wantPhotos) {
+    const k = M.stages.indexOf(st);
+    let p;
+    if (st.status === 'done') p = `Finished${st.ae ? ` on ${fmtDate(iso(st.ae))}` : ''}${st.late > 0 ? `, ${st.late} days after the plan` : ', on time'}.`;
+    else if (st.status === 'active') p = `Started ${fmtDate(iso(st.as))}. Planned to finish ${fmtDate(iso(st.pe))} (${inDays(daysBetween(TODAY, st.pe))}).`;
+    else if (st.status === 'late') p = `It was planned to start ${fmtDate(iso(st.ps))} but hasn't started yet, so it is ${st.late} days late.`;
+    else p = `Planned to start ${fmtDate(iso(st.ps))} (${inDays(daysBetween(TODAY, st.ps))}) and finish ${fmtDate(iso(st.pe))}.`;
+    const ups = M.updates.filter(u => u.stage === st.name);
+    const u = ups[0];
+    const pics = photosOf(ups);
+    return {
+      html: `<p><b>${esc(st.name)}</b> ${stageChip(st)}</p>
+        ${st.status === 'active' ? bar(st.progress) : ''}
+        <p>${p}</p>
+        ${u ? `<p class="ask-sub">Latest update, ${shortDate(u.date)}: ${esc(u.note)}</p>` : ''}
+        ${wantPhotos && !pics.length ? '<p class="ask-sub">No photos of this stage yet.</p>' : thumbs(pics)}
+        ${jumpBtn(`#st-${k}`, 'Show on the timeline')}`,
+      chips: ['What is next?', 'Is anything delayed?', `What does ${st.name.toLowerCase()} cost?`]
+    };
   }
 
   function answer(q) {
-    const { P, groups, contract, overall, pays, paid, dueNow, stages, active, behind, updates } = M;
-    const s = q.toLowerCase();
-    const has = (...w) => w.some(x => s.includes(x));
-    // a specific BOQ item or group named in the question
-    const words = s.replace(/[^a-z0-9 ]/g, ' ').split(/\s+/).filter(w => w.length > 3 && !['cost', 'much', 'what', 'price', 'does', 'will', 'when', 'have', 'the', 'total'].includes(w));
-    const hit = name => { const n = String(name).toLowerCase(); return words.filter(w => n.includes(w)).length; };
-    const items = groups.flatMap(g => g.items.map(i => ({ ...i, group: g.group })));
-    const bestItem = items.map(i => ({ i, n: hit(i.name) })).sort((a, b) => b.n - a.n)[0];
-    const bestGroup = groups.map(g => ({ g, n: hit(g.group) })).sort((a, b) => b.n - a.n)[0];
+    const { P, groups, contract, overall, pays, paid, dueNow, dueAmt, stages, active, behind, updates } = M;
+    const Q = readQuestion(q);
+    const t = Q.top, sc = Q.score;
     const handover = P.handover ? `<b>${fmtDate(P.handover)}</b>` : 'not fixed yet';
+    const items = groups.flatMap((g, gk) => g.items.map(i => ({ ...i, group: g.group, gk })));
+    const stage = Q.best(stages, s => s.name);
+    const item = Q.best(items, i => i.name);
+    const group = Q.best(groups, g => g.group);
+    const mile = Q.best(pays, p => p.milestone);
+    const moneyQ = sc.pay || sc.paid;
 
-    if (has('owe', 'due', 'pay', 'balance', 'outstanding', 'pending', 'installment', 'instalment', 'invoice')) {
-      if (!pays.length) return '<p>Your payment schedule hasn\'t been added yet. The studio will share it soon.</p>';
-      const lines = dueNow.map(p => `<b>${rupees(p.amount)}</b> for “${esc(p.milestone)}”, due ${fmtDate(p.due)}${p.status === 'overdue' ? ` (overdue by ${daysBetween(day(p.due), TODAY)} days)` : ''}`);
+    // Changes to design or materials: the studio decides, so hand over with the request filled in
+    if (sc.change) {
+      const th = item ? { name: item.x.name, done: item.x.done } : group ? { name: group.x.group, done: group.x.done } : stage ? { name: stage.x.name, done: stage.x.progress } : null;
+      return {
+        html: `<p>Changes to the design, materials or finishes need the studio's go-ahead first, so the cost and dates can be checked.</p>
+          ${th ? `<p class="ask-sub">${esc(th.name)} is ${Math.round(th.done)}% done${th.done >= 100 ? ', so it is already finished.' : th.done > 0 ? ', so part of it is already in place.' : ', so there is still time.'}</p>` : ''}
+          ${waBtn(q, 'Send this request to the studio')}`,
+        chips: ['What is next?', 'Talk to the studio', 'How much do I owe?']
+      };
+    }
+
+    // Something specific named in the question
+    if (mile && moneyQ && (!stage || mile.n >= stage.n)) {
+      const p = mile.x;
+      const st = { paid: `Paid on ${fmtDate(p.paid)}.`, overdue: `Due ${fmtDate(p.due)}, now ${daysBetween(day(p.due), TODAY)} days overdue.`, due: `Due ${fmtDate(p.due)} (${inDays(daysBetween(TODAY, day(p.due)))}).`, upcoming: p.due ? `Expected around ${fmtDate(p.due)}.` : 'Date to be confirmed.' }[p.status];
+      return {
+        html: `<p><b>${esc(p.milestone)}</b> ${payChip(p)}</p><p>${+p.pct || 0}% of the contract: <b>${rupees(p.amount)}</b>. ${st}</p>${jumpBtn(`#py-${mile.k}`, 'Show in payments')}`,
+        chips: ['How much do I owe?', 'What have I paid so far?', 'What is next?']
+      };
+    }
+    if (stage && !sc.cost && !moneyQ && (!item || stage.n >= item.n)) return stageAnswer(stage.x, sc.photos > 0);
+    if (item && item.n > 0 && (!group || item.n >= group.n) && !moneyQ) {
+      const i = item.x;
+      const st = stages.find(s => s.name === i.group);
+      return {
+        html: `<p><b>${esc(i.name)}</b> <span class="ask-sub">· ${esc(i.group)}</span></p>
+          <p>${i.qty.toLocaleString('en-IN')} ${esc(i.unit)} × ${rupees(i.rate)} = <b>${rupees(i.amount)}</b></p>
+          ${bar(i.done, 'Done')}
+          ${st && st.status !== 'done' ? `<p class="ask-sub">It's part of ${esc(st.name)}, planned to finish ${fmtDate(iso(st.pe))}.</p>` : ''}
+          ${jumpBtn(`#bg-${i.gk}`, 'Show in the BOQ')}`,
+        chips: ['What is the total cost?', 'What is next?', 'How much do I owe?']
+      };
+    }
+    if (group && !moneyQ) {
+      const g = group.x;
+      return {
+        html: `<p><b>${esc(g.group)}</b> comes to <b>${rupees(g.amount)}</b> across ${g.items.length} item${g.items.length === 1 ? '' : 's'}.</p>${bar(g.done, 'Done')}${jumpBtn(`#bg-${group.k}`, 'Show in the BOQ')}`,
+        chips: ['What is the total cost?', 'Is anything delayed?', 'How much do I owe?']
+      };
+    }
+
+    // General topics
+    if (t === 'paid') {
+      if (!pays.length) return notYet('payment schedule');
+      const done = pays.filter(p => p.status === 'paid');
+      return {
+        html: `<p>You have paid <b>${rupees(paid)}</b> of ${rupees(contract)} (${contract ? Math.round(paid / contract * 100) : 0}%).</p>
+          ${done.length ? `<ul class="ask-list">${done.map(p => `<li><span>${esc(p.milestone)}<small>${fmtDate(p.paid)}</small></span><b>${rupees(p.amount)}</b></li>`).join('')}</ul>` : ''}
+          ${dueAmt ? `<p class="ask-sub">${rupees(dueAmt)} is due now.</p>` : ''}
+          ${jumpBtn('#payments', 'Show payments')}`,
+        chips: ['How much do I owe?', 'When is the next payment?', 'What is the total cost?']
+      };
+    }
+    if (t === 'pay') {
+      if (!pays.length) return notYet('payment schedule');
       const next = pays.find(p => p.status === 'upcoming');
-      return `<p>${dueNow.length ? `You have ${lines.join(' and ')}.` : 'Nothing is due right now.'}</p>
-        <p>Paid so far: ${rupees(paid)} of ${rupees(contract)}.${next ? ` The next instalment after that is ${rupees(next.amount)} at “${esc(next.milestone)}”${next.due ? `, around ${fmtDate(next.due)}` : ''}.` : ''}</p>`;
+      return {
+        html: dueNow.length
+          ? `<p>You have <b>${rupees(dueAmt)}</b> due now:</p>
+            <ul class="ask-list">${dueNow.map(p => `<li><span>${esc(p.milestone)}<small>${p.status === 'overdue' ? `Overdue by ${daysBetween(day(p.due), TODAY)} days` : `Due ${fmtDate(p.due)}`}</small></span><b>${rupees(p.amount)}</b></li>`).join('')}</ul>
+            <p class="ask-sub">Paid so far: ${rupees(paid)} of ${rupees(contract)}.${next ? ` After that: ${rupees(next.amount)} at “${esc(next.milestone)}”${next.due ? `, around ${fmtDate(next.due)}` : ''}.` : ''}</p>
+            ${jumpBtn('#payments', 'Show payments')}
+            ${waBtn(`I'd like to talk about the payment for "${dueNow[0].milestone}".`, 'Message the studio about this payment')}`
+          : `<p>Nothing is due right now.</p><p class="ask-sub">Paid so far: ${rupees(paid)} of ${rupees(contract)}.${next ? ` Next: ${rupees(next.amount)} at “${esc(next.milestone)}”${next.due ? `, around ${fmtDate(next.due)}` : ''}.` : ''}</p>${jumpBtn('#payments', 'Show payments')}`,
+        chips: ['What have I paid so far?', 'What is the total cost?', 'What is next?']
+      };
     }
-    if (has('delay', 'late', 'behind', 'on track', 'on time', 'slow')) {
+    if (t === 'delay') {
+      if (!stages.length) return notYet('project timeline');
       const lateDone = stages.filter(x => x.status === 'done' && x.late > 0);
-      return `<p>${behind > 0 ? `The project is running about <b>${behind} days behind</b> the original plan.` : 'The project is on track.'}</p>
-        ${lateDone.length ? `<p>Stages that finished late: ${lateDone.map(x => `${esc(x.name)} (${x.late} days)`).join(', ')}.</p>` : ''}
-        <p>Handover is planned for ${handover}. ${active.length ? `${esc(active[0].name)} is ${active[0].progress}% done.` : ''}</p>`;
+      const lateNow = stages.filter(x => x.status === 'late' || (x.status === 'active' && TODAY > x.pe));
+      return {
+        html: `<p>${behind > 0 ? `The project is running about <b>${behind} days behind</b> the original plan.` : 'The project is <b>on track</b>.'}</p>
+          ${lateNow.length ? `<p>Needs attention: ${lateNow.map(x => esc(x.name)).join(', ')}.</p>` : ''}
+          ${lateDone.length ? `<p class="ask-sub">Finished late: ${lateDone.map(x => `${esc(x.name)} (${x.late} days)`).join(', ')}.</p>` : ''}
+          <p>Handover is planned for ${handover}.</p>
+          ${jumpBtn('#timeline', 'Show the timeline')}
+          ${behind > 0 ? waBtn('Could you tell me more about the delay and the plan to catch up?', 'Ask the studio about the delay') : ''}`,
+        chips: ['When is handover?', 'What is next?', 'What is happening on site?']
+      };
     }
-    if (has('handover', 'finish', 'complete', 'move in', 'ready', 'deadline', 'end date')) {
+    if (t === 'handover') {
       const left = stages.filter(x => x.status !== 'done');
-      return `<p>Handover is planned for ${handover}.</p>
-        ${left.length ? `<p>Still to come: ${left.map(x => `${esc(x.name)} (planned to finish ${shortDate(iso(x.pe))})`).join('; ')}.</p>` : ''}`;
+      return {
+        html: `<p>Handover is planned for ${handover}${P.handover ? `, ${inDays(daysBetween(TODAY, day(P.handover)))}` : ''}.</p>
+          ${bar(overall, 'Work done')}
+          ${left.length ? `<p class="ask-sub">Still to come: ${left.map(x => `${esc(x.name)} (to finish ${shortDate(iso(x.pe))})`).join('; ')}.</p>` : ''}
+          ${jumpBtn('#timeline', 'Show the timeline')}`,
+        chips: ['Is anything delayed?', 'What is next?', 'How much do I owe?']
+      };
     }
-    if (bestItem && bestItem.n > 0 && (!bestGroup || bestItem.n >= bestGroup.n)) {
-      const i = bestItem.i;
-      return `<p><b>${esc(i.name)}</b> (${esc(i.group)}): ${i.qty.toLocaleString('en-IN')} ${esc(i.unit)} at ${rupees(i.rate)} = <b>${rupees(i.amount)}</b>.</p><p>${i.done}% of it is done.</p>`;
+    if (t === 'next') {
+      if (!stages.length) return notYet('project timeline');
+      const soon = stages.filter(x => (x.status === 'upcoming' || x.status === 'late') && daysBetween(TODAY, x.ps) <= 45);
+      const pay = dueNow[0] || pays.find(p => p.status === 'upcoming');
+      return {
+        html: `${active.length ? `<p><b>Now on site</b></p>${active.map(x => `${bar(x.progress, x.name)}<p class="ask-sub">Planned to finish ${fmtDate(iso(x.pe))}.</p>`).join('')}` : '<p>No stage is under way right now.</p>'}
+          ${soon.length ? `<p><b>Coming up</b></p><p>${soon.map(x => `${esc(x.name)}, ${x.status === 'late' ? 'due to have started' : 'starting'} ${fmtDate(iso(x.ps))}`).join('<br>')}</p>` : ''}
+          ${pay ? `<p><b>Next payment</b></p><p>${rupees(pay.amount)} for “${esc(pay.milestone)}”${pay.due ? `, ${pay.status === 'overdue' ? 'overdue since' : 'due'} ${fmtDate(pay.due)}` : ''}.</p>` : ''}
+          ${jumpBtn('#timeline', 'Show the timeline')}`,
+        chips: ['Is anything delayed?', 'Show me site photos', 'When is handover?']
+      };
     }
-    if (bestGroup && bestGroup.n > 0) {
-      const g = bestGroup.g;
-      return `<p><b>${esc(g.group)}</b> comes to <b>${rupees(g.amount)}</b> across ${g.items.length} items, and is ${Math.round(g.done)}% done.</p>`;
+    if (t === 'photos') {
+      const pics = photosOf(updates);
+      if (!pics.length) return { html: '<p>No site photos have been added yet.</p>', chips: START };
+      const u = updates.find(x => (x.photos || []).length);
+      return {
+        html: `<p>Latest site photos, from ${shortDate(u.date)} onwards:</p>${thumbs(pics)}<p class="ask-sub">Tap a photo to open it full size.</p>${jumpBtn('#progress', 'Show all site updates')}`,
+        chips: ['What is happening on site?', 'What is next?', 'Is anything delayed?']
+      };
     }
-    if (has('boq', 'cost', 'budget', 'total', 'price', 'quotation', 'estimate', 'value')) {
-      if (!groups.length) return '<p>Your bill of quantities hasn\'t been added yet.</p>';
-      const top = [...groups].sort((a, b) => b.amount - a.amount).slice(0, 3);
-      return `<p>The total contract value is <b>${rupees(contract)}</b>. The largest parts are ${top.map(g => `${esc(g.group)} (${lakh(g.amount)})`).join(', ')}.</p><p>Ask me about any item, for example “cost of wardrobes”.</p>`;
-    }
-    if (has('site', 'progress', 'happening', 'status', 'now', 'update', 'photo', 'work')) {
+    if (t === 'site') {
       const u = updates[0];
-      return `<p>Overall the work is <b>${Math.round(overall)}% done</b> by value.</p>
-        ${active.length ? `<p>${active.map(x => `${esc(x.name)}: ${x.progress}%`).join('; ')}.</p>` : ''}
-        ${u ? `<p>Latest update (${shortDate(u.date)}): ${esc(u.note)}</p>` : ''}`;
+      return {
+        html: `${bar(overall, 'Overall')}
+          ${active.map(x => bar(x.progress, x.name)).join('')}
+          ${u ? `<p class="ask-sub">Latest update (${shortDate(u.date)}): ${esc(u.note)}</p>${thumbs(photosOf([u]))}` : ''}
+          ${jumpBtn('#progress', 'Show site progress')}`,
+        chips: ['What is next?', 'Show me site photos', 'Is anything delayed?']
+      };
     }
-    if (has('hello', 'hi ', 'hey', 'namaste', 'thank')) return `<p>${has('thank') ? 'You\'re welcome!' : 'Hello!'} Ask me about dates, costs, site progress or payments.</p>`;
-    return `<p>In this prototype I can answer about the timeline, handover, delays, BOQ items, site progress and payments.</p><p>For anything else, call the studio on <a href="tel:+919869825589">+91 98698 25589</a>.</p>`;
+    if (t === 'cost') {
+      if (!groups.length) return notYet('bill of quantities');
+      const top = [...groups].sort((a, b) => b.amount - a.amount).slice(0, 3);
+      return {
+        html: `<p>The total contract value is <b>${rupees(contract)}</b>.</p>
+          <ul class="ask-list">${top.map(g => `<li><span>${esc(g.group)}</span><b>${lakh(g.amount)}</b></li>`).join('')}</ul>
+          <p class="ask-sub">Ask about any item, for example “cost of wardrobes”.</p>
+          ${jumpBtn('#boq', 'Show the BOQ')}`,
+        chips: ['Cost of the modular kitchen?', 'What have I paid so far?', 'How much do I owe?']
+      };
+    }
+    if (t === 'contact') {
+      return {
+        html: `<p>${P.architect ? `Your architect is <b>${esc(P.architect)}</b>.` : 'You can reach the studio here:'}</p>
+          <p><a href="tel:+${STUDIO.phone}">${STUDIO.phoneShow}</a><br><a href="mailto:${STUDIO.email}">${STUDIO.email}</a></p>
+          ${waBtn('', 'Message on WhatsApp')}`,
+        chips: START
+      };
+    }
+    if (t === 'help') {
+      return {
+        html: `<p>You can ask me things like:</p>
+          <ul class="ask-list plain"><li>How much is due, and what have I paid?</li><li>When does painting start?</li><li>What does the wardrobe cost?</li><li>Is anything delayed? When is handover?</li><li>Show me the latest site photos</li></ul>
+          <p class="ask-sub">Hinglish works too: “kitna baaki hai?”, “painting kab shuru hogi?”</p>`,
+        chips: START
+      };
+    }
+    if (t === 'thanks') return { html: '<p>You\'re welcome! Anything else about your project?</p>', chips: START };
+    if (t === 'hello') return { html: '<p>Hello! Ask me about dates, costs, site progress or payments.</p>', chips: START };
+    return {
+      html: `<p>I couldn't find an answer to that in your project's records.</p>
+        <p class="ask-sub">The studio can help. Your question will be filled in for you:</p>
+        ${waBtn(q)}
+        <p class="ask-sub">Or call <a href="tel:+${STUDIO.phone}">${STUDIO.phoneShow}</a>.</p>`,
+      chips: ['What can you answer?', ...START.slice(0, 4)]
+    };
   }
 
   const id = session.get();
