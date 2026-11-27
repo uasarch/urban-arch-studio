@@ -53,8 +53,9 @@ HEADER = """# Project details for the Urban Arch Studio website.
 #   Region:   Ranchi | Mumbai | Rest of Jharkhand | Rest of India | International
 #   Status:   Completed | Ongoing | Proposed | Architecture Competition
 #   Year:     e.g. 2021, 2018 - 2021, or 2024 - Ongoing
-#   Featured: yes = show it in "Selected work" on the home page
-#   Pin:      1 to 9 = show it first on the Projects page, in that order (empty = newest first)
+#   Featured: not used any more (the home page shows the projects with Pin 1 to 6)
+#   Pin:      1 to 9 = show it first on the Projects page, in that order (empty = newest first);
+#             Pin 1 to 6 are also the "Recent projects" on the home page
 #   Text photos: numbers of the photos that are only text (e.g. 2 or 24, 25), left out of the Gallery view
 """
 DATA_HEADER = """// Project list for the Option B pages. It is built from the folders in project-photos/
@@ -347,4 +348,12 @@ def update():
 
 
 if __name__ == "__main__":
-    export() if "--export" in sys.argv else update()
+    if "--export" in sys.argv:
+        export()
+    else:
+        update()
+        # the landing page slideshow (slideshow-photos/) is updated in the same run
+        sys.dont_write_bytecode = True  # no __pycache__ folder in the website
+        sys.path.insert(0, str(Path(__file__).resolve().parent))
+        import update_slideshow
+        update_slideshow.update()

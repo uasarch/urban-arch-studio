@@ -435,11 +435,12 @@ p + p { margin-top: 1.1rem; }
 .hx .hero-slider img.active { opacity: 1; z-index: 2; transform: scale(1); transition: opacity 1.8s cubic-bezier(.45, 0, .2, 1), transform 9s linear; }
 .hx .hero-slider img.leaving { opacity: 1; z-index: 1; transition: opacity 0s, transform 0s linear 2s; }
 .hx-shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.25) 0%, rgba(0,0,0,0) 30%, rgba(0,0,0,.05) 50%, rgba(0,0,0,.6) 100%); pointer-events: none; }
-.hx-copy { position: absolute; left: 0; right: 0; bottom: 120px; z-index: 2; }
-.hx-eyebrow { font-family: var(--head); font-size: .78rem; letter-spacing: .2em; text-transform: uppercase; opacity: .85; margin-bottom: 1.4rem; }
-.hx-title { color: #fff; font-size: clamp(2.4rem, 5.6vw, 5rem); line-height: 1.02; letter-spacing: -0.03em; font-weight: 400; }
+.hx-copy { position: absolute; left: 0; right: 0; bottom: 96px; z-index: 2; }
+.hx-copy.container, .hx-bar.container { max-width: none; padding: 0 48px; }
+.hx-eyebrow { font-family: var(--head); font-size: .7rem; letter-spacing: .2em; text-transform: uppercase; opacity: .85; margin-bottom: 1.1rem; }
+.hx-title { color: #fff; font-size: clamp(1.8rem, 3.8vw, 3.4rem); line-height: 1.02; letter-spacing: -0.03em; font-weight: 400; }
 .hx-title .ln:nth-child(2) > span { transition-delay: .12s; }
-.hx-sub { margin-top: 1.4rem; font-size: clamp(1rem, 1.4vw, 1.2rem); max-width: 40ch; opacity: .9; }
+.hx-sub { margin-top: 1.1rem; font-size: clamp(.92rem, 1.1vw, 1.05rem); max-width: 40ch; opacity: .9; }
 .hx-sub .ln > span { transition-delay: .3s; }
 .hx-eyebrow .ln > span { transition-delay: 0s; }
 .hx-bar { position: absolute; left: 0; right: 0; bottom: 34px; z-index: 2; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
@@ -457,6 +458,12 @@ p + p { margin-top: 1.1rem; }
 @keyframes hx-fill { to { transform: scaleX(1); } }
 .hx .hero-btn { position: static; transform: none; width: 44px; height: 44px; background: transparent; border-color: rgba(255,255,255,.5); backdrop-filter: none; transition: background .3s, color .3s, border-color .3s; }
 .hx .hero-btn:hover { background: #fff; color: #111; border-color: #fff; }
+/* Scroll reveal: the hero photo stays pinned in place and the rest of the page slides up over it,
+   while the photo dims a little as it is covered (--hx-cover is set from script.js, 0 to 1). */
+.hx { position: sticky; top: var(--nav-h); z-index: 0; }
+.hx::after { content: ""; position: absolute; inset: 0; z-index: 3; background: #000; opacity: calc(var(--hx-cover, 0) * .55); pointer-events: none; }
+.home > section:not(.hx) { position: relative; z-index: 1; }
+:where(.home > section:not(.hx)) { background: var(--bg); }
 
 /* 2. Statement */
 .hs-story { padding: 140px 0 120px; }
@@ -575,7 +582,8 @@ p + p { margin-top: 1.1rem; }
 @media (max-width: 760px) {
   .hx .hero-slider[data-set="desktop"] { display: none; }
   .hx .hero-slider[data-set="mobile"] { display: block; }
-  .hx-copy { bottom: 110px; }
+  .hx-copy { bottom: 88px; }
+  .hx-copy.container, .hx-bar.container { padding: 0 16px; }
   .hx-bar { bottom: 24px; }
   .hx .hero-dots { width: 70px; }
   .hx .hero-btn { width: 38px; height: 38px; }

@@ -11,7 +11,8 @@ Every folder here is one project on the website. Each folder holds:
 - **Photos:** put the new photos in its folder. Once a folder has photos, they **replace all** of that project's old photos, so include every photo you want shown. A folder without photos keeps the old ones.
 - **Projects page order:** set `Pin: 1` … `Pin: 9` on the projects you want shown first, in that order. All other projects follow, newest first. Leave `Pin:` empty to let a project fall back to newest first.
 - **Text-only photos:** if a photo is just a block of text (a description card), put its number in `Text photos:`, e.g. `Text photos: 2` or `Text photos: 24, 25`. It still shows when the project is opened, but is left out of the Option C Gallery view.
-- **Home page:** set `Featured: yes` on the projects you want in "Selected work". If none are featured, the newest projects are shown.
+- **Home page:** "Recent projects" shows the projects with `Pin: 1` to `Pin: 6`, in that order. If fewer are pinned, the newest projects fill the rest.
+- **Home page slideshow:** that has its own folder, `slideshow-photos/` (see the README there).
 
 ## Add a new project
 

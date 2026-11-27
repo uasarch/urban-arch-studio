@@ -102,6 +102,18 @@ if (hero) {
     x0 = null;
   });
 
+  // pinned hero: dim the photo as the next section slides up over it
+  if (hero.classList.contains('hx')) {
+    let ticking = false;
+    const cover = () => {
+      ticking = false;
+      const p = Math.min(1, Math.max(0, window.scrollY / (hero.offsetHeight || 1)));
+      hero.style.setProperty('--hx-cover', p.toFixed(3));
+    };
+    window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(cover); } }, { passive: true });
+    cover();
+  }
+
   render();
   restart();
 }
