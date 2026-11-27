@@ -40,6 +40,19 @@
 
 .ad-form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 24px; max-width: 820px; }
 .ad-form .full { grid-column: 1 / -1; }
+.ad-choice { border: 0; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+.ad-choice legend { font-family: var(--head); font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; padding: 0; }
+.ad-choice label { position: relative; cursor: pointer; }
+.ad-choice input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.ad-choice span { display: inline-flex; align-items: center; gap: 10px; padding: .75rem 1.1rem; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); color: var(--ink); font-family: var(--head); font-size: .92rem; transition: border-color .2s, background .2s, color .2s; }
+.ad-choice span i { color: var(--muted); transition: color .2s; }
+.ad-choice label:hover span { border-color: var(--ink); }
+.ad-choice input:checked + span { background: var(--ink); color: var(--on-ink); border-color: var(--ink); }
+.ad-choice input:checked + span i { color: var(--on-ink); }
+.ad-choice input:focus-visible + span { outline: 2px solid var(--ink); outline-offset: 3px; }
+.ad-choice input:disabled + span { opacity: .45; cursor: not-allowed; }
+.ad-choice label:has(input:disabled) { cursor: not-allowed; }
+.ad-choice label:has(input:disabled):hover span { border-color: var(--line); }
 .ad-form h3 { grid-column: 1 / -1; font-size: 1.05rem; margin-top: 12px; padding-top: 18px; border-top: 1px solid var(--line); }
 .ad-inline { display: flex; gap: 8px; }
 .ad-inline input { flex: 1; min-width: 0; }

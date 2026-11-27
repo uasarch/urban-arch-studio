@@ -1,15 +1,21 @@
 // SAMPLE DATA for the client portal prototype. Made up - not a real client or project.
 // In the live portal this comes from the private database, and a client only ever receives their own project.
 // The admin page (admin.html) edits a copy of this saved in the browser; see portalData() below.
+// Client logins are kept apart from projects, so one client can see several projects with one login:
+// each project names the login it belongs to (login.username).
 window.PORTAL_SAMPLE = {
   admin: { username: "admin", password: "admin123" },
+  clients: [
+    { username: "demo", password: "demo123", name: "Sample Client" }
+  ],
   projects: [
     {
       id: "sample-3bhk-lalpur",
       sample: true,
-      login: { username: "demo", password: "demo123" },
+      login: { username: "demo" },
       project: {
         title: "3BHK Residence Interiors",
+        type: "interior",
         location: "Lalpur, Ranchi",
         client: "Sample Client",
         architect: "Utkarsh Raipat",
@@ -93,18 +99,83 @@ window.PORTAL_SAMPLE = {
           note: "Plumbing pressure test passed. All wiring points tested; distribution board upgraded.",
           photos: ["../../assets/uploads/2025/09/5-9.jpg"] }
       ]
+        },
+    {
+      id: "sample-farmhouse-garden",
+      sample: true,
+      login: { username: "demo" },
+      project: {
+        title: "Farmhouse Garden",
+        type: "landscape",
+        location: "Kanke, Ranchi",
+        client: "Sample Client",
+        architect: "Utkarsh Raipat",
+        handover: "2027-02-20",
+        updated: "2026-11-22"
+      },
+      stages: [
+        { name: "Site survey & concept",          planned: ["2026-09-01", "2026-09-25"], actual: ["2026-09-01", "2026-09-28"], progress: 100 },
+        { name: "Design development",             planned: ["2026-09-26", "2026-10-20"], actual: ["2026-09-29", "2026-10-24"], progress: 100 },
+        { name: "Earthwork & grading",            planned: ["2026-10-21", "2026-11-15"], actual: ["2026-10-26", null],         progress: 80 },
+        { name: "Hardscape (paving, paths, walls)", planned: ["2026-11-10", "2026-12-20"], actual: [null, null],             progress: 0 },
+        { name: "Irrigation & drainage",          planned: ["2026-12-01", "2026-12-31"], actual: [null, null],                 progress: 0 },
+        { name: "Softscape (planting & lawn)",    planned: ["2027-01-05", "2027-02-05"], actual: [null, null],                 progress: 0 },
+        { name: "Handover & maintenance",         planned: ["2027-02-06", "2027-02-20"], actual: [null, null],                 progress: 0 }
+      ],
+      boq: [
+        { group: "Earthwork", items: [
+          ["Site clearing & levelling", 1, "LS", 35000, 100],
+          ["Garden soil & compost, supply & spreading", 60, "cu m", 1800, 70]
+        ]},
+        { group: "Hardscape", items: [
+          ["Stone paving, driveway & paths", 2200, "sq ft", 160, 0],
+          ["Boundary planter walls", 140, "rft", 950, 0]
+        ]},
+        { group: "Irrigation", items: [
+          ["Drip & sprinkler system", 1, "LS", 85000, 0]
+        ]},
+        { group: "Softscape", items: [
+          ["Lawn grass, supply & laying", 4500, "sq ft", 28, 0],
+          ["Trees & shrubs, supply & planting", 180, "nos", 650, 0]
+        ]}
+      ],
+      payments: [
+        { milestone: "Booking advance",    pct: 15, due: "2026-09-01", paid: "2026-09-02" },
+        { milestone: "Design sign-off",    pct: 15, due: "2026-10-25", paid: "2026-10-27" },
+        { milestone: "Hardscape complete", pct: 35, due: "2026-12-22", paid: null },
+        { milestone: "Planting complete",  pct: 25, due: "2027-02-06", paid: null },
+        { milestone: "Handover",           pct: 10, due: "2027-02-20", paid: null }
+      ],
+      updates: [
+        { date: "2026-11-22", stage: "Earthwork & grading",
+          note: "Site levelled and garden soil spread over most of the lawn area. Paving stone samples ready for your approval on the next visit.",
+          photos: ["../../project-photos/oak-elegance-landscape/01.jpg"] }
+      ]
     }
   ]
 };
-
 // Prototype storage: the admin page saves edits in this browser (localStorage); the portal reads them back.
 window.PORTAL_KEY = "uas-portal-data-v1";
+// Older saved data kept the username and password on each project; move them into "clients".
+window.portalNormalize = d => {
+  d.clients = d.clients || [];
+  d.projects = d.projects || [];
+  const has = u => d.clients.some(c => c.username.toLowerCase() === String(u).toLowerCase());
+  d.projects.forEach(p => {
+    p.login = p.login || { username: "" };
+    if ("password" in p.login) {
+      if (p.login.username && !has(p.login.username)) d.clients.push({ username: p.login.username, password: p.login.password, name: (p.project || {}).client || "" });
+      p.login = { username: p.login.username };
+    }
+  });
+  return d;
+};
 window.portalData = () => {
   try {
     const saved = localStorage.getItem(window.PORTAL_KEY);
-    if (saved) return JSON.parse(saved);
+    if (saved) return window.portalNormalize(JSON.parse(saved));
   } catch (e) { /* storage blocked or bad data: fall back to the sample */ }
-  return JSON.parse(JSON.stringify(window.PORTAL_SAMPLE));
+  return window.portalNormalize(JSON.parse(JSON.stringify(window.PORTAL_SAMPLE)));
 };
 window.savePortalData = data => {
   localStorage.setItem(window.PORTAL_KEY, JSON.stringify(data)); // throws if storage is full or blocked

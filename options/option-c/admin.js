@@ -16,6 +16,12 @@
   };
 
   let data = window.portalData();
+  // Client logins live in data.clients; a project names its login in project.login.username.
+  // One client can have several projects on the same login.
+  const same = (a, b) => String(a || '').toLowerCase() === String(b || '').toLowerCase();
+  const clientOf = u => data.clients.find(c => same(c.username, u));
+  const projectsOn = (u, exceptId) => data.projects.filter(p => p.id !== exceptId && same(p.login.username, u));
+  const pruneClients = () => { data.clients = data.clients.filter(c => data.projects.some(p => same(p.login.username, c.username))); };
   let cur = null;        // project being edited (a working copy)
   let tab = 'details';
   let dirty = false;
@@ -52,8 +58,8 @@
       <article class="ad-card">
         <div>
           <h3>${esc(pr.project.title || 'Untitled project')}${pr.sample ? ' <span class="chip idle"><i class="fa-solid fa-flask"></i>Sample</span>' : ''}</h3>
-          <p>${esc([pr.project.client, pr.project.location].filter(Boolean).join(' · ') || 'No client details yet')}</p>
-          <p>Client login: <code>${esc(pr.login.username)}</code>${pr.project.updated ? ` · Updated ${fmtDate(pr.project.updated)}` : ''}</p>
+          <p>${esc([TYPES[pr.project.type] && TYPES[pr.project.type].label, pr.project.client, pr.project.location].filter(Boolean).join(' · ') || 'No client details yet')}</p>
+          <p>Client login: <code>${esc(pr.login.username)}</code>${projectsOn(pr.login.username).length > 1 ? ` · ${projectsOn(pr.login.username).length} projects on this login` : ''}${pr.project.updated ? ` · Updated ${fmtDate(pr.project.updated)}` : ''}</p>
         </div>
         <div class="ad-num">Progress<b>${Math.round(t.progress)}%</b><div class="meter thin"><span style="width:${t.progress}%"></span></div></div>
         <div class="ad-num">Due in 30 days<b>${rupees(t.due)}</b></div>
@@ -69,6 +75,11 @@
     const pr = data.projects.find(p => p.id === id);
     if (!pr) return;
     cur = JSON.parse(JSON.stringify(pr));
+    const c = clientOf(pr.login.username);
+    cur.login = { username: pr.login.username, password: c ? c.password : '' };
+    // a login shared with other projects opens as "existing client"; a login of its own as "new login"
+    cur.loginMode = projectsOn(pr.login.username, pr.id).length ? 'existing' : 'new';
+    cur.loginOwn = cur.loginMode === 'new' ? pr.login.username : null; // its own login, which it may rename
     ['stages', 'boq', 'payments', 'updates'].forEach(k => { cur[k] = cur[k] || []; });
     tab = 'details';
     setDirty(false);
@@ -84,29 +95,66 @@
   }
 
   /* ---------- Details ---------- */
+  const TYPES = {
+    architecture: { label: 'Architecture', icon: 'fa-building' },
+    interior: { label: 'Interior Design', icon: 'fa-couch' },
+    landscape: { label: 'Landscape Design', icon: 'fa-tree' }
+  };
   function tabDetails() {
     const P = cur.project;
     $('edPanel').innerHTML = `
       <div class="ad-form">
         <label class="pt-field full"><span>Project title</span><input data-d="title" value="${esc(P.title)}" placeholder="e.g. 3BHK Residence Interiors"></label>
+        <fieldset class="ad-choice full">
+          <legend>Project type</legend>
+          ${Object.entries(TYPES).map(([k, t]) => `
+          <label><input type="radio" name="ptype" data-d="type" value="${k}"${P.type === k ? ' checked' : ''}><span><i class="fa-solid ${t.icon}"></i>${t.label}</span></label>`).join('')}
+        </fieldset>
         <label class="pt-field"><span>Client name</span><input data-d="client" value="${esc(P.client)}"></label>
         <label class="pt-field"><span>Location</span><input data-d="location" value="${esc(P.location)}" placeholder="Area, City"></label>
         <label class="pt-field"><span>Handover date</span><input type="date" data-d="handover" value="${esc(P.handover)}"></label>
         <label class="pt-field"><span>Project lead</span><input data-d="architect" value="${esc(P.architect)}"></label>
         <h3>Client login</h3>
-        <label class="pt-field"><span>Username</span><input data-l="username" value="${esc(cur.login.username)}" autocomplete="off"></label>
-        <label class="pt-field"><span>Password</span>
-          <span class="ad-inline"><input data-l="password" value="${esc(cur.login.password)}" autocomplete="off">
-          <button class="ad-btn ghost small" id="genPass" type="button" title="Make a new random password"><i class="fa-solid fa-dice"></i> New</button></span>
-        </label>
-        <p class="ad-hint full">Share these with the client. In the live version the password is stored securely and the client can change it.</p>
+        ${loginSection()}
         <h3>Remove project</h3>
         <div class="full"><button class="ad-btn danger" id="deleteProject" type="button"><i class="fa-solid fa-trash"></i> Delete this project</button></div>
       </div>`;
   }
 
+  function loginSection() {
+    const others = data.clients.filter(c => !same(c.username, cur.loginOwn));
+    const shared = cur.loginMode === 'existing' ? projectsOn(cur.login.username, cur.id) : [];
+    const label = c => {
+      const n = projectsOn(c.username, cur.id).length;
+      return `${c.name || c.username} (${c.username}) · ${n} project${n === 1 ? '' : 's'}`;
+    };
+    return `
+        <fieldset class="ad-choice full">
+          <legend>Who logs in to see this project</legend>
+          <label><input type="radio" name="lmode" data-lmode="new" value="new"${cur.loginMode === 'new' ? ' checked' : ''}><span><i class="fa-solid fa-user-plus"></i>New login</span></label>
+          <label><input type="radio" name="lmode" data-lmode="existing" value="existing"${cur.loginMode === 'existing' ? ' checked' : ''}${others.length ? '' : ' disabled'}><span><i class="fa-solid fa-user-check"></i>Existing client</span></label>
+        </fieldset>
+        ${cur.loginMode === 'existing' ? `
+        <label class="pt-field"><span>Client</span>
+          <select data-lsel>${others.map(c => `<option value="${esc(c.username)}"${same(c.username, cur.login.username) ? ' selected' : ''}>${esc(label(c))}</option>`).join('')}</select>
+        </label>` : `
+        <label class="pt-field"><span>Username</span><input data-l="username" value="${esc(cur.login.username)}" autocomplete="off"></label>`}
+        <label class="pt-field"><span>Password</span>
+          <span class="ad-inline"><input data-l="password" value="${esc(cur.login.password)}" autocomplete="off">
+          <button class="ad-btn ghost small" id="genPass" type="button" title="Make a new random password"><i class="fa-solid fa-dice"></i> New</button></span>
+        </label>
+        <p class="ad-hint full">${cur.loginMode === 'existing'
+          ? `This project will show up in the same login as ${shared.length ? shared.map(p => `“${esc(p.project.title || 'Untitled project')}”`).join(', ') : 'this client\'s other projects'}. After logging in, the client chooses which project to look at. Changing the password changes it for all their projects.`
+          : (others.length ? 'For a client who already has a project with the studio, choose “Existing client” so they see all their projects with one login. ' : '') + 'Share the username and password with the client. In the live version the password is stored securely and the client can change it.'}</p>`;
+  }
+
   /* ---------- Timeline ---------- */
-  const STAGE_TEMPLATE = ['Design & approvals', 'Demolition & civil', 'Electrical & plumbing', 'False ceiling', 'Flooring & tiling', 'Carpentry & furniture', 'Painting & polish', 'Lights, fixtures & handover'];
+  // the usual stages for each type of project (staff can rename, add or remove them)
+  const STAGE_TEMPLATES = {
+    architecture: ['Concept design', 'Approvals & permits', 'Working drawings', 'Foundation & plinth', 'Structure (RCC frame)', 'Masonry & plastering', 'Electrical & plumbing', 'Flooring & finishes', 'Painting & exterior', 'Handover'],
+    interior: ['Design & approvals', 'Demolition & civil', 'Electrical & plumbing', 'False ceiling', 'Flooring & tiling', 'Carpentry & furniture', 'Painting & polish', 'Lights, fixtures & handover'],
+    landscape: ['Site survey & concept', 'Design development', 'Earthwork & grading', 'Hardscape (paving, paths, walls)', 'Irrigation & drainage', 'Softscape (planting & lawn)', 'Lighting & features', 'Handover & maintenance']
+  };
   function tabTimeline() {
     const rows = cur.stages.map((s, i) => {
       const bad = s.planned[0] && s.planned[1] && s.planned[1] < s.planned[0];
@@ -135,7 +183,9 @@
         <tbody>${rows}</tbody></table></div>` : '<p class="pt-empty">No stages yet.</p>'}
       <div class="ad-actions ad-add">
         <button class="ad-btn ghost small" id="addStage" type="button"><i class="fa-solid fa-plus"></i> Add stage</button>
-        ${cur.stages.length ? '' : '<button class="ad-btn ghost small" id="stageTemplate" type="button"><i class="fa-solid fa-list"></i> Start from the usual interior stages</button>'}
+        ${cur.stages.length ? '' : TYPES[cur.project.type]
+          ? `<button class="ad-btn ghost small" id="stageTemplate" type="button"><i class="fa-solid fa-list"></i> Start from the usual ${TYPES[cur.project.type].label.toLowerCase()} stages</button>`
+          : '<span class="ad-hint">Choose the project type in Details to start from its usual stages.</span>'}
       </div>`;
   }
 
@@ -253,6 +303,25 @@
   $('edPanel').addEventListener('input', e => {
     const el = e.target, v = el.value;
     if (el.dataset.d !== undefined) { cur.project[el.dataset.d] = v; if (el.dataset.d === 'title') $('edTitle').textContent = v || 'Untitled project'; }
+    else if (el.dataset.lmode) {
+      cur.loginMode = el.dataset.lmode;
+      if (cur.loginMode === 'existing') {
+        const first = data.clients.find(c => !same(c.username, cur.loginOwn));
+        cur.login = { username: first.username, password: first.password };
+        if (!cur.project.client) cur.project.client = first.name || '';
+      } else {
+        const own = clientOf(cur.loginOwn);
+        cur.login = own ? { username: own.username, password: own.password }
+          : { username: slug(cur.project.title || '').slice(0, 20) || `client${Math.floor(100 + Math.random() * 900)}`, password: randomPass() };
+      }
+      setDirty(true); renderEditor(); return;
+    }
+    else if (el.dataset.lsel !== undefined) {
+      const c = clientOf(v);
+      cur.login = { username: c.username, password: c.password };
+      if (!cur.project.client) cur.project.client = c.name || '';
+      setDirty(true); renderEditor(); return;
+    }
     else if (el.dataset.l !== undefined) cur.login[el.dataset.l] = v.trim();
     else if (el.dataset.st) {
       const [i, f] = el.dataset.st.split(':'), s = cur.stages[+i];
@@ -296,12 +365,14 @@
     const d = b.dataset;
     if (b.id === 'genPass') { cur.login.password = randomPass(); setDirty(true); renderEditor(); }
     else if (b.id === 'deleteProject') {
-      if (!confirm(`Delete “${cur.project.title || 'this project'}”? The client will no longer be able to log in.`)) return;
+      const left = projectsOn(cur.login.username, cur.id).length;
+      if (!confirm(`Delete “${cur.project.title || 'this project'}”? ${left ? `The client keeps their login for their other project${left === 1 ? '' : 's'}.` : 'The client will no longer be able to log in.'}`)) return;
       data.projects = data.projects.filter(p => p.id !== cur.id);
+      pruneClients();
       if (persist()) { setDirty(false); cur = null; toast('Project deleted'); renderList(); showView('listView'); }
     }
     else if (b.id === 'addStage') restructure(() => cur.stages.push({ name: '', planned: [null, null], actual: [null, null], progress: 0 }));
-    else if (b.id === 'stageTemplate') restructure(() => { cur.stages = STAGE_TEMPLATE.map(name => ({ name, planned: [null, null], actual: [null, null], progress: 0 })); });
+    else if (b.id === 'stageTemplate') restructure(() => { cur.stages = (STAGE_TEMPLATES[cur.project.type] || STAGE_TEMPLATES.interior).map(name => ({ name, planned: [null, null], actual: [null, null], progress: 0 })); });
     else if (d.move) restructure(() => { const [i, s] = d.move.split(':').map(Number); const a = cur.stages; [a[i], a[i + s]] = [a[i + s], a[i]]; });
     else if (d.delstage) { if (confirm('Delete this stage?')) restructure(() => cur.stages.splice(+d.delstage, 1)); }
     else if (b.id === 'addGroup') restructure(() => cur.boq.push({ group: '', items: [['', 1, 'nos', 0, 0]] }));
@@ -346,15 +417,28 @@
   function save() {
     const u = cur.login.username.trim().toLowerCase();
     if (!u || !cur.login.password) { tab = 'details'; renderEditor(); toast('The client needs a username and password.'); return false; }
-    if (data.projects.some(p => p.id !== cur.id && p.login.username.toLowerCase() === u)) {
-      tab = 'details'; renderEditor(); toast(`Another project already uses the username “${u}”.`); return false;
+    if (!TYPES[cur.project.type]) { tab = 'details'; renderEditor(); toast('Choose the project type: Architecture, Interior Design or Landscape Design.'); return false; }
+    // a new login can't take a username another client already has (their own login may keep its name)
+    if (cur.loginMode === 'new' && clientOf(u) && !same(u, cur.loginOwn)) {
+      tab = 'details'; renderEditor();
+      toast(`“${u}” is already another client's login. Choose a different username, or pick “Existing client” to add this project to their login.`);
+      return false;
     }
     cur.project.updated = todayISO;
+    const before = JSON.stringify({ projects: data.projects, clients: data.clients });
+    let rec = cur.loginMode === 'new' ? clientOf(cur.loginOwn) || clientOf(u) : clientOf(u);
+    // the project's own login renamed: other projects never share it, so rename the record itself
+    if (!rec) { rec = { username: cur.login.username.trim(), password: '', name: '' }; data.clients.push(rec); }
+    if (cur.loginMode === 'new') { rec.username = cur.login.username.trim(); rec.name = cur.project.client || rec.name; }
+    rec.password = cur.login.password;
     const copy = JSON.parse(JSON.stringify(cur));
+    delete copy.loginMode; delete copy.loginOwn;
+    copy.login = { username: rec.username };
     const at = data.projects.findIndex(p => p.id === cur.id);
-    const before = JSON.stringify(data.projects);
     if (at < 0) data.projects.push(copy); else data.projects[at] = copy;
-    if (!persist()) { data.projects = JSON.parse(before); return false; }
+    pruneClients();
+    if (!persist()) { const b = JSON.parse(before); data.projects = b.projects; data.clients = b.clients; return false; }
+    if (cur.loginMode === 'new') cur.loginOwn = rec.username;
     setDirty(false);
     toast('Saved. The client portal shows the changes.');
     return true;
@@ -363,7 +447,8 @@
   document.addEventListener('keydown', e => { if ((e.ctrlKey || e.metaKey) && e.key === 's' && !$('editView').hidden) { e.preventDefault(); save(); } });
 
   const viewAsClient = id => {
-    try { sessionStorage.setItem('uas-portal-client', id); } catch (e) { /* ignore */ }
+    const pr = data.projects.find(p => p.id === id);
+    try { sessionStorage.setItem('uas-portal-client', JSON.stringify({ user: pr ? pr.login.username : null, project: id })); } catch (e) { /* ignore */ }
     window.open('portal.html', '_blank');
   };
   $('viewClient').addEventListener('click', () => {
@@ -387,8 +472,8 @@
   $('newProject').addEventListener('click', () => {
     const id = `p-${Date.now().toString(36)}`;
     cur = {
-      id, login: { username: `client${Math.floor(100 + Math.random() * 900)}`, password: randomPass() },
-      project: { title: '', location: '', client: '', architect: '', handover: null, updated: null },
+      id, login: { username: `client${Math.floor(100 + Math.random() * 900)}`, password: randomPass() }, loginMode: 'new', loginOwn: null,
+      project: { title: '', type: '', location: '', client: '', architect: '', handover: null, updated: null },
       stages: [], boq: [], updates: [],
       payments: [
         { milestone: 'Booking advance', pct: 10, due: null, paid: null },
@@ -412,7 +497,7 @@
   });
   // keep the username tidy when a title is typed for a new project
   $('edPanel').addEventListener('focusout', e => {
-    if (e.target.dataset.d === 'title' && /^client\d{3}$/.test(cur.login.username) && cur.project.title) {
+    if (e.target.dataset.d === 'title' && cur.loginMode === 'new' && /^client\d{3}$/.test(cur.login.username) && cur.project.title) {
       cur.login.username = slug(cur.project.title).slice(0, 20) || cur.login.username;
       if (tab === 'details') { const u = document.querySelector('[data-l="username"]'); if (u) u.value = cur.login.username; }
     }

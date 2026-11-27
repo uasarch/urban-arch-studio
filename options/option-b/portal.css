@@ -39,6 +39,23 @@
 .pt-head { padding: 48px 0 32px; }
 .pt-head-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; }
 .pt-head h1 { font-size: clamp(1.9rem, 3.6vw, 2.8rem); }
+.pt-head-btns { display: flex; flex-wrap: wrap; gap: 10px; }
+
+/* ---------- Choose a project (clients with more than one) ---------- */
+.pt-pick { min-height: calc(100vh - var(--nav-h) - 80px); padding-bottom: 80px; }
+.pick-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; margin-top: 36px; }
+.pick { display: flex; flex-direction: column; gap: 8px; text-align: left; font: inherit; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; cursor: pointer; transition: border-color .2s, transform .3s; }
+.pick:hover { border-color: var(--ink); transform: translateY(-2px); }
+.pick:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+.pick-type { font-family: var(--head); font-size: .75rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.pick-title { font-family: var(--head); font-size: 1.35rem; font-weight: 500; line-height: 1.25; }
+.pick-meta { font-size: .9rem; color: var(--muted); }
+.pick-bar { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 12px; margin-top: 10px; font-size: .85rem; }
+.pick-bar .meter { margin-top: 0; }
+.pick-foot { display: flex; align-items: center; gap: 8px; margin-top: 8px; padding-top: 14px; border-top: 1px solid var(--line); font-size: .9rem; }
+.pick-foot b { font-variant-numeric: tabular-nums; }
+.pick-foot > i { margin-left: auto; color: var(--muted); transition: transform .3s, color .2s; }
+.pick:hover .pick-foot > i { transform: translateX(4px); color: var(--ink); }
 .pt-sample { color: var(--bad-text); }
 .pt-meta { margin-top: .6rem; color: var(--muted); }
 .pt-logout { flex: none; display: inline-flex; align-items: center; gap: 8px; background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 999px; padding: .6rem 1.1rem; font-family: var(--head); font-size: .88rem; cursor: pointer; transition: border-color .2s; }

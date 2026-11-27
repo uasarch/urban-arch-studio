@@ -14,11 +14,22 @@
   const rupees = n => '₹' + Math.round(n).toLocaleString('en-IN');
   const lakh = n => n >= 100000 ? `₹${(n / 100000).toFixed(n >= 1000000 ? 1 : 2)} lakh` : rupees(n);
   const daysBetween = (a, b) => Math.round((b - a) / 86400000);
+  // who is logged in, and which of their projects is open: { user, project }
   const session = {
-    get: () => { try { return sessionStorage.getItem('uas-portal-client'); } catch (e) { return null; } },
-    set: v => { try { v ? sessionStorage.setItem('uas-portal-client', v) : sessionStorage.removeItem('uas-portal-client'); } catch (e) { /* ignore */ } }
+    get: () => {
+      try {
+        const v = sessionStorage.getItem('uas-portal-client');
+        if (!v) return null;
+        if (v[0] === '{') return JSON.parse(v);
+        return { project: v }; // older format: just a project id
+      } catch (e) { return null; }
+    },
+    set: v => { try { v ? sessionStorage.setItem('uas-portal-client', JSON.stringify(v)) : sessionStorage.removeItem('uas-portal-client'); } catch (e) { /* ignore */ } }
   };
   const DATA = window.portalData();
+  const TYPES = { architecture: 'Architecture', interior: 'Interior Design', landscape: 'Landscape Design' };
+  const projectsOf = user => DATA.projects.filter(x => x.login && String(x.login.username).toLowerCase() === String(user).toLowerCase());
+  let USER = null; // username of the logged-in client
 
   /* ---------- Numbers worked out from one project's data ---------- */
   let M = null; // the logged-in project, with everything derived from it
@@ -74,8 +85,9 @@
   function render() {
     const { P, groups, contract, overall, pays, paid, dueNow, dueAmt, active, behind, updates } = M;
     $('ptTitle').textContent = P.title || 'Your project';
-    $('ptMeta').textContent = [P.location, P.client, P.updated && `Updated ${fmtDate(P.updated)}`].filter(Boolean).join(' · ');
+    $('ptMeta').textContent = [TYPES[P.type], P.location, P.client, P.updated && `Updated ${fmtDate(P.updated)}`].filter(Boolean).join(' · ');
     $('ptSample').hidden = !M.pr.sample;
+    $('allProjects').hidden = projectsOf(USER).length < 2;
 
     const nextPay = dueNow[0];
     $('ptKpis').innerHTML = `
@@ -223,10 +235,15 @@
   window.addEventListener('scroll', () => { tip.hidden = true; }, { passive: true });
 
   /* ---------- Log in / out ---------- */
+  // view: 'login', 'pick' (a client with several projects chooses one) or a project to open
   const show = pr => {
+    const pick = pr === 'pick';
+    if (pick) pr = null;
     M = pr ? compute(pr) : null;
-    $('loginView').hidden = !!pr;
+    $('loginView').hidden = !!pr || pick;
+    $('pickView').hidden = !pick;
     $('dashView').hidden = !pr;
+    if (pick) renderPick();
     $('askOpen').hidden = !pr;
     closeAsk();
     log.innerHTML = ''; greeted = false; setChips(START);
@@ -238,14 +255,19 @@
     const f = e.target, u = f.username.value.trim().toLowerCase(), p = f.password.value;
     const err = $('loginError');
     if (!u || !p) { err.textContent = 'Please enter your username and password.'; err.hidden = false; return; }
-    const pr = DATA.projects.find(x => x.login && x.login.username.toLowerCase() === u && x.login.password === p);
-    if (!pr) {
+    const client = (DATA.clients || []).find(c => c.username.toLowerCase() === u && c.password === p);
+    if (!client) {
       err.textContent = 'That username and password don\'t match. Check them, or call the studio to reset your login.';
       err.hidden = false; return;
     }
+    const mine = projectsOf(client.username);
+    if (!mine.length) {
+      err.textContent = 'Your login works, but no project has been added to it yet. Please call the studio.';
+      err.hidden = false; return;
+    }
     err.hidden = true;
-    session.set(pr.id);
-    show(pr);
+    USER = client.username;
+    open(mine.length === 1 ? mine[0] : 'pick');
   });
   $('fillDemo').addEventListener('click', () => {
     const f = $('loginForm');
@@ -258,7 +280,37 @@
     b.setAttribute('aria-label', on ? 'Hide password' : 'Show password');
     b.innerHTML = `<i class="fa-regular ${on ? 'fa-eye-slash' : 'fa-eye'}"></i>`;
   });
-  $('logout').addEventListener('click', () => { session.set(null); $('loginForm').reset(); show(null); });
+  const logout = () => { USER = null; session.set(null); $('loginForm').reset(); show(null); };
+  $('logout').addEventListener('click', logout);
+  $('logoutPick').addEventListener('click', logout);
+  $('allProjects').addEventListener('click', () => open('pick'));
+  // open a project (or the project list) for the logged-in client and remember it for this tab
+  function open(pr) {
+    session.set({ user: USER, project: pr === 'pick' ? null : pr.id });
+    show(pr);
+  }
+
+  /* ---------- A client with several projects: choose one ---------- */
+  function renderPick() {
+    const mine = projectsOf(USER);
+    const c = (DATA.clients || []).find(x => x.username.toLowerCase() === String(USER).toLowerCase());
+    $('pickMeta').textContent = [c && c.name, `${mine.length} projects`].filter(Boolean).join(' · ');
+    $('pickList').innerHTML = mine.map(pr => {
+      const m = compute(pr), P = m.P, next = m.dueNow[0];
+      return `
+      <button class="pick" type="button" data-pick="${esc(pr.id)}">
+        <span class="pick-type">${esc(TYPES[P.type] || 'Project')}${pr.sample ? ' · <span class="pt-sample">Sample</span>' : ''}</span>
+        <span class="pick-title">${esc(P.title || 'Your project')}</span>
+        <span class="pick-meta">${esc([P.location, P.handover && `Handover ${fmtDate(P.handover)}`].filter(Boolean).join(' · '))}</span>
+        <span class="pick-bar"><span class="meter thin"><span style="width:${m.overall}%"></span></span><span>${Math.round(m.overall)}% done</span></span>
+        <span class="pick-foot">${next ? payChip(next) + ` <b>${rupees(m.dueAmt)}</b> due` : chip('good', 'fa-circle-check', 'Nothing due')}<i class="fa-solid fa-arrow-right"></i></span>
+      </button>`;
+    }).join('');
+  }
+  $('pickList').addEventListener('click', e => {
+    const b = e.target.closest('[data-pick]');
+    if (b) open(DATA.projects.find(x => x.id === b.dataset.pick));
+  });
 
   /* Section tabs: underline the one in view */
   const tabs = [...document.querySelectorAll('.pt-tabs a')];
@@ -575,6 +627,12 @@
     };
   }
 
-  const id = session.get();
-  show(id ? DATA.projects.find(x => x.id === id) || null : null);
+  // come back to where this tab was (also used by the staff page's "View as client")
+  const saved = session.get();
+  if (saved) {
+    const pr = saved.project && DATA.projects.find(x => x.id === saved.project);
+    USER = saved.user || (pr && pr.login && pr.login.username) || null;
+    if (USER && !projectsOf(USER).length) USER = null;
+    show(pr && USER ? pr : USER ? (projectsOf(USER).length === 1 ? projectsOf(USER)[0] : 'pick') : null);
+  } else show(null);
 })();

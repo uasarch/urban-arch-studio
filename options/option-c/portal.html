@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <script>try{var t=localStorage.getItem('uas-theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
   <link rel="stylesheet" href="styles.css?v=29">
-  <link rel="stylesheet" href="portal.css?v=3">
+  <link rel="stylesheet" href="portal.css?v=4">
   <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
 </head>
 <body class="portal-page">
@@ -56,11 +56,26 @@
         </form>
         <div class="pt-demo-note">
           <i class="fa-solid fa-flask"></i>
-          <p><strong>Prototype.</strong> Log in with username <code>demo</code> and password <code>demo123</code> to see a made-up sample project.
+          <p><strong>Prototype.</strong> Log in with username <code>demo</code> and password <code>demo123</code> to see a made-up sample client with two projects.
             <button type="button" class="pt-link" id="fillDemo">Fill it in for me</button></p>
         </div>
         <p class="pt-help">Forgot your login? Call <a href="tel:+919869825589">+91 98698 25589</a> or email <a href="mailto:utkarsh@urbanarchstudio.co.in">utkarsh@urbanarchstudio.co.in</a>.</p>
         <p class="pt-help"><a href="admin.html">Studio staff login</a></p>
+      </div>
+    </section>
+
+    <!-- A client with several projects picks one -->
+    <section class="pt-head pt-pick" id="pickView" hidden>
+      <div class="container">
+        <div class="pt-head-row">
+          <div>
+            <p class="eyebrow">Client portal</p>
+            <h1>Your projects</h1>
+            <p class="pt-meta" id="pickMeta"></p>
+          </div>
+          <button class="pt-logout" id="logoutPick" type="button"><i class="fa-solid fa-arrow-right-from-bracket"></i> Log out</button>
+        </div>
+        <div class="pick-grid" id="pickList"></div>
       </div>
     </section>
 
@@ -74,7 +89,10 @@
               <h1 id="ptTitle"></h1>
               <p class="pt-meta" id="ptMeta"></p>
             </div>
-            <button class="pt-logout" id="logout" type="button"><i class="fa-solid fa-arrow-right-from-bracket"></i> Log out</button>
+            <div class="pt-head-btns">
+              <button class="pt-logout" id="allProjects" type="button" hidden><i class="fa-solid fa-table-cells-large"></i> All my projects</button>
+              <button class="pt-logout" id="logout" type="button"><i class="fa-solid fa-arrow-right-from-bracket"></i> Log out</button>
+            </div>
           </div>
           <div class="pt-kpis" id="ptKpis"></div>
         </div>
@@ -152,9 +170,9 @@
     <div class="container footer-bottom">Copyright © <span class="year"></span> URBAN ARCH STUDIO</div>
   </footer>
 
-  <script src="data/portal-demo.js?v=2"></script>
+  <script src="data/portal-demo.js?v=4"></script>
   <script src="script.js?v=29"></script>
-  <script src="portal.js?v=3"></script>
+  <script src="portal.js?v=5"></script>
   <a href="../index.html" style="position:fixed;left:12px;bottom:12px;z-index:9999;background:#111;color:#fff;font:600 12px/1 system-ui,sans-serif;padding:8px 12px;border-radius:999px;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.25)">Option C · draft — compare</a>
 </body>
 </html>
