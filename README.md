@@ -3,14 +3,16 @@
 Static rebuild of urbanarchstudio.co.in (HTML + CSS + JS, no WordPress), hosted on GitHub Pages.
 
 ## Pages
-- `index.html` — Home: hero slider, About Us, services, About the Firm, Founders
-- `projects.html` — all projects with filters (Architecture / Interior Design / Landscape), per-project image sliders and a full-screen lightbox
-- `contact.html` — contact details & form, office addresses, careers
+The main site is **Option C**, at the top of this folder:
+- `index.html` (home), `projects.html` (Grid / List / Gallery), `contact.html`, `portal.html` (client login), `admin.html` (studio staff)
+- `styles.css`, `script.js`, `work.css`, `work.js`, `portal.*`, `admin.*`, `data/portal-demo.js`
+- The project list is shared with Option B: `options/option-b/data/projects.js`, built by `tools/update_project_photos.py` from `project-photos/`
+- The home slideshow comes from `slideshow-photos/` (`tools/update_slideshow.py`)
+- `options/option-c/*.html` only forward here (old links keep working). The old design is `options/option-a/`.
+- `data/projects.js` at the top is the old design's list and is no longer used by the main site.
 
 ## Editing
-- **Projects**: edit `data/projects.js`. Each entry has `title`, `category` (`architecture` | `interior` | `landscape`), `client`, `type`, `year`, `area`, `location`, `status`, `scope` and a list of `images`. Add photos under `assets/` and list their paths.
-- **Home hero slider**: the `<img>` lists in `index.html` (one set for desktop, one for mobile).
-- **Colours & fonts**: top of `styles.css` (`:root`).
+- **Projects and photos**: see `project-photos/README.md`, then run `python tools/update_project_photos.py`.
 - **Images**: all original site images are in `assets/uploads/` (same folder structure as WordPress).
 
 ## Contact form

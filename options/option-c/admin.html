@@ -2,119 +2,15 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="robots" content="noindex">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Studio Admin — Urban Arch Studio</title>
-  <meta name="description" content="Studio admin for the client portal: projects, timelines, BOQ, payments and site updates.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@300;400;500;600&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-  <script>try{var t=localStorage.getItem('uas-theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
-  <link rel="stylesheet" href="styles.css?v=32">
-  <link rel="stylesheet" href="portal.css?v=2">
-  <link rel="stylesheet" href="admin.css?v=4">
-  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+  <title>Urban Arch Studio</title>
+  <!-- Option C moved to the top of the site. This page forwards there (keeping #p=... project links). -->
+  <meta name="robots" content="noindex">
+  <link rel="canonical" href="../../admin.html">
+  <meta http-equiv="refresh" content="0; url=../../admin.html">
+  <script>location.replace('../../admin.html' + location.search + location.hash);</script>
 </head>
-<body class="portal-page admin-page">
-
-  <header class="nav">
-    <a href="index.html" class="logo" aria-label="Urban Arch Studio home">
-      <img src="../../assets/uploads/2023/05/Untitled-design-2026-03-09T163347.533.png" alt="Urban Arch Studio">
-    </a>
-    <button class="theme-toggle" type="button" aria-label="Switch to dark mode"><i class="fa-solid fa-moon"></i></button>
-    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
-    <nav class="nav-links">
-      <a href="index.html">Home</a>
-      <a href="projects.html">Projects</a>
-      <a href="contact.html">Contact Us</a>
-      <a href="portal.html">Client Login</a>
-    </nav>
-  </header>
-
-  <main>
-    <!-- Staff log in -->
-    <section class="pt-login" id="loginView">
-      <div class="pt-login-photo" aria-hidden="true"><img src="../../assets/uploads/2025/09/1-29.jpg" alt=""></div>
-      <div class="pt-login-box">
-        <p class="eyebrow">Studio admin</p>
-        <h1>Keep every client up to date.</h1>
-        <p class="pt-login-lead">Update timelines, bills of quantities, payments and site photos. Clients see the changes in their portal.</p>
-        <form id="loginForm" novalidate>
-          <label class="pt-field"><span>Username</span><input name="username" autocomplete="username" required></label>
-          <label class="pt-field"><span>Password</span>
-            <span class="pt-pass">
-              <input name="password" type="password" autocomplete="current-password" required>
-              <button type="button" class="pt-show" aria-label="Show password"><i class="fa-regular fa-eye"></i></button>
-            </span>
-          </label>
-          <p class="pt-error" id="loginError" role="alert" hidden></p>
-          <button class="btn pt-submit" type="submit">Log in</button>
-        </form>
-        <div class="pt-demo-note">
-          <i class="fa-solid fa-flask"></i>
-          <p><strong>Prototype.</strong> Log in with username <code>admin</code> and password <code>admin123</code>.
-            <button type="button" class="pt-link" id="fillDemo">Fill it in for me</button></p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Project list -->
-    <section class="ad-wrap" id="listView" hidden>
-      <div class="container">
-        <div class="ad-banner"><i class="fa-solid fa-flask"></i><p><strong>Prototype:</strong> changes are saved in this browser only, and the client portal in this browser shows them. In the live version they are saved on the server for the client to see anywhere.</p></div>
-        <div class="ad-top">
-          <div>
-            <p class="eyebrow">Studio admin</p>
-            <h1>Client projects</h1>
-          </div>
-          <div class="ad-actions">
-            <button class="ad-btn ghost" id="resetData" type="button"><i class="fa-solid fa-rotate-left"></i> Reset sample data</button>
-            <button class="ad-btn" id="newProject" type="button"><i class="fa-solid fa-plus"></i> New project</button>
-            <button class="ad-btn ghost" id="logout" type="button"><i class="fa-solid fa-arrow-right-from-bracket"></i> Log out</button>
-          </div>
-        </div>
-        <div class="ad-list" id="projectList"></div>
-      </div>
-    </section>
-
-    <!-- Project editor -->
-    <section class="ad-wrap" id="editView" hidden>
-      <div class="ad-bar">
-        <div class="container">
-          <button class="ad-back" id="backToList" type="button"><i class="fa-solid fa-arrow-left"></i> All projects</button>
-          <span class="ad-state" id="saveState" aria-live="polite"></span>
-          <div class="ad-actions">
-            <button class="ad-btn ghost" id="viewClient" type="button"><i class="fa-solid fa-eye"></i> View as client</button>
-            <button class="ad-btn" id="saveBtn" type="button"><i class="fa-solid fa-check"></i> Save</button>
-          </div>
-        </div>
-      </div>
-      <div class="container">
-        <div class="ad-head">
-          <p class="eyebrow" id="edEyebrow">Project</p>
-          <h1 id="edTitle"></h1>
-        </div>
-        <div class="ad-tabs" role="tablist" id="edTabs">
-          <button role="tab" data-tab="details">Details</button>
-          <button role="tab" data-tab="timeline">Timeline</button>
-          <button role="tab" data-tab="boq">BOQ</button>
-          <button role="tab" data-tab="payments">Payments</button>
-          <button role="tab" data-tab="updates">Site updates</button>
-        </div>
-        <div class="ad-panel" id="edPanel" role="tabpanel"></div>
-      </div>
-    </section>
-  </main>
-
-  <div class="ad-toast" id="toast" role="status" hidden></div>
-
-  <footer class="footer">
-    <div class="container footer-bottom">Copyright © <span class="year"></span> URBAN ARCH STUDIO</div>
-  </footer>
-
-  <script src="data/portal-demo.js?v=4"></script>
-  <script src="script.js?v=30"></script>
-  <script src="admin.js?v=4"></script>
+<body>
+  <p><a href="../../admin.html">Continue to Urban Arch Studio</a></p>
 </body>
 </html>

@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="robots" content="noindex">
+  <title>Projects — Urban Arch Studio</title>
+  <script>
+    var p = new URLSearchParams(location.search).get('p');
+    location.replace('projects.html' + (p ? '#p=' + encodeURIComponent(p) : ''));
+  </script>
+</head>
+<body><a href="projects.html">See all projects</a></body>
+</html>

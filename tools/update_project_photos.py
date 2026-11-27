@@ -87,8 +87,8 @@ def save_data(projects):
     DATA.write_text(DATA_HEADER + "window.PROJECTS = " + body + ";\n", encoding="utf-8")
     # make browsers fetch the new list: version the script link by its content
     ver = hashlib.sha1(body.encode("utf-8")).hexdigest()[:8]
-    # Option C pages share this list (they load ../option-b/data/projects.js)
-    for page in [*SITE.glob("*.html"), *(SITE.parent / "option-c").glob("*.html")]:
+    # the main site (Option C, top-level pages) shares this list (it loads options/option-b/data/projects.js)
+    for page in [*SITE.glob("*.html"), *ROOT.glob("*.html")]:
         html = page.read_text(encoding="utf-8")
         new = re.sub(r"data/projects\.js(\?v=[\w-]+)?\"", f'data/projects.js?v={ver}"', html)
         if new != html:

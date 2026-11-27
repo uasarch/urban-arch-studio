@@ -20,8 +20,8 @@ from urllib.parse import quote
 
 ROOT = Path(__file__).resolve().parent.parent
 SLIDES = ROOT / "slideshow-photos"
-PAGES = [ROOT / "options" / "option-b" / "index.html", ROOT / "options" / "option-c" / "index.html"]
-PREFIX = "../../slideshow-photos"        # how the Option B / C pages reach slideshow-photos/
+# each page with how it reaches slideshow-photos/ (Option C, the main site, is at the top of the site)
+PAGES = [(ROOT / "options" / "option-b" / "index.html", "../../slideshow-photos"), (ROOT / "index.html", "slideshow-photos")]
 ORIGINALS = ROOT.parent / "slideshow-photos-originals"
 IMAGE_TYPES = {".jpg", ".jpeg", ".png", ".webp", ".avif"}
 MAX_SIDE = 2400
@@ -76,7 +76,7 @@ def photos(folder):
     files = sorted((f for f in folder.iterdir() if f.is_file() and f.suffix.lower() in IMAGE_TYPES),
                    key=lambda f: natural_key(f.name))
     # ?v= changes when a photo changes, so browsers fetch a replaced photo instead of an old saved copy
-    return [f"{PREFIX}/{folder.name}/{quote(f.name)}?v={hashlib.sha1(f.read_bytes()).hexdigest()[:8]}" for f in files]
+    return [f"{{PREFIX}}/{folder.name}/{quote(f.name)}?v={hashlib.sha1(f.read_bytes()).hexdigest()[:8]}" for f in files]
 
 
 def slides_html(urls, first_loads_now):
@@ -97,9 +97,10 @@ def update():
     if not mobile:
         mobile = desktop
         print("Slideshow: slideshow-photos/mobile has no photos, so phones show the desktop photos.")
-    sets = {"desktop": slides_html(desktop, True), "mobile": slides_html(mobile, False)}
     changed = []
-    for page in PAGES:
+    for page, prefix in PAGES:
+        at = lambda urls: [u.replace("{PREFIX}", prefix, 1) for u in urls]
+        sets = {"desktop": slides_html(at(desktop), True), "mobile": slides_html(at(mobile), False)}
         text = page.read_text(encoding="utf-8")
         new = text
         for name, html in sets.items():
@@ -111,7 +112,7 @@ def update():
             new = pattern.sub(lambda m: m.group(1) + html.replace("\n", nl) + m.group(3), new, count=1)
         if new != text:
             page.write_text(new, encoding="utf-8", newline="")
-            changed.append(page.parent.name)
+            changed.append("option-b" if page.parent.name == "option-b" else "main site (Option C)")
     print(f"Slideshow: {len(desktop)} desktop and {len(mobile)} phone photos"
           + (f"; updated {', '.join(changed)}." if changed else "; no change."))
 

@@ -88,16 +88,16 @@ window.PORTAL_SAMPLE = {
       updates: [
         { date: "2026-11-24", stage: "Carpentry & furniture",
           note: "Final measurements for the modular kitchen and wardrobes taken on site. Factory production has started; delivery expected in the first week of January.",
-          photos: ["../../assets/uploads/2025/09/4-15.jpg"] },
+          photos: ["assets/uploads/2025/09/4-15.jpg"] },
         { date: "2026-11-20", stage: "Flooring & tiling",
           note: "Living and dining tiles laid, about 70% of the flooring done. Toilet wall tiling is under way in the master bathroom.",
-          photos: ["../../assets/uploads/2025/09/2-26.jpg", "../../assets/uploads/2025/09/1-29.jpg"] },
+          photos: ["assets/uploads/2025/09/2-26.jpg", "assets/uploads/2025/09/1-29.jpg"] },
         { date: "2026-11-12", stage: "False ceiling",
           note: "False ceiling finished and checked. Cove lighting channels are ready for fixtures.",
-          photos: ["../../assets/uploads/2025/09/3-19.jpg"] },
+          photos: ["assets/uploads/2025/09/3-19.jpg"] },
         { date: "2026-10-20", stage: "Electrical & plumbing",
           note: "Plumbing pressure test passed. All wiring points tested; distribution board upgraded.",
-          photos: ["../../assets/uploads/2025/09/5-9.jpg"] }
+          photos: ["assets/uploads/2025/09/5-9.jpg"] }
       ]
         },
     {
@@ -149,7 +149,7 @@ window.PORTAL_SAMPLE = {
       updates: [
         { date: "2026-11-22", stage: "Earthwork & grading",
           note: "Site levelled and garden soil spread over most of the lawn area. Paving stone samples ready for your approval on the next visit.",
-          photos: ["../../project-photos/oak-elegance-landscape/01.jpg"] }
+          photos: ["project-photos/oak-elegance-landscape/01.jpg"] }
       ]
     }
   ]

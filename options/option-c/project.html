@@ -2,12 +2,15 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Urban Arch Studio</title>
+  <!-- Option C moved to the top of the site. This page forwards there (keeping #p=... project links). -->
   <meta name="robots" content="noindex">
-  <title>Projects — Urban Arch Studio</title>
-  <script>
-    var p = new URLSearchParams(location.search).get('p');
-    location.replace('projects.html' + (p ? '#p=' + encodeURIComponent(p) : ''));
-  </script>
+  <link rel="canonical" href="../../project.html">
+  <meta http-equiv="refresh" content="0; url=../../project.html">
+  <script>location.replace('../../project.html' + location.search + location.hash);</script>
 </head>
-<body><a href="projects.html">See all projects</a></body>
+<body>
+  <p><a href="../../project.html">Continue to Urban Arch Studio</a></p>
+</body>
 </html>
