@@ -8,11 +8,11 @@
   <meta name="description" content="Architecture, interior design and landscape projects by Urban Arch Studio across Mumbai, Ranchi and beyond.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@300;400;500;600&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <script>try{var t=localStorage.getItem('uas-theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
   <link rel="stylesheet" href="styles.css?v=27">
-  <link rel="stylesheet" href="work.css?v=7">
+  <link rel="stylesheet" href="work.css?v=8">
   <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
 </head>
 <body>
@@ -32,23 +32,25 @@
   </header>
 
   <main class="work-page">
-    <section class="wk-head">
-      <div class="wk-wrap">
+    <section class="page-head plain">
+      <div class="container">
         <p class="crumbs"><a href="index.html">Home</a> / Projects</p>
         <h1>Projects</h1>
+      </div>
+    </section>
+
+    <section class="section projects-index wk-body" id="workViews">
+      <div class="container">
         <div class="browse">
           <span class="browse-label">Browse by</span>
           <div class="dims" id="dims" role="tablist" aria-label="Browse projects by"></div>
         </div>
         <div class="filters" id="filters" aria-label="Filter projects"></div>
+        <p class="no-results" id="noResults" hidden>No projects in this group yet.</p>
+        <div class="wk-view project-grid" id="viewGrid" data-view="grid"></div>
+        <div class="wk-view wk-list" id="viewList" data-view="list" hidden></div>
+        <div class="wk-view wk-gallery" id="viewGallery" data-view="gallery" hidden></div>
       </div>
-    </section>
-
-    <section class="wk-body" id="workViews">
-      <p class="no-results" id="noResults" hidden>No projects in this group yet.</p>
-      <div class="wk-view project-grid" id="viewGrid" data-view="grid"></div>
-      <div class="wk-view wk-list" id="viewList" data-view="list" hidden></div>
-      <div class="wk-view wk-gallery" id="viewGallery" data-view="gallery" hidden></div>
     </section>
 
     <!-- Grid / List / Gallery switch -->
