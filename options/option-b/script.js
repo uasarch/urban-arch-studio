@@ -494,7 +494,7 @@ if (home) {
     wordEls = [...words.querySelectorAll('.w')];
   }
 
-  /* Selected work: newest projects (or those marked "featured": true in data/projects.js) */
+  /* Selected work: the 6 pinned projects ("Pin: 1" to "Pin: 6" in info.txt), topped up with the newest if fewer are pinned */
   const work = home.querySelector('.work');
   const track = document.getElementById('workTrack');
   const slug = s => String(s).toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
@@ -505,8 +505,10 @@ if (home) {
   if (track && P.length) {
     const byNew = P.map((p, i) => [p, i]).sort((a, b) =>
       (startYear(b[0]) - startYear(a[0])) || (endYear(b[0]) - endYear(a[0])) || a[1] - b[1]).map(x => x[0]);
-    let pick = P.filter(p => p.featured);
-    if (!pick.length) pick = [...byNew.filter(p => p.images.length > 1), ...byNew.filter(p => p.images.length <= 1)].slice(0, 8);
+    const SHOW = 6;
+    const pinned = P.filter(p => +p.pin > 0).sort((a, b) => +a.pin - +b.pin);
+    const rest = [...byNew.filter(p => p.images.length > 1), ...byNew.filter(p => p.images.length <= 1)].filter(p => !pinned.includes(p));
+    const pick = [...pinned, ...rest].slice(0, SHOW);
     const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
     track.innerHTML = pick.map((p, k) => `
       <a class="wk" href="projects.html#p=${p._id}">
