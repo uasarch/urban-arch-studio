@@ -155,6 +155,24 @@
     interior: ['Design & approvals', 'Demolition & civil', 'Electrical & plumbing', 'False ceiling', 'Flooring & tiling', 'Carpentry & furniture', 'Painting & polish', 'Lights, fixtures & handover'],
     landscape: ['Site survey & concept', 'Design development', 'Earthwork & grading', 'Hardscape (paving, paths, walls)', 'Irrigation & drainage', 'Softscape (planting & lawn)', 'Lighting & features', 'Handover & maintenance']
   };
+  // the usual payment schedule for each type of project: [milestone, share %]
+  const PAY_TEMPLATES = {
+    architecture: [['Booking advance', 10], ['Concept design approved', 10], ['Approvals & working drawings', 10], ['Foundation & plinth complete', 15],
+      ['Structure (RCC frame) complete', 20], ['Masonry & plastering complete', 15], ['Finishes complete', 10], ['Handover', 10]],
+    interior: [['Booking advance', 10], ['Design sign-off', 15], ['Civil & services complete', 25], ['Flooring & ceiling complete', 20],
+      ['Carpentry complete', 20], ['Handover', 10]],
+    landscape: [['Booking advance', 15], ['Design sign-off', 15], ['Earthwork & grading complete', 15], ['Hardscape complete', 25],
+      ['Irrigation & planting complete', 20], ['Handover', 10]]
+  };
+  const payTemplate = type => (PAY_TEMPLATES[type] || []).map(([milestone, pct]) => ({ milestone, pct, due: null, paid: null }));
+  // still exactly one of the usual schedules, with no dates entered: safe to swap for another type's
+  const isUsualSchedule = ps => !ps.length || Object.values(PAY_TEMPLATES).some(t => t.length === ps.length &&
+    t.every(([m, pct], i) => ps[i].milestone === m && +ps[i].pct === pct && !ps[i].due && !ps[i].paid));
+  const sameAsUsual = (ps, type) => {
+    const t = PAY_TEMPLATES[type];
+    return !!t && t.length === ps.length && t.every(([m, pct], i) => ps[i].milestone === m && +ps[i].pct === pct);
+  };
+
   function tabTimeline() {
     const rows = cur.stages.map((s, i) => {
       const bad = s.planned[0] && s.planned[1] && s.planned[1] < s.planned[0];
@@ -245,7 +263,12 @@
             </div></td>
           </tr>`).join('')}
         </tbody></table></div>` : '<p class="pt-empty">No instalments yet.</p>'}
-      <button class="ad-btn ghost small ad-add" id="addPay" type="button"><i class="fa-solid fa-plus"></i> Add instalment</button>`;
+      <div class="ad-btn-row">
+        <button class="ad-btn ghost small ad-add" id="addPay" type="button"><i class="fa-solid fa-plus"></i> Add instalment</button>
+        ${!TYPES[cur.project.type] ? (cur.payments.length ? '' : '<span class="ad-hint">Choose the project type in Details to start from its usual payment schedule.</span>')
+          : sameAsUsual(cur.payments, cur.project.type) ? ''
+          : `<button class="ad-btn ghost small ad-add" id="payTemplate" type="button"><i class="fa-solid fa-list"></i> ${cur.payments.length ? 'Replace with' : 'Start from'} the usual ${TYPES[cur.project.type].label.toLowerCase()} schedule</button>`}
+      </div>`;
   }
 
   /* ---------- Site updates ---------- */
@@ -302,7 +325,14 @@
   /* ---------- Editing: typed changes update the working copy ---------- */
   $('edPanel').addEventListener('input', e => {
     const el = e.target, v = el.value;
-    if (el.dataset.d !== undefined) { cur.project[el.dataset.d] = v; if (el.dataset.d === 'title') $('edTitle').textContent = v || 'Untitled project'; }
+    if (el.dataset.d !== undefined) {
+      cur.project[el.dataset.d] = v;
+      if (el.dataset.d === 'title') $('edTitle').textContent = v || 'Untitled project';
+      if (el.dataset.d === 'type' && isUsualSchedule(cur.payments) && !sameAsUsual(cur.payments, v)) {
+        cur.payments = payTemplate(v);
+        toast(`Payment schedule set to the usual ${TYPES[v].label.toLowerCase()} instalments. Change it in Payments.`);
+      }
+    }
     else if (el.dataset.lmode) {
       cur.loginMode = el.dataset.lmode;
       if (cur.loginMode === 'existing') {
@@ -379,6 +409,10 @@
     else if (d.additem) restructure(() => cur.boq[+d.additem].items.push(['', 1, 'nos', 0, 0]));
     else if (d.delitem) restructure(() => { const [g, i] = d.delitem.split(':').map(Number); cur.boq[g].items.splice(i, 1); });
     else if (d.delgroup) { if (confirm('Delete this group and all its items?')) restructure(() => cur.boq.splice(+d.delgroup, 1)); }
+    else if (b.id === 'payTemplate') {
+      if (cur.payments.length && !confirm(`Replace the ${cur.payments.length} instalments with the usual ${TYPES[cur.project.type].label.toLowerCase()} schedule? Dates already entered will be lost.`)) return;
+      restructure(() => { cur.payments = payTemplate(cur.project.type); });
+    }
     else if (b.id === 'addPay') restructure(() => cur.payments.push({ milestone: '', pct: 0, due: null, paid: null }));
     else if (d.paidtoday) restructure(() => { cur.payments[+d.paidtoday].paid = todayISO; });
     else if (d.delpay) { if (confirm('Delete this instalment?')) restructure(() => cur.payments.splice(+d.delpay, 1)); }
@@ -474,15 +508,7 @@
     cur = {
       id, login: { username: `client${Math.floor(100 + Math.random() * 900)}`, password: randomPass() }, loginMode: 'new', loginOwn: null,
       project: { title: '', type: '', location: '', client: '', architect: '', handover: null, updated: null },
-      stages: [], boq: [], updates: [],
-      payments: [
-        { milestone: 'Booking advance', pct: 10, due: null, paid: null },
-        { milestone: 'Design sign-off', pct: 15, due: null, paid: null },
-        { milestone: 'Civil & services complete', pct: 25, due: null, paid: null },
-        { milestone: 'Flooring & ceiling complete', pct: 20, due: null, paid: null },
-        { milestone: 'Carpentry complete', pct: 20, due: null, paid: null },
-        { milestone: 'Handover', pct: 10, due: null, paid: null }
-      ]
+      stages: [], boq: [], updates: [], payments: [] // filled with the usual schedule once a type is chosen
     };
     tab = 'details';
     setDirty(true);
