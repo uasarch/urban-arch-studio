@@ -270,8 +270,8 @@ p + p { margin-top: 1.1rem; }
 .footer-list a { text-decoration: none; }
 .footer-list i { width: 20px; color: #fff; }
 .footer a:hover { color: #fff; }
-.socials { display: flex; flex-wrap: nowrap; gap: clamp(6px, 1vw, 10px); } /* always one line; icons shrink a little if the column is narrow */
-.socials a { flex: 0 1 40px; min-width: 0; aspect-ratio: 1; border-radius: 50%; border: 1px solid rgba(255,255,255,.2); display: grid; place-items: center; text-decoration: none; transition: background .2s, border-color .2s; }
+.socials { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; width: 190px; } /* 4 icons, then 3 centred under them */
+.socials a { flex: none; width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(255,255,255,.2); display: grid; place-items: center; text-decoration: none; transition: background .2s, border-color .2s; }
 .socials a:hover { background: #fff; color: var(--dark); border-color: #fff; }
 .footer-bottom { border-top: 1px solid rgba(255,255,255,.1); padding-top: 22px; padding-bottom: 22px; font-size: .85rem; text-align: center; }
 
