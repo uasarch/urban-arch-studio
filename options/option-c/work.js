@@ -73,7 +73,7 @@
     <a class="l-row" href="#p=${p.id}" data-id="${p.id}">
       <span class="l-n">${pad(k + 1)}</span>
       <div class="l-title"><h2>${esc(p.title)}</h2><p>${meta(p)}${p.type ? ' · ' + esc(p.type) : ''}</p></div>
-      <div class="l-strip">${p.images.slice(0, 8).map(src =>
+      <div class="l-strip">${p.images.filter((src, n) => !(p.text || []).includes(n + 1)).slice(0, 8).map(src =>
         `<img src="${esc(src)}" alt="" loading="lazy">`).join('')}</div>
     </a>`).join('');
 
